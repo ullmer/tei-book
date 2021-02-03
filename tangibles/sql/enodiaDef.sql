@@ -23,17 +23,10 @@ create table enHtPerson (
   groupId  text 
 );
 
-create table enHtFacetClass (
- id    integer primary key,
- class integer, -- references enHtClass.id
- name  text,
- descr text
-);
-
-create table enHtFacetInst (
-  id    integer primary key,
-  facet integer -- references enHtFacetClass.id,
-  value text
+create table enHtFacet (
+  id       integer primary key,
+  facetId  integer,
+  facetVal text
 );
 
 -- end --
