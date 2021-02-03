@@ -1,0 +1,10 @@
+ - {handle: person.edu.clemson.bullmer, name: Brygg Ullmer, uname: bullmer, 
+      group: 0,
+    facets: {
+      edu: [GSSM, UIUC, MIT, Clemson],
+      cities: [Lexington, Berlin, Boston, Palo Alto],
+      states: [SC, LA, MA, KY], countries: [USA, GER, JPN, HK],
+      audiences: [Melinda Gates, Joy Harjo, Jim Clyburn, Greta Thunberg],
+      unsdg: [5,8,12,13],
+      cspantags: [Native Americans, Environment, Poverty, Developing Countries]}
+   } 
