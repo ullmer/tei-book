@@ -16,10 +16,13 @@ dbCursor = dbConn.cursor()
 countryData = []
 
 for country in yd:
-  name   = country['name']['common']
-  abbrev = country['cioc']
-  print(name, abbrev)
-  countryData.append((abbrev, name))
+  name      = country['name']['common']
+  abbrev    = country['cioc']
+  region    = country['region']
+  subregion = country['subregion']
+  entry = (name, abbrev, region, subregion)
+  print(entry)
+  countryData.append(entry)
 
 #dbCursor.executemany(
 #  "insert into enFacetStates (abbrev, name) values (?,?)", 
