@@ -19,6 +19,12 @@ country2languages        = {}
 languageAbbrev2countries = {}
 languageAbbrev2full      = {}
 languageAbbrev2id        = {}
+country2region           = {}
+region2countries         = {}
+subregion2countries      = {}
+subregion2region         = {}
+
+#################### process languages ####################
 
 def procLanguages(country, languages):
   global country2languages, languageAbbrev2countries, languageAbbrev2full
@@ -28,11 +34,29 @@ def procLanguages(country, languages):
 
     if abbrev not in languageAbbrev2countries:
       languageAbbrev2countries[abbrev] = []
+
     languageAbbrev2countries[abbrev].append(country)
+    languageAbbrev2full[abbrev] = full
 
-      [country] = .append(country
+#################### process  region ####################
 
-    
+def procRegion(country, region, subregion):
+  global country2region, region2countries, subregion2countries, subregion2region
+
+  locale = (region, subregion)
+  country2region[country] = locale
+  if region not in region2countries:
+    region2countries[region] = []
+
+  region2countries[region].append(country)
+
+  if subregion not in subregion2countries:
+    subregion2countries[subregion] = []
+  subregion2countries[subregion].append(country)
+  subregion2region[subregion] = region
+  
+#################### main ####################
+
 for country in yd:
   name      = country['name']['common']
   abbrev    = country['cioc']
@@ -40,7 +64,10 @@ for country in yd:
   subregion = country['subregion']
   languages = country['languages']
   entry = (name, abbrev, region, subregion, languages)
+
   procLanguages(abbrev, languages)
+  procRegion(abbrev, region, subregion)
+
   print(entry)
   countryData.append(entry)
 
