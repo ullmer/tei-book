@@ -1,4 +1,3 @@
-# Copy countries information subset from Mohammed Le Doze json into sqlite
 # Brygg Ullmer, Clemson University
 # Begun 2021-02-03
 
@@ -15,11 +14,13 @@ dbCursor = dbConn.cursor()
 
 countryData = []
 
+countryAbbrev2Full       = {}
 country2languages        = {}
 languageAbbrev2countries = {}
 languageAbbrev2full      = {}
 languageAbbrev2id        = {}
 country2region           = {}
+country2subregion        = {}
 region2countries         = {}
 subregion2countries      = {}
 subregion2region         = {}
@@ -29,8 +30,9 @@ subregion2region         = {}
 def procLanguages(country, languages):
   global country2languages, languageAbbrev2countries, languageAbbrev2full
   country2languages[country] = languages
-  for language in languages:
-    (abbrev, full) = language
+  abbrevs = languages.keys()
+  for abbrev in abbrevs:
+    full = languages[abbrev]
 
     if abbrev not in languageAbbrev2countries:
       languageAbbrev2countries[abbrev] = []
@@ -41,10 +43,11 @@ def procLanguages(country, languages):
 #################### process  region ####################
 
 def procRegion(country, region, subregion):
-  global country2region, region2countries, subregion2countries, subregion2region
+  global country2region, country2subregion, region2countries, subregion2countries, subregion2region
 
   locale = (region, subregion)
-  country2region[country] = locale
+  country2region[country]    = locale
+  country2subregion[country] = subregion
   if region not in region2countries:
     region2countries[region] = []
 
@@ -63,17 +66,70 @@ for country in yd:
   region    = country['region']
   subregion = country['subregion']
   languages = country['languages']
+
+  countryAbbrev2Full[abbrev] = name
+
   entry = (name, abbrev, region, subregion, languages)
 
   procLanguages(abbrev, languages)
   procRegion(abbrev, region, subregion)
 
-  print(entry)
-  countryData.append(entry)
+  #print(entry)
+  #countryData.append(entry)
 
-#dbCursor.executemany(
-#  "insert into enFacetStates (abbrev, name) values (?,?)", 
-#  countryData)
-#dbConn.commit()
-#
+############ populate region/subregion table ############
+
+subregion2id = {}; id=1
+#if False:
+if True:
+  #print(str(subregion2region))
+  print("REGION INSERTIONS")
+  regionData = []
+  for subregion in subregion2region.keys():
+    region = subregion2region[subregion]
+    regionData.append((id,region, subregion))
+    id+=1
+    subregion2id[subregion]=id
+  print(str(regionData))
+
+  dbCursor.executemany(
+    "insert into enFacetWorldRegions (id, region, subregion) values (?,?,?)", 
+    regionData)
+  dbConn.commit()
+
+############ populate countries table ############
+
+country2id = {}; countryId=1
+if True:
+  countries = country2region.keys()
+  for countryAbbrev in countries:
+    subregion   = country2subregion[countryAbbrev]
+    subregionId = subregion2id[subregion]
+    countryFull = countryAbbrev2Full[countryAbbrev]
+    countryData.append((countryId, countryAbbrev, countryFull, subregionId))
+    countryId += 1
+
+  dbCursor.executemany(
+    "insert into enFacetCountries (id, abbrev, name, subregionId) values (?,?,?,?)", 
+    countryData)
+  dbConn.commit()
+
+############ populate languages table ############
+
+if False:
+#if True:
+  print(str(subregion2region))
+  print("REGION INSERTIONS")
+  regionData = []
+  for subregion in subregion2region.keys():
+    region = subregion2region[subregion]
+    regionData.append((id, region, subregion))
+  print(str(regionData))
+
+  dbCursor.executemany(
+    "insert into enFacetWorldRegions (id, region, subregion) values (?,?,?)", 
+    regionData)
+  dbConn.commit()
+
+
 #### end ###

@@ -4,10 +4,10 @@
 -- Begun 2021-02-03
 
 create table enFacetCountries (
-  id        integer primary key,
-  abbrev    text,
-  name      text,
-  regionId    integer
+  id          integer primary key,
+  abbrev      text,
+  name        text,
+  subregionId integer
 );
 
 create table enFacetWorldRegions (
