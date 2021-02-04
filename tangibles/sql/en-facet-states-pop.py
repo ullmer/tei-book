@@ -16,13 +16,13 @@ dbCursor = dbConn.cursor()
 stateData = []
 
 for state in yd:
-  abbrev = yd[state]['abbreviation']
-  name   = yd[state]['name']
+  abbrev = state['abbreviation']
+  name   = state['name']
   stateData.append((abbrev, name))
 
 dbCursor.executemany(
   "insert into enFacetStates (abbrev, name) values (?,?)", 
-  stateData)
+   stateData)
 dbConn.commit()
 
 ### end ###
