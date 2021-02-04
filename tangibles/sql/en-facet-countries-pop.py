@@ -15,12 +15,32 @@ dbCursor = dbConn.cursor()
 
 countryData = []
 
+country2languages        = {}
+languageAbbrev2countries = {}
+languageAbbrev2full      = {}
+languageAbbrev2id        = {}
+
+def procLanguages(country, languages):
+  global country2languages, languageAbbrev2countries, languageAbbrev2full
+  country2languages[country] = languages
+  for language in languages:
+    (abbrev, full) = language
+
+    if abbrev not in languageAbbrev2countries:
+      languageAbbrev2countries[abbrev] = []
+    languageAbbrev2countries[abbrev].append(country)
+
+      [country] = .append(country
+
+    
 for country in yd:
   name      = country['name']['common']
   abbrev    = country['cioc']
   region    = country['region']
   subregion = country['subregion']
-  entry = (name, abbrev, region, subregion)
+  languages = country['languages']
+  entry = (name, abbrev, region, subregion, languages)
+  procLanguages(abbrev, languages)
   print(entry)
   countryData.append(entry)
 
