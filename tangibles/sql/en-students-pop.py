@@ -7,30 +7,14 @@ df = {} #data fields
 df[2]  = 'fullname'
 df[3]  = 'status'
 df[4]  = 'group'
-df[7]  = 'edu1';  df[8]  = 'edu2';  df[9]  = 'edu3'; df[10] = 'edu4'
-df[11] = 'city1'; df[12] = 'city2'; df[13] = 'city3; df[14] = 'city4'
-#  state1    text,
-#  state2    text,
-#  state3    text,
-#  state4    text,
-#  country1  text,
-#  country2  text,
-#  country3  text,
-#  country4  text,
-#  audience1 text,
-#  audience2 text,
-#  audience3 text,
-#  audience4 text,
-#  unsdg1    text,
-#  unsdg2    text,
-#  unsdg3    text,
-#  unsdg4    text,
-#  cspantag1 text,
-#  cspantag2 text,
-#  cspantag3 text,
-#  cspantag4 text
-#
-#
+df[7]  = 'edu1';   df[8]  = 'edu2';   df[9]  = 'edu3';   df[10] = 'edu4'
+df[11] = 'city1';  df[12] = 'city2';  df[13] = 'city3;   df[14] = 'city4'
+df[15] = 'state1'; df[16] = 'state2'; df[17] = 'state3'; df[18] = 'state4'
+df[19]='country1'; df[20]='country2'; df[21]='country3'; df[22]='country4'
+df[23]='audience1';df[24]='audience2';df[25]='audience3';df[26]='audience4'
+df[27]= 'unsdg1';  df[28]=   'unsdg2';df[29]=   'unsdg3';df[30]=   'unsdg4'
+df[31]='cspantag1';df[32]='cspantag2';df[33]='cspantag3';df[34]='cspantag4'
+ 
 fn  = 'tei21-cu-students.csv'
 f   = open(fn, 'r+t')
 cr  = csv.reader(f)
