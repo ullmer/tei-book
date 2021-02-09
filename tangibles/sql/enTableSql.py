@@ -1,9 +1,23 @@
+
 # Brygg Ullmer, Clemson University
 # Begun 2021-02-03
 
-import enTableSql, sys
+import csv, sqlite3, sys
 
-df = {} #data fields
+class enSqlTable:
+  rawfieldsName = 'rawfields'
+  rawgroupsName = 'rawgroups'
+
+  fn     = None #file name
+  fh     = None #file handle
+  reader = None #csv reader
+  df     = {}   #data fields
+
+############### readCsvTable ############### 
+
+  def readCsvTable(self, fn):
+    self.fn = fn
+    self.fh = open(fn, 'r+t')
 
 fn  = 'tei21-cu-students.csv'
 f   = open(fn, 'r+t')
@@ -15,9 +29,7 @@ for row in cr:
 
 numRows = len(rows); numCols = len(rows[0])
 print("table dimensions: %s x %s" % (numRows, numCols))
-
-enTable = enTableSql.readCsvTable(fn)
-enTable.printTableDimensions()
+enTableSql.processTable(rows)
 
 sys.exit(1)
 
