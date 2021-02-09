@@ -12,7 +12,7 @@ class enTableSql:
   fh     = None #file handle
   reader = None #csv reader
   df     = {}   #data fields
-  rows   = []   #data rows (raw table itself)
+  rows   = None #data rows (raw table itself)
 
 ############### readCsvTable ############### 
 
@@ -21,6 +21,7 @@ class enTableSql:
     self.fh = open(fn, 'r+t')
     self.reader = csv.reader(self.fh)
 
+    rows = []
     for row in self.reader:
       self.rows.append(row)
 
@@ -29,12 +30,30 @@ class enTableSql:
   def printTableDimensions(self):
     numRows = len(self.rows); numCols = len(self.rows[0])
     print("table dimensions: %s x %s" % (numRows, numCols))
+  
+############### print table dimensions ############### 
 
+  def checkRawHeader(self):
+    if self.rows == None:
+      print("Error: enTableSql.checkRawHeader expects populated "rows")
+      return False
+
+    rfName = self.rows[0][0]; rgName = self.rows[1][0]
+
+    if (rfName is not self.rawfieldsName) or
+       (rgName is not self.rawgroupsName):
+      print("Error: enTableSql.checkRawHeader expects cells A1 and B1 to hold")
+      print("values %s and %s; and right-adjacent cells" % (rfName, rgName)
+      print("to be populated appropriately
+      return False
+    return True
+    
 ############### constructor ############### 
 
   def __init__(self, filename):
     self.readCsvTable(filename)
     self.printTableDimensions()
+    self.checkRawHeader()
 
 #enTableSql.processTable(rows)
 
