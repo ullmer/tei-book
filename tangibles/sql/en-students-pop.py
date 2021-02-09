@@ -3,21 +3,9 @@
 
 import enTableSql, sys
 
-df = {} #data fields
-
 fn  = 'tei21-cu-students.csv'
-f   = open(fn, 'r+t')
-cr  = csv.reader(f)
 
-rows = []
-for row in cr:
-   rows.append(row)
-
-numRows = len(rows); numCols = len(rows[0])
-print("table dimensions: %s x %s" % (numRows, numCols))
-
-enTable = enTableSql.readCsvTable(fn)
-enTable.printTableDimensions()
+enTable = enTableSql.enTableSql(fn)
 
 sys.exit(1)
 
