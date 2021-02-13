@@ -62,16 +62,16 @@ class enTableSql:
     for col in row1: #build map of columns in row 1
       if col not in idxList1: 
         idxList1[col] = []
-      idxList1[col].append[idx]
-      idx += 1
+      idxList1[col].append(idx); idx += 1
 
     idx = 0
     for col in row2: #repeat for row 2
-      if col not in idxList1: 
+      if col not in idxList2: 
         idxList2[col] = []
-      idxList2[col].append[idx]
-      idx += 1
+      idxList2[col].append(idx); idx += 1
 
+    print("row1:" + str(idxList1))
+    print("row2:" + str(idxList2))
 
     return True
       
