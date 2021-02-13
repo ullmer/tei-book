@@ -31,7 +31,7 @@ class enTableSql:
     numRows = len(self.rows); numCols = len(self.rows[0])
     print("table dimensions: %s x %s" % (numRows, numCols))
   
-############### print table dimensions ############### 
+############### check raw header ############### 
 
   def checkRawHeader(self):
     if self.rows == None:
@@ -49,12 +49,42 @@ class enTableSql:
       return False
     return True
     
+############### process header ############### 
+
+  def procHeader(self):
+    headerOk = self.checkRawHeader()
+    if headerOk == False:
+      return False
+
+    idxList1 = {}; idxList2 = {}
+    row1 = self.rows[0]; row2 = self.rows[1]
+    idx = 0 
+    for col in row1: #build map of columns in row 1
+      if col not in idxList1: 
+        idxList1[col] = []
+      idxList1[col].append[idx]
+      idx += 1
+
+    idx = 0
+    for col in row2: #repeat for row 2
+      if col not in idxList1: 
+        idxList2[col] = []
+      idxList2[col].append[idx]
+      idx += 1
+
+
+    return True
+      
 ############### constructor ############### 
 
   def __init__(self, filename):
     self.readCsvTable(filename)
     self.printTableDimensions()
-    self.checkRawHeader()
+    headerOk = self.procHeader()
+    if headerOk == False:
+      return None
+
+
 
 #enTableSql.processTable(rows)
 
