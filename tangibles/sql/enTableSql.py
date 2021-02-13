@@ -21,7 +21,7 @@ class enTableSql:
     self.fh = open(fn, 'r+t')
     self.reader = csv.reader(self.fh)
 
-    rows = []
+    self.rows = []
     for row in self.reader:
       self.rows.append(row)
 
@@ -35,16 +35,16 @@ class enTableSql:
 
   def checkRawHeader(self):
     if self.rows == None:
-      print("Error: enTableSql.checkRawHeader expects populated "rows")
+      print("Error: enTableSql.checkRawHeader expects populated rows")
       return False
 
     rfName = self.rows[0][0]; rgName = self.rows[1][0]
 
-    if (rfName is not self.rawfieldsName) or
-       (rgName is not self.rawgroupsName):
+    if ((rfName is not self.rawfieldsName) or
+        (rgName is not self.rawgroupsName)):
       print("Error: enTableSql.checkRawHeader expects cells A1 and B1 to hold")
-      print("values %s and %s; and right-adjacent cells" % (rfName, rgName)
-      print("to be populated appropriately
+      print("values %s and %s; and right-adjacent cells" % (rfName, rgName))
+      print("to be populated appropriately")
       return False
     return True
     
