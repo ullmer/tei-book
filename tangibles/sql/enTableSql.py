@@ -40,11 +40,12 @@ class enTableSql:
 
     rfName = self.rows[0][0]; rgName = self.rows[1][0]
 
-    if ((rfName is not self.rawfieldsName) or
-        (rgName is not self.rawgroupsName)):
+    if ((rfName != self.rawfieldsName) or
+        (rgName != self.rawgroupsName)):
       print("Error: enTableSql.checkRawHeader expects cells A1 and B1 to hold")
       print("values %s and %s; and right-adjacent cells" % (rfName, rgName))
       print("to be populated appropriately")
+      print(":: actual vals: %s, %s" % (rfName, rgName))
       return False
     return True
     
