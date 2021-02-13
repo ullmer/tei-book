@@ -13,8 +13,9 @@ class enTableSql:
   reader = None #csv reader
   df     = {}   #data fields
   rows   = None #data rows (raw table itself)
-  row1Hash = {}
-  row2Hash = {}
+  row1Hash     = None
+  row1Backlist = None
+  row2Hash     = None
 
 ############### readCsvTable ############### 
 
@@ -55,15 +56,18 @@ class enTableSql:
 
   def procHeader(self):
     headerOk = self.checkRawHeader()
-    if headerOk == False:
+    if headerOk == False: 
       return False
 
+    self.row1Hash = {}; self.row2Hash = {}; self.row1Backlist = {}
     row1 = self.rows[0]; row2 = self.rows[1]
     idx = 0 
     for col in row1: #build map of columns in row 1
       if col not in self.row1Hash: 
         self.row1Hash[col] = []
       self.row1Hash[col].append(idx); idx += 1
+      if col != None:
+        self.row1Backlist[idx] = col
 
     idx = 0
     for col in row2: #repeat for row 2
@@ -75,15 +79,40 @@ class enTableSql:
     #print("row2:" + str(self.row2Hash))
 
     return True
+    
+############### process rows ############### 
+
+  def procRows(self):
+    headerOk = self.procHeader()
+    if headerOk == False:
+      return False
+    idx = 0
+    for row in self.rows():
+      if idx == 0 or idx == 1:
+        idx += 1; continue
+      rowOk = self.procRow(row)
+      if rowOk == False:
+        sys.exit(-1)
+
+############### process row ############### 
+
+  def procRow(self, row):
+    if self.row1Hash == None or self.row2Hash == None or self.row1Backhash == None:
+      print("enTableSql: procRow called and row1Hash, row2Hash, or row1Backhash are None")
+      return False
+
+    keys = []; vals = []
+    for idx in self.row1Backhash:
+      key = self.row1
+   CONTINUE HERE 
+
       
 ############### constructor ############### 
 
   def __init__(self, filename):
     self.readCsvTable(filename)
     self.printTableDimensions()
-    headerOk = self.procHeader()
-    if headerOk == False:
-      return None
+    self.procRows()
 
 
 
