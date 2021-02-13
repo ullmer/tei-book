@@ -13,6 +13,8 @@ class enTableSql:
   reader = None #csv reader
   df     = {}   #data fields
   rows   = None #data rows (raw table itself)
+  row1Hash = {}
+  row2Hash = {}
 
 ############### readCsvTable ############### 
 
@@ -56,22 +58,21 @@ class enTableSql:
     if headerOk == False:
       return False
 
-    idxList1 = {}; idxList2 = {}
     row1 = self.rows[0]; row2 = self.rows[1]
     idx = 0 
     for col in row1: #build map of columns in row 1
-      if col not in idxList1: 
-        idxList1[col] = []
-      idxList1[col].append(idx); idx += 1
+      if col not in self.row1Hash: 
+        self.row1Hash[col] = []
+      self.row1Hash[col].append(idx); idx += 1
 
     idx = 0
     for col in row2: #repeat for row 2
-      if col not in idxList2: 
-        idxList2[col] = []
-      idxList2[col].append(idx); idx += 1
+      if col not in self.row2Hash: 
+        self.row2Hash[col] = []
+      self.row2Hash[col].append(idx); idx += 1
 
-    print("row1:" + str(idxList1))
-    print("row2:" + str(idxList2))
+    #print("row1:" + str(self.row1Hash))
+    #print("row2:" + str(self.row2Hash))
 
     return True
       
