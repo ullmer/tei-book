@@ -101,18 +101,16 @@ class enTableSql:
       print("enTableSql: procRow called and row1Hash, row2Hash, or row1Backhash are None")
       return False
       
-    print("PR:", row)
+    #print("PR:", row)
     keys = self.row1Hash.keys()
-    print("k:", keys)
+    #print("k:", keys)
 
     vals = []; pairs = []
     for key in keys:
       if key == '':
         continue
       idx = self.row1Hash[key]
-      val = row[idx]
-      #print([key, val])
-      #print("PR %s %s %s" % (idx, key, val))
+      val = row[idx[0]]
       pairs.append([key, val])
     print(pairs)
       
