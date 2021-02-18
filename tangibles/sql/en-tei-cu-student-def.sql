@@ -38,7 +38,7 @@ create table enTeiCuStudentRaw (
   state3 text,
   state4 text,
   country1 text,
-  country1 text,
+  country2 text,
   country3 text,
   country4 text,
   audience1 text,
