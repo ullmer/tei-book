@@ -116,7 +116,7 @@ class enTableSql:
       idx = self.row1Hash[key]
       val = row[idx[0]]
       pairs.append([key, val])
-    #print(pairs)
+    print(pairs)
     return(pairs)
 
 ############### process row ############### 
@@ -136,7 +136,7 @@ class enTableSql:
     dbCursor = dbConn.cursor()
 
     #dbCursor.executemany(
-      "insert into enFacetWorldRegions (id, region, subregion) values (?,?,?)", 
+#      "insert into enFacetWorldRegions (id, region, subregion) values (?,?,?)", 
     #regionData)
     #dbConn.commit()
       
