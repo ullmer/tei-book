@@ -118,6 +118,21 @@ class enTableSql:
       pairs.append([key, val])
     #print(pairs)
     return(pairs)
+
+############### process row ############### 
+
+  def insertSqlRaw(self, dbFname):
+    if self.processedRows == None:
+      print("enTableSql: insertSqlRaw called but processedRows == None")
+      return False
+      
+    print("raw student insertions")
+    for row in self.processedRows:
+
+    dbCursor.executemany(
+      "insert into enFacetWorldRegions (id, region, subregion) values (?,?,?)", 
+    regionData)
+    dbConn.commit()
       
 ############### constructor ############### 
 
