@@ -13,6 +13,7 @@ class enTableSql:
   reader = None #csv reader
   df     = {}   #data fields
   rows   = None #data rows (raw table itself)
+  processedRows = None
   row1Hash     = None
   row1Backhash = None
   row2Hash     = None
@@ -87,12 +88,15 @@ class enTableSql:
     if headerOk == False:
       return False
     idx = 0
+    self.processedRows = []
     for row in self.rows:
       if idx < 6:
         idx += 1; continue     #ignore header lines
-      rowOk = self.procRow(row)
-      if rowOk == False:
+      rowResult = self.procRow(row)
+      if rowResult == False:
         sys.exit(-1)
+      else:
+        self.processedRows.append(rowResult)
 
 ############### process row ############### 
 
@@ -112,7 +116,8 @@ class enTableSql:
       idx = self.row1Hash[key]
       val = row[idx[0]]
       pairs.append([key, val])
-    print(pairs)
+    #print(pairs)
+    return(pairs)
       
 ############### constructor ############### 
 
