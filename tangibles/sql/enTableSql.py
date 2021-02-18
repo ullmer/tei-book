@@ -88,7 +88,7 @@ class enTableSql:
       return False
     idx = 0
     for row in self.rows:
-      if idx < 5:
+      if idx < 6:
         idx += 1; continue     #ignore header lines
       rowOk = self.procRow(row)
       if rowOk == False:
@@ -100,14 +100,20 @@ class enTableSql:
     if self.row1Hash == None or self.row2Hash == None or self.row1Backhash == None:
       print("enTableSql: procRow called and row1Hash, row2Hash, or row1Backhash are None")
       return False
+      
+    print("PR:", row)
+    keys = self.row1Hash.keys()
+    #print("k:", keys)
 
     keys = []; vals = []
-    for idx in self.row1Backhash:
-      key = self.rows[0][idx]
-      val = row[idx]
-      print("PR %s %s %s" % (idx, key, val))
 
-   #CONTINUE HERE 
+    pairs = []
+    for key in keys:
+      idx = self.row1Hash(key)
+      val = row[idx]
+      #print("PR %s %s %s" % (idx, key, val))
+      pairs.append([key, val])
+    print(pairs)
       
 ############### constructor ############### 
 
