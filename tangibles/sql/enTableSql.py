@@ -81,6 +81,14 @@ class enTableSql:
 
     return True
     
+############### raw row blank############### 
+
+  def rawRowBlank(self, fields):
+    for field in fields:
+      if field != '':
+        return False
+    return True
+    
 ############### process rows ############### 
 
   def procRows(self):
@@ -90,8 +98,8 @@ class enTableSql:
     idx = 0
     self.processedRows = []
     for row in self.rows:
-      if idx < 6:
-        idx += 1; continue     #ignore header lines
+      if idx < 6 or self.rawRowBlank(row):
+        idx += 1; continue     #ignore header and blank lines
       rowResult = self.procRow(row)
       if rowResult == False:
         sys.exit(-1)
@@ -125,15 +133,18 @@ class enTableSql:
     if self.processedRows == None:
       print("enTableSql: insertSqlRaw called but processedRows == None")
       return False
-      
-    print("raw student insertions")
-    row1Keys = rows[0].keys()
-    print("row1Keys:" + row1Keys)
 
-    #for row in self.processedRows:
+    fields = {}
+    for row in self.processedRows:
+      for col in row:
+        key, val = col
+        if key not in fields:
+          fields[key] = []
+        fields[key].append(val)
+    print(fields)
 
-    dbConn   = sqlite3.connect(fbFname)
-    dbCursor = dbConn.cursor()
+    #dbConn   = sqlite3.connect(fbFname)
+    #dbCursor = dbConn.cursor()
 
     #dbCursor.executemany(
 #      "insert into enFacetWorldRegions (id, region, subregion) values (?,?,?)", 
