@@ -103,14 +103,15 @@ class enTableSql:
       
     print("PR:", row)
     keys = self.row1Hash.keys()
-    #print("k:", keys)
+    print("k:", keys)
 
-    keys = []; vals = []
-
-    pairs = []
+    vals = []; pairs = []
     for key in keys:
-      idx = self.row1Hash(key)
+      if key == '':
+        continue
+      idx = self.row1Hash[key]
       val = row[idx]
+      #print([key, val])
       #print("PR %s %s %s" % (idx, key, val))
       pairs.append([key, val])
     print(pairs)
