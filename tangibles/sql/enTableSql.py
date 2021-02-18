@@ -132,6 +132,9 @@ class enTableSql:
 
     #for row in self.processedRows:
 
+    dbConn   = sqlite3.connect(fbFname)
+    dbCursor = dbConn.cursor()
+
     #dbCursor.executemany(
       "insert into enFacetWorldRegions (id, region, subregion) values (?,?,?)", 
     #regionData)

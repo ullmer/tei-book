@@ -6,8 +6,12 @@ import enTableSql, sys
 fn  = 'tei21-cu-students.csv'
 
 enTable = enTableSql.enTableSql(fn)
+enTable.insertSqlRaw(fn)
 
 sys.exit(1)
+
+
+
 
 dbn      = 'en-facet-countries.db3'
 dbConn   = sqlite3.connect(dbn)
