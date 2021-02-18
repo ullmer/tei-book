@@ -14,7 +14,7 @@ class enTableSql:
   df     = {}   #data fields
   rows   = None #data rows (raw table itself)
   row1Hash     = None
-  row1Backlist = None
+  row1Backhash = None
   row2Hash     = None
 
 ############### readCsvTable ############### 
@@ -59,7 +59,7 @@ class enTableSql:
     if headerOk == False: 
       return False
 
-    self.row1Hash = {}; self.row2Hash = {}; self.row1Backlist = {}
+    self.row1Hash = {}; self.row2Hash = {}; self.row1Backhash = {}
     row1 = self.rows[0]; row2 = self.rows[1]
     idx = 0 
     for col in row1: #build map of columns in row 1
@@ -67,7 +67,7 @@ class enTableSql:
         self.row1Hash[col] = []
       self.row1Hash[col].append(idx); idx += 1
       if col != None:
-        self.row1Backlist[idx] = col
+        self.row1Backhash[idx] = col
 
     idx = 0
     for col in row2: #repeat for row 2
@@ -87,9 +87,9 @@ class enTableSql:
     if headerOk == False:
       return False
     idx = 0
-    for row in self.rows():
-      if idx == 0 or idx == 1:
-        idx += 1; continue
+    for row in self.rows:
+      if idx < 5:
+        idx += 1; continue     #ignore header lines
       rowOk = self.procRow(row)
       if rowOk == False:
         sys.exit(-1)
@@ -103,9 +103,11 @@ class enTableSql:
 
     keys = []; vals = []
     for idx in self.row1Backhash:
-      key = self.row1
-   CONTINUE HERE 
+      key = self.rows[0][idx]
+      val = row[idx]
+      print("PR %s %s %s" % (idx, key, val))
 
+   #CONTINUE HERE 
       
 ############### constructor ############### 
 
@@ -113,8 +115,6 @@ class enTableSql:
     self.readCsvTable(filename)
     self.printTableDimensions()
     self.procRows()
-
-
 
 #enTableSql.processTable(rows)
 
