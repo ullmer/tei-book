@@ -127,12 +127,15 @@ class enTableSql:
       return False
       
     print("raw student insertions")
-    for row in self.processedRows:
+    row1Keys = rows[0].keys()
+    print("row1Keys:" + row1Keys)
 
-    dbCursor.executemany(
+    #for row in self.processedRows:
+
+    #dbCursor.executemany(
       "insert into enFacetWorldRegions (id, region, subregion) values (?,?,?)", 
-    regionData)
-    dbConn.commit()
+    #regionData)
+    #dbConn.commit()
       
 ############### constructor ############### 
 
