@@ -194,7 +194,7 @@ class enTableSql:
     dbCursor = dbConn.cursor()
     dbStr = "insert into {0} ({1}) values ({2})".format(
              tableName, fieldNames2, valuesGlob2)
-    print("insertSqlRaw:", dbStr)
+    print("insertSqlRaw:" + dbStr)
 
     dbCursor.executemany(dbStr, tableData)
     dbConn.commit()
