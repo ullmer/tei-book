@@ -129,7 +129,7 @@ class enTableSql:
 
 ############### process row ############### 
 
-  def insertSqlRaw(self, dbFname):
+  def insertSqlRaw(self, dbFname, tableName):
     if self.processedRows == None:
       print("enTableSql: insertSqlRaw called but processedRows == None")
       return False
@@ -141,15 +141,22 @@ class enTableSql:
         if key not in fields:
           fields[key] = []
         fields[key].append(val)
-    print(fields)
+    #print(fields)
 
-    #dbConn   = sqlite3.connect(fbFname)
-    #dbCursor = dbConn.cursor()
+    fieldNames = fields.keys()
+    valuesGlob = '(' + ("?," * len(fieldNames));
+    valuesGlob[-1] = ')'
+    print(fieldNames)
+    print(valuesGlob)
+    return
 
-    #dbCursor.executemany(
-#      "insert into enFacetWorldRegions (id, region, subregion) values (?,?,?)", 
-    #regionData)
-    #dbConn.commit()
+    dbConn   = sqlite3.connect(fbFname)
+    dbCursor = dbConn.cursor()
+
+    dbCursor.executemany(
+      "insert into %s (%s) values (%s)"  % (tableName, fieldNames, valuesGlob),
+      tableData)
+    dbConn.commit()
       
 ############### constructor ############### 
 
