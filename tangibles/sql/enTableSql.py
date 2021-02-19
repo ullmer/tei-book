@@ -94,6 +94,7 @@ class enTableSql:
 
     #print("row1:" + str(self.row1Hash))
     #print("row2:" + str(self.row2Hash))
+    #print("row1Backhash:" + str(self.row1Backhash))
 
     return True
     
@@ -135,11 +136,7 @@ class enTableSql:
 
 ############### insert sql raw ############### 
 
-  def insertSqlRaw(self, dbFname, tableName):
-    if self.processedRows == None:
-      print("enTableSql: insertSqlRaw called but processedRows == None")
-      return False
-
+  def buildFields(self):
     fields = {}
     for row in self.processedRows:
       for col in row:
@@ -148,13 +145,47 @@ class enTableSql:
           fields[key] = []
         fields[key].append(val)
     #print(fields)
+    return(fields)
 
-    fieldNames1 = fields.keys()
+############### insert sql raw ############### 
+
+  def buildTableData(self, fields, cols):
+    if self.rows2 == None:
+      print("enTableSql: buildTableData called but rows2 == None")
+      return False
+
+    tableData = []
+    for row in self.rows2:
+      tableRow = []
+      for idx in cols:
+        tableRow.append(row[idx])
+      tableData.append(tableRow)
+    return tableData
+
+############### insert sql raw ############### 
+
+  def insertSqlRaw(self, dbFname, tableName):
+    if self.rows2 == None:
+      print("enTableSql: insertSqlRaw called but rows2 == None")
+      return False
+
+    fields = []; cols = []
+    bhKeys = self.row1Backhash.keys()
+    for idx in bhKeys:
+      fieldName = self.row1Backhash[idx]
+      if fieldName != '':
+        fields.append(fieldName); cols.append(idx)
+
+    fieldNames1 = fields
     fieldNames2 = (','.join(fieldNames1))
     valuesGlob1 = '(' + ("?," * len(fieldNames1));
     valuesGlob2 = valuesGlob1[:-1] + ')'
+
+    tableData = self.buildTableData(fields, cols)
+
     print(fieldNames2)
     print(valuesGlob2)
+    print(tableData)
     return
 
     dbConn   = sqlite3.connect(fbFname)
