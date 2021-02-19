@@ -40,25 +40,25 @@ class enTableSql:
 
     for row in self.reader:
       self.rows1.append(row)
-      if idx>3 and !self.rawRowBlank(row):
+      if idx>5 and not self.rawRowBlank(row):
         self.rows2.append(row)
+      idx += 1
     print(self.rows2)
- 
 
 ############### print table dimensions ############### 
 
   def printTableDimensions(self):
-    numRows = len(self.rows); numCols = len(self.rows[0])
+    numRows = len(self.rows1); numCols = len(self.rows1[0])
     print("table dimensions: %s x %s" % (numRows, numCols))
   
 ############### check raw header ############### 
 
   def checkRawHeader(self):
-    if self.rows == None:
+    if self.rows1 == None:
       print("Error: enTableSql.checkRawHeader expects populated rows")
       return False
 
-    rfName = self.rows[0][0]; rgName = self.rows[1][0]
+    rfName = self.rows1[0][0]; rgName = self.rows1[1][0]
 
     if ((rfName != self.rawfieldsName) or
         (rgName != self.rawgroupsName)):
@@ -77,7 +77,7 @@ class enTableSql:
       return False
 
     self.row1Hash = {}; self.row2Hash = {}; self.row1Backhash = {}
-    row1 = self.rows[0]; row2 = self.rows[1]
+    row1 = self.rows1[0]; row2 = self.rows1[1]
     idx = 0 
     for col in row1: #build map of columns in row 1
       if col not in self.row1Hash: 
@@ -105,9 +105,7 @@ class enTableSql:
       return False
     idx = 0
     self.processedRows = []
-    for row in self.rows:
-      if idx < 6 or self.rawRowBlank(row):
-        idx += 1; continue     #ignore header and blank lines
+    for row in self.rows2:
       rowResult = self.procRow(row)
       if rowResult == False:
         sys.exit(-1)
