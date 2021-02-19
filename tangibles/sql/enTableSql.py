@@ -180,8 +180,8 @@ class enTableSql:
 
     fieldNames1 = fields
     fieldNames2 = (','.join(fieldNames1))
-    valuesGlob1 = '(' + ("?," * len(fieldNames1));
-    valuesGlob2 = valuesGlob1[:-1] + ')'
+    valuesGlob1 = "?," * len(fieldNames1)
+    valuesGlob2 = valuesGlob1[:-1] 
 
     tableData = self.buildTableData(fields, cols)
 
@@ -192,8 +192,8 @@ class enTableSql:
 
     dbConn   = sqlite3.connect(dbFname)
     dbCursor = dbConn.cursor()
-    dbStr = "insert into %s (%s) values (%s)" % 
-             (tableName, fieldNames2, valuesGlob2),
+    dbStr = "insert into {0} ({1}) values ({2})".format(
+             tableName, fieldNames2, valuesGlob2)
     print("insertSqlRaw:", dbStr)
 
     dbCursor.executemany(dbStr, tableData)
