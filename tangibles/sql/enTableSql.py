@@ -190,12 +190,14 @@ class enTableSql:
     #print(tableData)
     #return
 
-    dbConn   = sqlite3.connect(fbFname)
+    dbConn   = sqlite3.connect(dbFname)
     dbCursor = dbConn.cursor()
+    dbStr = 
+      "insert into %s (%s) values (%s)" % 
+        (tableName, fieldNames2, valuesGlob2),
+    print("insertSqlRaw:", dbStr)
 
-    dbCursor.executemany(
-      "insert into %s (%s) values (%s)" % (tableName, fieldNames2, valuesGlob2),
-      tableData)
+    dbCursor.executemany(dbStr, tableData)
     dbConn.commit()
       
 ############### constructor ############### 
