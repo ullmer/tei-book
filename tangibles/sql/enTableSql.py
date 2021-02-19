@@ -12,12 +12,22 @@ class enTableSql:
   fh     = None #file handle
   reader = None #csv reader
   df     = {}   #data fields
-  rows   = None #data rows (raw table itself)
+  rows1  = None #data rows (raw table itself)
+  rows2  = None #data rows (rows1 less header and blanks)
+  rows3  = None #data rows (rows2 less toss-out columns
   processedRows = None
   row1Hash     = None
   row1Backhash = None
   row2Hash     = None
 
+############### raw row blank############### 
+
+  def rawRowBlank(self, fields):
+    for field in fields:
+      if field != '':
+        return False
+    return True
+    
 ############### readCsvTable ############### 
 
   def readCsvTable(self, fn):
@@ -25,9 +35,15 @@ class enTableSql:
     self.fh = open(fn, 'r+t')
     self.reader = csv.reader(self.fh)
 
-    self.rows = []
+    self.rows1 = []; self.rows2 = []
+    idx = 0
+
     for row in self.reader:
-      self.rows.append(row)
+      self.rows1.append(row)
+      if idx>3 and !self.rawRowBlank(row):
+        self.rows2.append(row)
+    print(self.rows2)
+ 
 
 ############### print table dimensions ############### 
 
@@ -81,14 +97,6 @@ class enTableSql:
 
     return True
     
-############### raw row blank############### 
-
-  def rawRowBlank(self, fields):
-    for field in fields:
-      if field != '':
-        return False
-    return True
-    
 ############### process rows ############### 
 
   def procRows(self):
@@ -127,7 +135,7 @@ class enTableSql:
     #print(pairs)
     return(pairs)
 
-############### process row ############### 
+############### insert sql raw ############### 
 
   def insertSqlRaw(self, dbFname, tableName):
     if self.processedRows == None:
