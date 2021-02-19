@@ -4,9 +4,9 @@
 import enTableSql, sys
 
 fn  = 'tei21-cu-students.csv'
-
+dfn  = 'tei21-cu-students.db3'
 enTable = enTableSql.enTableSql(fn)
-enTable.insertSqlRaw(fn)
+#enTable.insertSqlRaw(dfn)
 
 sys.exit(1)
 
