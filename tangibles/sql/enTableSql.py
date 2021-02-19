@@ -124,7 +124,7 @@ class enTableSql:
       idx = self.row1Hash[key]
       val = row[idx[0]]
       pairs.append([key, val])
-    print(pairs)
+    #print(pairs)
     return(pairs)
 
 ############### process row ############### 
@@ -143,18 +143,19 @@ class enTableSql:
         fields[key].append(val)
     #print(fields)
 
-    fieldNames = fields.keys()
-    valuesGlob = '(' + ("?," * len(fieldNames));
-    valuesGlob[-1] = ')'
-    print(fieldNames)
-    print(valuesGlob)
+    fieldNames1 = fields.keys()
+    fieldNames2 = (','.join(fieldNames1))
+    valuesGlob1 = '(' + ("?," * len(fieldNames1));
+    valuesGlob2 = valuesGlob1[:-1] + ')'
+    print(fieldNames2)
+    print(valuesGlob2)
     return
 
     dbConn   = sqlite3.connect(fbFname)
     dbCursor = dbConn.cursor()
 
     dbCursor.executemany(
-      "insert into %s (%s) values (%s)"  % (tableName, fieldNames, valuesGlob),
+      "insert into %s (%s) values (%s)" % (tableName, fieldNames1, valuesGlob2),
       tableData)
     dbConn.commit()
       
