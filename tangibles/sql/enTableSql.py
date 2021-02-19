@@ -43,7 +43,7 @@ class enTableSql:
       if idx>5 and not self.rawRowBlank(row):
         self.rows2.append(row)
       idx += 1
-    print(self.rows2)
+    #print(self.rows2)
 
 ############### print table dimensions ############### 
 
@@ -82,9 +82,10 @@ class enTableSql:
     for col in row1: #build map of columns in row 1
       if col not in self.row1Hash: 
         self.row1Hash[col] = []
-      self.row1Hash[col].append(idx); idx += 1
+      self.row1Hash[col].append(idx)
       if col != None:
         self.row1Backhash[idx] = col
+      idx += 1
 
     idx = 0
     for col in row2: #repeat for row 2
@@ -153,7 +154,8 @@ class enTableSql:
     if self.rows2 == None:
       print("enTableSql: buildTableData called but rows2 == None")
       return False
-
+    
+    print("buildTableData:",cols)
     tableData = []
     for row in self.rows2:
       tableRow = []
@@ -183,16 +185,16 @@ class enTableSql:
 
     tableData = self.buildTableData(fields, cols)
 
-    print(fieldNames2)
-    print(valuesGlob2)
-    print(tableData)
-    return
+    #print(fieldNames2)
+    #print(valuesGlob2)
+    #print(tableData)
+    #return
 
     dbConn   = sqlite3.connect(fbFname)
     dbCursor = dbConn.cursor()
 
     dbCursor.executemany(
-      "insert into %s (%s) values (%s)" % (tableName, fieldNames1, valuesGlob2),
+      "insert into %s (%s) values (%s)" % (tableName, fieldNames2, valuesGlob2),
       tableData)
     dbConn.commit()
       
