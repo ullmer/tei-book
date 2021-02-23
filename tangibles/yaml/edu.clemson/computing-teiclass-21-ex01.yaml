@@ -13,7 +13,7 @@ hexmap:
 
 hexmap:
   symref:      tei21-cu-unsdg01      #symbolic reference / abbreviation
-  contentType: unsdg                 #people associations
+  contentType: concepts              #concept associations
   mapType:     hexTess4x3            #hexagonal tesselation, 4x3
   dbRef:       https://github.com/ullmer/tei-book/pool/common/unsdg01.db3
   tableRef:    unsdg
@@ -32,15 +32,14 @@ hexmap:
                 [mbhosek, angelji, ddubay,  mjfurl]]
 
 hexmap:
-  symref:      tei21-cu-audiences01  #symbolic reference / abbreviation
-  contentType: people                #people associations
+  symref:      tei21-cu-cspan01      #symbolic reference / abbreviation
+  contentType: concepts              #concept associations
   mapType:     hexTess4x3            #hexagonal tesselation, 4x3
   dbRef:       https://github.com/ullmer/tei-book/pool/edu.clemson/tei21-cu-students.db3
   tableRef:    people
   keyRef:      abbrev
-  map:         [[ , pope.francis, nikki.haley, barack.obama],
-                [gretta.thunberg, sal.khan, david.attenborough, satya.nadella],
-                []]
-
+  map:         [[Science & Technology, Environment, Developing Countries, Philosophy],
+                [History & Society, Education Policy, Crime, History & Society],
+                [Poverty, Music, International Trade, Human Rights]]
 
 ### end ###
