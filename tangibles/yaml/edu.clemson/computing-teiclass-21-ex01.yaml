@@ -18,7 +18,8 @@ hexmap:
   dbRef:       https://github.com/ullmer/tei-book/pool/edu.clemson/tei21-cu-students.db3
   tableRef:    people
   keyRef:      abbrev
-  map:         [[US, DE, UK, FR], [JP, CA, MX, CN], [IN, UK, SK, AU]]
-
+  map:         [[abhoop,  bfilipi, cfulle3, menishe],
+                [mehrwan, millonm, aikaw,   imichae],
+                [mbhosek, angelji, ddubay,  mjfurl]]
 
 ### end ###
