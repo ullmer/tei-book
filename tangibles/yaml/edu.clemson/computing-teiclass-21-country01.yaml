@@ -2,5 +2,12 @@
 ## Brygg Ullmer, Clemson University
 ## YAML begun 2021-02-23
 
+hexmap:
+  contentType: countries   #country associations
+  mapType:     hexTess4x3  #hexagonal tesselation, 4x3
+  dbRef:       https://github.com/ullmer/tei-book/common/countries01.db3
+  tableRef:    countries
+  keyRef:      abbrev
+  map:         [[US, DE, UK, FR], [JP, CA, MX, CN], [IN, UK, SK, AU]]
 
 ### end ###
