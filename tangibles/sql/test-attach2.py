@@ -2,13 +2,17 @@
 # Brygg Ullmer, Clemson University
 # Begun 2021-02-23
 
-childDBs = {}
+import yaml, sys
 
-metaY = '
- countries: en-facet-countries.db3
- states:    en-facet-states.db3
- SDGs:      en-facet-unsdg.db3
- students:  tei21-cu-students.db3';
+childDBY = """
+ countries: en-facet-countries.db3 
+ states:    en-facet-states.db3 
+ SDGs:      en-facet-unsdg.db3 
+ students:  tei21-cu-students.db3""";
+
+childDB = yaml.load(childDBY)
+print(childDB)
+sys.exit(-1)
 
 import sqlite3
 conn = sqlite3.connect('scratch.db3')
