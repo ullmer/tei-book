@@ -1,0 +1,38 @@
+## First example of countries hexmap in Clemson TEI21 course
+## Brygg Ullmer, Clemson University
+## YAML begun 2021-02-23
+## Ex02++: keyRef, tableRef references moved to dbRef : table "defaults"
+
+hexmap:
+  symref:      tei21-cu-countries01   #symbolic reference / abbreviation
+  contentType: countries              #country associations
+  mapType:     hexTess4x3             #hexagonal tesselation, 4x3
+  dbRef:       https://github.com/ullmer/tei-book/pool/common/en-facet-countries01.db3
+  map:         [[US, DE, UK, FR], [JP, CA, MX, CN], [IN, UK, SK, AU]]
+
+hexmap:
+  symref:      tei21-cu-unsdg01      #symbolic reference / abbreviation
+  contentType: concepts              #concept associations
+  mapType:     hexTess4x3            #hexagonal tesselation, 4x3
+  dbRef:       https://github.com/ullmer/tei-book/pool/common/unsdg01.db3
+  map:         [[5, 4, 3, 2], [1, 13, 10, 7], [8, 12, 17, 6]]
+
+hexmap:
+  symref:      tei21-cu-students01   #symbolic reference / abbreviation
+  contentType: people                #people associations
+  mapType:     hexTess4x3            #hexagonal tesselation, 4x3
+  dbRef:       https://github.com/ullmer/tei-book/pool/edu.clemson/tei21-cu-students.db3
+  map:         [[abhoop,  bfilipi, cfulle3, menishe],
+                [mehrwan, millonm, aikaw,   imichae],
+                [mbhosek, angelji, ddubay,  mjfurl]]
+
+hexmap:
+  symref:      tei21-cu-cspan01      #symbolic reference / abbreviation
+  contentType: concepts              #concept associations
+  mapType:     hexTess4x3            #hexagonal tesselation, 4x3
+  dbRef:       https://github.com/ullmer/tei-book/pool/edu.clemson/tei21-cu-students.db3
+  map:         [[Science & Technology, Environment, Developing Countries, Philosophy],
+                [History & Society, Education Policy, Crime, History & Society],
+                [Poverty, Music, International Trade, Human Rights]]
+
+### end ###
