@@ -14,28 +14,30 @@ yd  = json.load(f)
 #print(yd[0].keys())
 print(fields)
 
-sys.exit(-1)
+#sys.exit(-1)
 
 dbn      = 'en-facet-unsdg.db3'
 dbConn   = sqlite3.connect(dbn)
 dbCursor = dbConn.cursor()
 
-countryData = []
-
+rows = []
 for sdg in yd:
-  populated = {}
+  populated = {}; row = []
   for field in fields:
     try:
       populated[field] = sdg[field]
+      row.append(sdg[field])
     except:
-  
-  abbrev = state['abbreviation']
-  name   = state['name']
-  stateData.append((abbrev, name))
+      print('yaml/json error processing ' + field)
+      e = sys.exc_info()   #e = sys.exc_info()[0]
+      print('error: '+str(e))
+  rows.append(row)
 
-dbCursor.executemany(
-  "insert into enFacetStates (abbrev, name) values (?,?)", 
-   stateData)
+compactFields = ','.join(fields)
+insert = "insert into enFacetUNSDG ({}) values (?,?,?,?)".format(compactFields)
+print("insertion: "+ insert)
+
+dbCursor.executemany(insert, rows)
 dbConn.commit()
 
 ### end ###
