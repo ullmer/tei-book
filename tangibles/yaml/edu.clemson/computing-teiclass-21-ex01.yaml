@@ -12,6 +12,15 @@ hexmap:
   map:         [[US, DE, UK, FR], [JP, CA, MX, CN], [IN, UK, SK, AU]]
 
 hexmap:
+  symref:      tei21-cu-unsdg01      #symbolic reference / abbreviation
+  contentType: unsdg                 #people associations
+  mapType:     hexTess4x3            #hexagonal tesselation, 4x3
+  dbRef:       https://github.com/ullmer/tei-book/pool/common/unsdg01.db3
+  tableRef:    unsdg
+  keyRef:      number
+  map:         [[5, 4, 3, 2], [1, 13, 10, 7], [8, 12, 17, 6]]
+
+hexmap:
   symref:      tei21-cu-students01   #symbolic reference / abbreviation
   contentType: people                #people associations
   mapType:     hexTess4x3            #hexagonal tesselation, 4x3
@@ -21,5 +30,17 @@ hexmap:
   map:         [[abhoop,  bfilipi, cfulle3, menishe],
                 [mehrwan, millonm, aikaw,   imichae],
                 [mbhosek, angelji, ddubay,  mjfurl]]
+
+hexmap:
+  symref:      tei21-cu-audiences01  #symbolic reference / abbreviation
+  contentType: people                #people associations
+  mapType:     hexTess4x3            #hexagonal tesselation, 4x3
+  dbRef:       https://github.com/ullmer/tei-book/pool/edu.clemson/tei21-cu-students.db3
+  tableRef:    people
+  keyRef:      abbrev
+  map:         [[ , pope.francis, nikki.haley, barack.obama],
+                [gretta.thunberg, sal.khan, david.attenborough, satya.nadella],
+                []]
+
 
 ### end ###
