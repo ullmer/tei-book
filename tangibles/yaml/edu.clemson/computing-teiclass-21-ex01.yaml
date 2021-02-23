@@ -1,0 +1,24 @@
+## First example of countries hexmap in Clemson TEI21 course
+## Brygg Ullmer, Clemson University
+## YAML begun 2021-02-23
+
+hexmap:
+  symref:      tei21-cu-countries01   #symbolic reference / abbreviation
+  contentType: countries              #country associations
+  mapType:     hexTess4x3             #hexagonal tesselation, 4x3
+  dbRef:       https://github.com/ullmer/tei-book/pool/common/en-facet-countries01.db3
+  tableRef:    countries
+  keyRef:      abbrev
+  map:         [[US, DE, UK, FR], [JP, CA, MX, CN], [IN, UK, SK, AU]]
+
+hexmap:
+  symref:      tei21-cu-students01   #symbolic reference / abbreviation
+  contentType: people                #people associations
+  mapType:     hexTess4x3            #hexagonal tesselation, 4x3
+  dbRef:       https://github.com/ullmer/tei-book/pool/edu.clemson/tei21-cu-students.db3
+  tableRef:    people
+  keyRef:      abbrev
+  map:         [[US, DE, UK, FR], [JP, CA, MX, CN], [IN, UK, SK, AU]]
+
+
+### end ###
