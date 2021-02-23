@@ -11,14 +11,24 @@ enTable = enTableSql.enTableSql(fn)
 #print("FOO")
 #print(enTable.rows2)
 
-fieldIdx = [2, 5, 3]; subrows = []; id = 1
+studIdxs = [2, 5, 3]; studrows = []; studentId = 1
+sdgIdxs  = [27, 28, 29, 30]; sdgrows = []
+    
+#insert into enStudentFacet (id, symname) values (100, 'unsdg');
+
 for row in enTable.rows2:
-  subrow = [id]
-  for field in fieldIdx:
-    subrow.append(row[field])
-  subrows.append(subrow)
-  id+=1
-print(subrows)
+  studrow = [studentId]
+  for idx in studIdxs:
+    studrow.append(row[idx])
+  studrows.append(studrow)
+
+  for idx in sdgIdxs:
+    sdg = row[idx]
+    sdgrows.append([100, studentId, int(sdg)])
+  studentId+=1
+
+print(studrows)
+print(sdgrows)
 
 #create table enTeiCuStudent (
 #  id     integer primary key,
