@@ -1,9 +1,9 @@
-create table enTeiCuStudent (
-  id     integer primary key,
-  name   text,
-  group  integer,
-  ug     text,
-  cuname text
+create table enTeiStudent (
+  id      integer primary key,
+  name    text,
+  sgroup  integer,
+  ug      text,
+  cuname  text
 );
 
 create table enStudentFacet (
