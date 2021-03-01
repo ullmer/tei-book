@@ -18,8 +18,8 @@ pw  = sys.argv[1]
 
 r=redis.Redis(host=host, port=port, password=pw)
 
-r.hset('teiDomains', 'edu.clemson.computing.tei21', '')
-r.hset('teiDomains', 'us.sc.k12.pickens.pcva', '')
+r.hset('teiDomains', 'edu.clemson.computing.tei21', 'https://github.com/ullmer/tei-book/tree/main/tangibles/yaml/edu.clemson/tei21')
+r.hset('teiDomains', 'us.sc.k12.pickens.pcva', 'https://github.com/ullmer/tei-book/tree/main/tangibles/yaml/us.sc.k12.pickens/pcva')
 print(r.hgetall('teiDomains'))
 #{'us.sc.k12.pickens.pcva': '', 'edu.clemson.computing.tei21': ''}
 
