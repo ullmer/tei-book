@@ -12,12 +12,12 @@ if len(sys.argv) < 2:
   sys.exit(-1)
 
 
-host="redis-13995.c56.east-us.azure.cloud.redislabs.com"
-port="13995"
+host="redis-15905.c56.east-us.azure.cloud.redislabs.com"
+port="15905"
 pw  = sys.argv[1]
 
 r=redis.Redis(host=host, port=port, password=pw)
 r.mset({"Croatia": "Zagreb", "Bahamas": "Nassau"})
-r.get("Bahamas")
+print(r.get("Bahamas"))
 
 ### end ###
