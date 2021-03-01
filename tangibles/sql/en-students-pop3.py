@@ -12,7 +12,9 @@ enTable = enTableSql.enTableSql(fn)
 
 studIdxs = [2, 5, 3]; studrows = []; studentId = 1
 sdgIdxs  = [27, 28, 29, 30]; sdgrows = []
-    
+
+
+
 #insert into enStudentFacet (id, symname) values (100, 'unsdg');
 
 for row in enTable.rows2:
@@ -32,14 +34,27 @@ for row in enTable.rows2:
 conn = sqlite3.connect(dfn)
 c = conn.cursor()
 
-c.executemany(
-   "insert into enTeiStudent (id, name, sgroup, ug) values (?,?,?,?)", 
-    studrows)
-conn.commit()
+#c.executemany(
+#   "insert into enTeiStudent (id, name, sgroup, ug) values (?,?,?,?)", 
+#    studrows)
+#conn.commit()
 
-c.executemany(
-  "insert into enStudentFacetRelation (facetId, studentId, facetVal) values (?,?,?)", 
-   sdgrows)
+c.execute("attach database 'en-facet-countries.db3' as countryDb;")
+c.execute("select id, abbrev from countryDB.enFacetCountries;")
 conn.commit()
+result = c.fetchall()
+#print(result)
+
+cabbrev2id = {}
+for el in result:
+  countryId, countryAbbrev = el
+  cabbrev2id[countryAbbrev] = countryId
+
+print(cabbrev2id.keys())
+
+#c.executemany(
+#  "insert into enStudentFacetRelation (facetId, studentId, facetVal) values (?,?,?)", 
+#   sdgrows)
+#conn.commit()
 
 #### end ###
