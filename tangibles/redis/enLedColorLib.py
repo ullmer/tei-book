@@ -55,6 +55,11 @@ class enLedColorLib:
       print("enLedColorLib getBasecolorSeq error: basecolorHash is none!")
       return(False)
 
+    colorseqLen = len(colorseq)
+    result = []
+    for seqidx in range(colorseqLen):
+      basecolorKey = colorseq[seqidx]
+
   ##################### constructor #####################
 
   def __init__(self):
