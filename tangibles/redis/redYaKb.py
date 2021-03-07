@@ -32,9 +32,10 @@ class redYaKb:
     self.yamlCommandDescr = yaml.safe_load(yf)
 
     numCommands = len(self.yamlCommandDescr)
-    print("redYaKb ingestCommandYamlFn processing " + numCommands + " from file " + sourceYamlFn)
+    print("redYaKb ingestCommandYamlFn processing " + str(numCommands) + " commands from file " + sourceYamlFn)
     
-    return result
+    #return result
+    return True
 
   ##################### read character w/o newline #####################
 

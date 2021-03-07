@@ -4,8 +4,8 @@
 
 - {key: L, command: pushLED,      descr: "push"}
 - {key: N, command: pullNFCs,     descr: ""}
-- {key: d  command: describeHW,   descr: "Describe: list attached virtual, physical, or textual hardware"}
-- {key: ?  command: help,         descr: "Help:     list available keybindings and commands"}
+- {key: d, command: describeHW,   descr: 'Describe: list attached virtual, physical, or textual hardware'}
+- {key: h, command: help,         descr: "Help:     list available keybindings and commands"}
 - {key: p, command: specPhysical, descr: ""}
 - {key: v, command: specVirtual,  descr: ""}
 - {key: t, command: specTextual,  descr: ""}
