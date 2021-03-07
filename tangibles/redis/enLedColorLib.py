@@ -3,7 +3,7 @@
 # Begun 2021-03-07
 
 import json, yaml
-import sys
+import sys, re
 #import dotstar
 
 ############### Enodia LED color library ###############
@@ -14,7 +14,8 @@ class enLedColorLib:
   colorHash     = {}
   basecolorsY   = '[blue,cyan,green,orange,purple,red,yellow]' #will extract first letter 
   basecolors    = None
-  basecolorHash = {}
+  basecolorHash    = {}
+  basecolorKeyHash = {}
 
   ############### load color json ###############
 
@@ -30,10 +31,22 @@ class enLedColorLib:
 
   def extendColorHash(self): 
     basecolors = yaml.load(self.basecolorsY)
+    colorHashKeys = self.colorHash.keys()
+    for basecolor in basecolors:
+      self.basecolorHash[basecolor] = []
+      basefirstletter = basecolor[0]
+      basecolorKeyHash[basefirstletter] = basecolor
+
+      for color in colorHashKeys:
+        if re.search(basecolor, color, re.IGNORECASE):
+	  self.basecolorHash[basecolor].append(color)
+
+      print(self.basecolorHash)
 
   ##################### constructor #####################
 
   def __init__(self):
     self.loadColorJson()
+    self.extendColorHash()
 
 ### end ###
