@@ -58,7 +58,19 @@ class enLedColorLib:
     colorseqLen = len(colorseq)
     result = []
     for seqidx in range(colorseqLen):
-      basecolorKey = colorseq[seqidx]
+      try:
+        basecolorKey = colorseq[seqidx]
+        basecolor    = self.basecolorKeyHash[basecolorKey]
+        basecoloridx = self.basecolorIdx[basecolor]
+        color        = self.basecolorHash[basecolor][basecoloridx]
+        result.append(color)
+      except:
+        print("redYaKb ingestCommandYaml: problem opening file " + sourceYamlFn) 
+        e = sys.exc_info()   #e = sys.exc_info()[0]
+        print('error: '+str(e))
+        return False
+
+    return result
 
   ##################### constructor #####################
 
