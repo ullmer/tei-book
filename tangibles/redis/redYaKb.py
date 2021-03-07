@@ -12,6 +12,11 @@ class redYaKb:
 
   yamlCommandDescr = None
 
+  ##################### constructor ##################### 
+
+  def __init__(self, commandsYamlFn):
+    self.ingestCommandYamlFn(commandsYamlFn)
+
   ##################### read + process file containing yaml command bindings #####################
 
   def ingestCommandYamlFn(self, sourceYamlFn): 
@@ -22,6 +27,9 @@ class redYaKb:
       return False
 
     self.yamlCommandDescr = yaml.safe_load(yf)
+
+    numCommands = len(self.yamlCommandDescr)
+    print("redYaKb ingestCommandYamlFn processing " + numCommands + " from file " + sourceYamlFn)
     
     return result
 

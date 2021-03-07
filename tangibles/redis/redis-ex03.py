@@ -5,7 +5,9 @@
 import sys
 import redYaKb # support library
 
-ryk = redYaKb.redYaKb()
+cyfn = 'tei21-commands.yaml' #commands yaml filename
+
+ryk = redYaKb.redYaKb(cyfn)
 
 print('Entering blocking keyboard loop')
 
