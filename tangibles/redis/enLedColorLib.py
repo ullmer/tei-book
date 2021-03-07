@@ -14,7 +14,7 @@ class enLedColorLib:
   colorHash   = {}
   basecolorsY  = '[blue,cyan,green,orange,purple,red]' #will extract first letter 
 
-############### load color json ###############
+  ############### load color json ###############
 
   def loadColorJson(self):
     jf = open(self.colorJsonFn, 'r+t')
@@ -23,5 +23,10 @@ class enLedColorLib:
       name = color['name']
       hex = color['hex']
       self.colorHash[name] = hex
+
+  ##################### constructor #####################
+
+  def __init__(self):
+    self.loadColorJson()
 
 ### end ###
