@@ -94,6 +94,19 @@ class redYaKb:
     if ch == None:
       ch = self.readCh()
 
-    print(">>> " + ch)
+      if ch in self.commandHash:
+        commandDescr = self.commandHash[ch]
+    if 'command' in commandDescr:
+      commandText = commandDescr['command']
+      print(commandText)
+      cmd = self.getCmd(commandText)
+      try:
+        cmd()
+        return(True)
+      except:
+        print("redYaKab getCmd: problem with getattr " + commandTxt) 
+        e = sys.exc_info()   #e = sys.exc_info()[0]
+        print('error: '+str(e))
+        return False
 
 #### end ###
