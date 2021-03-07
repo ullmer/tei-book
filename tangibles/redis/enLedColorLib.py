@@ -16,6 +16,7 @@ class enLedColorLib:
   basecolors    = None
   basecolorHash    = {}
   basecolorKeyHash = {}
+  verbose       = True
 
   ############### load color json ###############
 
@@ -41,7 +42,8 @@ class enLedColorLib:
         if re.search(basecolor, color, re.IGNORECASE):
           self.basecolorHash[basecolor].append(color)
 
-      print(basecolor, self.basecolorHash[basecolor])
+      if self.verbose:
+        print(basecolor, self.basecolorHash[basecolor])
 
   ##################### constructor #####################
 
