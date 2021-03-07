@@ -8,6 +8,10 @@ import redYaKb
 
 class rykTei21Base(redYaKb):
 
+  def __init__(self, commandsYamlFn):
+    self.ingestCommandYamlFn(commandsYamlFn)
+    self.listCommands()
+
   def pushLED(self):
     self.selfDoc('pushLED')
 
