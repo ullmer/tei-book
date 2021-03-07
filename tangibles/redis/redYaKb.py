@@ -41,11 +41,28 @@ class redYaKb:
       if 'key' in commandDescr:
         key = commandDescr['key']
         self.commandHash[key] = commandDescr
+        self.checkProspectiveCmd(commandDescr)
       else:
         print("redYaKab ingestCommandYaml: problem parsing command entry: " + commandDescr)
 
     #return result
     return True
+
+  ##################### list commands ##################### 
+
+  def checkProspectiveCmd(self, commandDescr):
+    if 'command' in commandDescr:
+      commandTxt = commandDescr['command']
+      try:
+        attr = self.getattr(commandTxt)
+      except:
+        print("redYaKab checkProspectiveCmd: problem with getattr " + commandTxt) 
+        e = sys.exc_info()   #e = sys.exc_info()[0]
+        print('error: '+str(e))
+        return False
+    else:
+      print("redYaKab checkProspectiveCmd: 'command' not found in commandDescr: " + commandDescr)
+      return False
 
   ##################### list commands ##################### 
 
