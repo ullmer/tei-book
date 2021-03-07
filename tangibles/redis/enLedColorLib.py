@@ -63,7 +63,8 @@ class enLedColorLib:
         basecolor    = self.basecolorKeyHash[basecolorKey]
         basecoloridx = self.basecolorIdx[basecolor]
         color        = self.basecolorHash[basecolor][basecoloridx]
-        result.append(color)
+        colorhex     = self.colorHash[color]
+        result.append(colorhex)
       except:
         print("redYaKb ingestCommandYaml: problem opening file " + sourceYamlFn) 
         e = sys.exc_info()   #e = sys.exc_info()[0]
@@ -81,7 +82,7 @@ class enLedColorLib:
 def main():
   elcl = enLedColorLib()
   print(elcl.basecolorKeyHash.keys())
-  print(elcl.getBasecolorSeq('poopoo'))
+  print(elcl.getBasecolorSeq('oopoop'))
 
 if __name__ == "__main__":
   main()
