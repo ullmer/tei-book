@@ -2,10 +2,6 @@
 # Brygg Ullmer (Clemson U.) and xxx
 # Begun 2021-03-05
 
-import redis 
-import yaml
-import getch
-import sys
 import redYaKb
 
 ##################### redis yaml keyboard class #####################
