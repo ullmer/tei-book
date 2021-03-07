@@ -2,15 +2,11 @@
 # Brygg Ullmer (Clemson U.) and xxx
 # Begun 2021-03-05
 
-import redYaKb
+from redYaKb import *
 
 ##################### redis yaml keyboard class #####################
 
 class rykTei21Base(redYaKb):
-
-  def __init__(self, commandsYamlFn):
-    self.ingestCommandYamlFn(commandsYamlFn)
-    self.listCommands()
 
   def pushLED(self):
     self.selfDoc('pushLED')
