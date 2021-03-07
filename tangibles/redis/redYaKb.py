@@ -10,13 +10,13 @@ import getch
 
 class redYaKb:
 
-##################### read character w/o newline #####################
+  ##################### read character w/o newline #####################
 
-  def readCh(self): (blocking)
+  def readCh(self): # (blocking)
     result = getch.getch()
     return result
 
-##################### process character #####################
+  ##################### process character #####################
 
   def procCh(self, ch=None): #if none, will use readCh (blocking)
     if ch == None:
