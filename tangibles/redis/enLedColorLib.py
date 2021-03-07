@@ -81,6 +81,7 @@ class enLedColorLib:
 def main():
   elcl = enLedColorLib()
   print(elcl.basecolorKeyHash.keys())
+  print(elcl.getBasecolorSeq('poopoo'))
 
 if __name__ == "__main__":
   main()
