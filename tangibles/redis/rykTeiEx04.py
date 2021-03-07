@@ -11,20 +11,18 @@ class rykTeiEx04(redYaKb):
 
   ##################### turn all LEDs red #####################
   def allRed(self):    
-    self.selfDoc('pushLED')
+    self.selfDoc('allRed')
     print('Millon, can you integrate the right calls here, please?')
 
   ##################### turn all LEDs red #####################
   def allGreen(self):  
-    self.selfDoc('pushLED')
+    self.selfDoc('allGreen')
+    print('Millon, can you integrate the right calls here, please?')
 
   ##################### turn all LEDs red #####################
   def allBlue(self):   
-    self.selfDoc('pushLED')
-
-  ##################### turn all LEDs red #####################
-  def help(self):      
-    self.selfDoc('pushLED')
+    self.selfDoc('allBlue')
+    print('Millon, can you integrate the right calls here, please?')
 
   ##################### turn all LEDs red #####################
   def wait1(self):     
