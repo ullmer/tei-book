@@ -17,6 +17,7 @@ class enLedColorLib:
   basecolorHash    = {}
   basecolorKeyHash = {}
   verbose       = True
+  basecolorIdx  = {}
 
   ############### load color json ###############
 
@@ -37,6 +38,7 @@ class enLedColorLib:
       self.basecolorHash[basecolor] = []
       basefirstletter = basecolor[0]
       self.basecolorKeyHash[basefirstletter] = basecolor
+      self.basecolorIdx[basecolor] = 0 # default to first basecolor match in colors.json
 
       for color in colorHashKeys:
         if re.search(basecolor, color, re.IGNORECASE):
