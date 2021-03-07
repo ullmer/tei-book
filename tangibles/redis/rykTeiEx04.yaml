@@ -1,0 +1,13 @@
+#### Example YAML-specified keyboard to command bindings associated with TEI21++ class++
+# By Brygg Ullmer, Clemson University and TBD
+# Begun 2021-03-07
+
+- {key: r, command: allRed,    descr: "turn all LEDs red"}
+- {key: g, command: allGreen,  descr: "turn all LEDs green"}
+- {key: b, command: allBlue,   descr: "turn all LEDs blue"}
+- {key: h, command: help,      descr: "list available keybindings and commands"}
+- {key: 1, command: wait1,     descr: "wait 1 second"}
+- {key: 2, command: wait2,     descr: "wait 2 seconds"}
+- {key: 3, command: wait3,     descr: "wait 3 seconds"}
+
+### end ###
