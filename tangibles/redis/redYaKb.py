@@ -23,7 +23,10 @@ class redYaKb:
   ##################### help ##################### 
 
   def help(self):
-    print("redYaKb help stub")
+    print("help:: available commands:")
+    keys = self.commandHash.keys()
+    for key in keys:
+      print(key, self.commandHash[key])
 
   ##################### help ##################### 
 
