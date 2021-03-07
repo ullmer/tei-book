@@ -25,6 +25,11 @@ class redYaKb:
   def help(self):
     print("redYaKb help stub")
 
+  ##################### help ##################### 
+
+  def selfDoc(self, selfCmd):
+    print("self documentation called for command " + selfCmd)
+
   ##################### read + process file containing yaml command bindings #####################
 
   def ingestCommandYamlFn(self, sourceYamlFn): 

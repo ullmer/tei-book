@@ -12,31 +12,31 @@ import redYaKb
 
 class rykTei21Base(redYaKb):
 
-  def pushLED:
-    selfDoc('pushLED')
+  def pushLED(self):
+    self.selfDoc('pushLED')
 
-  def pullNFCs:
-    selfDoc('pullNFCs')
+  def pullNFCs(self):
+    self.selfDoc('pullNFCs')
 
-  def describeHW:
-    selfDoc('describeHW')
+  def describeHW(self):
+    self.selfDoc('describeHW')
 
-  def specPhysical:
-    selfDoc('specPhysical')
+  def specPhysical(self):
+    self.selfDoc('specPhysical')
 
-  def specVirtual:
-    selfDoc('specVirtual')
+  def specVirtual(self):
+    self.selfDoc('specVirtual')
 
-  def specTextual:
-    selfDoc('specTextual')
+  def specTextual(self):
+    self.selfDoc('specTextual')
 
-  def wait1:
-    selfDoc('wait1')
+  def wait1(self):
+    self.selfDoc('wait1')
 
-  def wait2:
-    selfDoc('wait2')
+  def wait2(self):
+    self.selfDoc('wait2')
 
-  def wait3:
-    selfDoc('wait3')
+  def wait3(self):
+    self.selfDoc('wait3')
 
 ### end ###

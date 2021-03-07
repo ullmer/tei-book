@@ -3,11 +3,11 @@
 # Begun 2021-03-01
 
 import sys
-import redYaKb # support library
+import rykTei21Base
 
 cyfn = 'tei21-commands.yaml' #commands yaml filename
 
-ryk = redYaKb.redYaKb(cyfn)
+ryk = rykTei21Base.redYaKb(cyfn)
 
 print('Entering blocking keyboard loop')
 
