@@ -2,7 +2,7 @@
 # By TBD1, TBD2, and Brygg Ullmer, Clemson University
 # Begun 2021-03-07
 
-import json
+import json, yaml
 import sys
 #import dotstar
 
@@ -12,6 +12,7 @@ class enLedColorLib:
 
   colorJsonFn = 'colors1.json'
   colorHash   = {}
+  basecolorsY  = '[blue,cyan,green,orange,purple,red]' #will extract first letter 
 
 ############### load color json ###############
 
