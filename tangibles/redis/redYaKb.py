@@ -99,9 +99,9 @@ class redYaKb:
     if 'command' in commandDescr:
       commandText = commandDescr['command']
       print(commandText)
-      cmd = self.getCmd(commandText)
+      cmd = self.getCmd(commandDescr)
       try:
-        cmd
+        cmd()
         return(True)
       except:
         print("redYaKab getCmd: problem with getattr " + commandTxt) 
