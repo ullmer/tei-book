@@ -14,7 +14,7 @@ class enLedColorLib:
   colorHash     = {}
   basecolorsY   = '[blue,cyan,green,orange,purple,red,yellow]' #will extract first letter 
   basecolors    = None
-  basecolorHash    = {}
+  basecolorHash    = None
   basecolorKeyHash = {}
   verbose       = False
   basecolorIdx  = {}
@@ -32,6 +32,7 @@ class enLedColorLib:
   ############### extend color hash ###############
 
   def extendColorHash(self): 
+    self.basecolorHash = {}
     basecolors = yaml.load(self.basecolorsY)
     colorHashKeys = self.colorHash.keys()
     for basecolor in basecolors:
@@ -46,6 +47,13 @@ class enLedColorLib:
 
       if self.verbose:
         print(basecolor, self.basecolorHash[basecolor])
+  
+  ############### get basecolor sequence ###############
+
+  def getBasecolorSeq(self, colorseq):  #colorseq example: oopoop for (orange-orange-purple)x2
+    if self.basecolorHash == None:
+      print("enLedColorLib getBasecolorSeq error: basecolorHash is none!")
+      return(False)
 
   ##################### constructor #####################
 
