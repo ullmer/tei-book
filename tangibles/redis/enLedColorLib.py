@@ -35,11 +35,11 @@ class enLedColorLib:
     for basecolor in basecolors:
       self.basecolorHash[basecolor] = []
       basefirstletter = basecolor[0]
-      basecolorKeyHash[basefirstletter] = basecolor
+      self.basecolorKeyHash[basefirstletter] = basecolor
 
       for color in colorHashKeys:
         if re.search(basecolor, color, re.IGNORECASE):
-	  self.basecolorHash[basecolor].append(color)
+          self.basecolorHash[basecolor].append(color)
 
       print(self.basecolorHash)
 
