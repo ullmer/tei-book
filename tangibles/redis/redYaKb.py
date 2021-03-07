@@ -12,11 +12,13 @@ import sys
 class redYaKb:
 
   yamlCommandDescr = None
+  commandHash      = None
 
   ##################### constructor ##################### 
 
   def __init__(self, commandsYamlFn):
     self.ingestCommandYamlFn(commandsYamlFn)
+    self.listCommands()
 
   ##################### read + process file containing yaml command bindings #####################
 
@@ -24,7 +26,7 @@ class redYaKb:
     try:
       yf = open(sourceYamlFn, 'r+t')
     except:
-      print("redYaKab: problem opening file " + sourceYamlFn) 
+      print("redYaKab ingestCommandYaml: problem opening file " + sourceYamlFn) 
       e = sys.exc_info()   #e = sys.exc_info()[0]
       print('error: '+str(e))
       return False
@@ -33,9 +35,24 @@ class redYaKb:
 
     numCommands = len(self.yamlCommandDescr)
     print("redYaKb ingestCommandYamlFn processing " + str(numCommands) + " commands from file " + sourceYamlFn)
-    
+
+    self.commandHash = {}
+    for commandDescr in self.yamlCommandDescr:
+      if 'key' in commandDescr:
+        key = commandDescr['key']
+        self.commandHash[key] = commandDescr
+      else:
+        print("redYaKab ingestCommandYaml: problem parsing command entry: " + commandDescr)
+
     #return result
     return True
+
+  ##################### list commands ##################### 
+
+  def listCommands(self): 
+    if self.commandHash == None:
+      print("redYaKab listCommands: commandHash is null (ingestCommandYamlFn likely not called)")
+      return False
 
   ##################### read character w/o newline #####################
 
