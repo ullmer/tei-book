@@ -1,3 +1,5 @@
+# show all Clemson TEI21 students highlighting an interest in UN SDG #5
+
 sqlite> select stud.name from enTeiStudent as stud, enStudentFacetRelation as studrel where studrel.studentId = stud.id and facetId = 100 and facetVal = 5;
 Ullmer, Brygg
 Bhosekar, Mitali S.
@@ -15,6 +17,7 @@ Enishetty, Manish
 Michael, Ishitha
 LU, YUN
 
+# show how many Clemson TEI21 students highlighted an interest in each UN SDG (facetID 100)
 sqlite> select studrel.facetVal, count(stud.name) from enTeiStudent as stud, enStudentFacetRelation as studrel where studrel.studentId = stud.id and facetId = 100 group by facetVal;
 1|8
 2|7
