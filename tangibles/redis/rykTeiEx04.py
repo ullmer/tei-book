@@ -1,38 +1,45 @@
-###### Simple support code for TEI interaction supported by redis ###### 
-# Brygg Ullmer (Clemson U.) and xxx
-# Begun 2021-03-05
+###### Simple support code for TEI interaction ###### 
+# By Millon McClelland, Brygg Ullmer, and TBD, Clemson University
+# Begun 2021-03-07
 
 from redYaKb import *
+import sys
 
-##################### redis yaml keyboard class #####################
+##################### support callback functions #####################
 
-class rykTei21Base(redYaKb):
+class rykTeiEx04(redYaKb):
 
-  def pushLED(self):
+  ##################### turn all LEDs red #####################
+  def allRed(self):    
+    self.selfDoc('pushLED')
+    print('Millon, can you integrate the right calls here, please?')
+
+  ##################### turn all LEDs red #####################
+  def allGreen(self):  
     self.selfDoc('pushLED')
 
-  def pullNFCs(self):
-    self.selfDoc('pullNFCs')
+  ##################### turn all LEDs red #####################
+  def allBlue(self):   
+    self.selfDoc('pushLED')
 
-  def describeHW(self):
-    self.selfDoc('describeHW')
+  ##################### turn all LEDs red #####################
+  def help(self):      
+    self.selfDoc('pushLED')
 
-  def specPhysical(self):
-    self.selfDoc('specPhysical')
-
-  def specVirtual(self):
-    self.selfDoc('specVirtual')
-
-  def specTextual(self):
-    self.selfDoc('specTextual')
-
-  def wait1(self):
+  ##################### turn all LEDs red #####################
+  def wait1(self):     
     self.selfDoc('wait1')
+    sys.sleep(1)
 
-  def wait2(self):
-    self.selfDoc('wait2')
+  ##################### turn all LEDs red #####################
+  def wait2(self):     
+    self.selfDoc('wait1')
+    sys.sleep(2)
 
-  def wait3(self):
-    self.selfDoc('wait3')
+  ##################### turn all LEDs red #####################
+  def wait3(self):     
+    self.selfDoc('wait1')
+    sys.sleep(3)
+
 
 ### end ###
