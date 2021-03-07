@@ -10,9 +10,11 @@ import sys
 
 class enLedColorLib:
 
-  colorJsonFn = 'colors1.json'
-  colorHash   = {}
-  basecolorsY  = '[blue,cyan,green,orange,purple,red]' #will extract first letter 
+  colorJsonFn   = 'colors1.json'
+  colorHash     = {}
+  basecolorsY   = '[blue,cyan,green,orange,purple,red,yellow]' #will extract first letter 
+  basecolors    = None
+  basecolorHash = {}
 
   ############### load color json ###############
 
@@ -23,6 +25,11 @@ class enLedColorLib:
       name = color['name']
       hex = color['hex']
       self.colorHash[name] = hex
+
+  ############### extend color hash ###############
+
+  def extendColorHash(self): 
+    basecolors = yaml.load(self.basecolorsY)
 
   ##################### constructor #####################
 
