@@ -6,9 +6,22 @@ import redis
 import yaml
 import getch
 
-class redYaKb: #redis yaml keyboard 
-  def readCh(self):
-  def procCh(self, ch):
+##################### redis yaml keyboard class #####################
 
+class redYaKb:
+
+##################### read character w/o newline #####################
+
+  def readCh(self): (blocking)
+    result = getch.getch()
+    return result
+
+##################### process character #####################
+
+  def procCh(self, ch=None): #if none, will use readCh (blocking)
+    if ch == None:
+      ch = self.readCh()
+
+    print(">>> " + ch)
 
 #### end ###
