@@ -10,6 +10,21 @@ import getch
 
 class redYaKb:
 
+  yamlCommandDescr = None
+
+  ##################### read + process file containing yaml command bindings #####################
+
+  def ingestCommandYamlFn(self, sourceYamlFn): 
+    try:
+      yf = open(sourceYamlFnb, sourceYamlFn)
+    except:
+      print("redYaKab: problem opening file " + sourceYamlFn) #add more descriptives later
+      return False
+
+    self.yamlCommandDescr = yaml.safe_load(yf)
+    
+    return result
+
   ##################### read character w/o newline #####################
 
   def readCh(self): # (blocking)
