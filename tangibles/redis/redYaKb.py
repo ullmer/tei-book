@@ -5,6 +5,7 @@
 import redis 
 import yaml
 import getch
+import sys
 
 ##################### redis yaml keyboard class #####################
 
@@ -21,9 +22,11 @@ class redYaKb:
 
   def ingestCommandYamlFn(self, sourceYamlFn): 
     try:
-      yf = open(sourceYamlFnb, sourceYamlFn)
+      yf = open(sourceYamlFn, 'r+t')
     except:
-      print("redYaKab: problem opening file " + sourceYamlFn) #add more descriptives later
+      print("redYaKab: problem opening file " + sourceYamlFn) 
+      e = sys.exc_info()   #e = sys.exc_info()[0]
+      print('error: '+str(e))
       return False
 
     self.yamlCommandDescr = yaml.safe_load(yf)
