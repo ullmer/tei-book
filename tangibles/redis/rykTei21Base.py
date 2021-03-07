@@ -13,14 +13,30 @@ import redYaKb
 class rykTei21Base(redYaKb):
 
   def pushLED:
+    selfDoc('pushLED')
+
   def pullNFCs:
+    selfDoc('pullNFCs')
+
   def describeHW:
-  def help:
+    selfDoc('describeHW')
+
   def specPhysical:
+    selfDoc('specPhysical')
+
   def specVirtual:
+    selfDoc('specVirtual')
+
   def specTextual:
+    selfDoc('specTextual')
+
   def wait1:
+    selfDoc('wait1')
+
   def wait2:
+    selfDoc('wait2')
+
   def wait3:
+    selfDoc('wait3')
 
 ### end ###
