@@ -41,7 +41,7 @@ class enLedColorLib:
         if re.search(basecolor, color, re.IGNORECASE):
           self.basecolorHash[basecolor].append(color)
 
-      print(self.basecolorHash)
+    print(self.basecolorHash)
 
   ##################### constructor #####################
 
