@@ -16,7 +16,7 @@ class enLedColorLib:
   basecolors    = None
   basecolorHash    = {}
   basecolorKeyHash = {}
-  verbose       = True
+  verbose       = False
   basecolorIdx  = {}
 
   ############### load color json ###############
@@ -55,6 +55,7 @@ class enLedColorLib:
 
 def main():
   elcl = enLedColorLib()
+  print(elcl.basecolorKeyHash.keys())
 
 if __name__ == "__main__":
   main()
