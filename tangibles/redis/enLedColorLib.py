@@ -49,4 +49,10 @@ class enLedColorLib:
     self.loadColorJson()
     self.extendColorHash()
 
+def main():
+  elcl = enLedColorLib()
+
+if __name__ == "__main__":
+  main()
+
 ### end ###
