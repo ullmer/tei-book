@@ -86,7 +86,15 @@ class enLedColorLib:
     chsLen = len(colorHexSeq)
     ihsLen = len(intensityHexSeq)
 
-    #if chsLen != ihsLen:
+    if chsLen != ihsLen:
+      print("enLedColorLib mapSeqIntensity: colorHexSeq and intensityHexSeq args must be of equal length"); return False
+
+    scaledColors = []
+    for i in range(chsLen):
+      scaledColor = self.mapColorIntensity(colorHexSeq[i], intensityHexSeq[i])
+      scaledColors.append(scaledColor)
+      
+    return scaledColors
 
   ##################### constructor #####################
 
