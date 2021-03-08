@@ -1,8 +1,18 @@
 ###### Simple support code for TEI interaction ###### 
-# By Millon McClelland, Brygg Ullmer, and TBD, Clemson University
+# By Brygg Ullmer, Millon McClelland, and TBD, Clemson University
 # Begun 2021-03-07
 
-from redYaKb import *
+#Two provided support libraries are engaged.  
+
+#redYaKb integrates Redis, Yaml, and getch (keyboard) functionalities
+#  While the redis functionality isn't engaged by the following, it is 
+#  likely to become important toward a number of behaviors
+
+#enLedColorLib (where Enodia is the name for an NSF MRI grant providing
+#  relevant financial support) hopefully simplifies certain interactions
+#  with strips of LEDs
+
+from redYaKb import * 
 from enLedColorLib import *
 import sys
 
@@ -10,10 +20,32 @@ import sys
 ################## support callback functions ################
 
 class rykEx05(redYaKb):
+  numLeds  = 13 #6  # This number should be set per whatever strip(s) are used
+  colorlib = None
+
+  ##################### constructor #####################
+
+  def __init__(self):
+    self.colorlib = enLedColorLib()
+  
+  ##################### simple color functions #####################
+
+  def genColorSeq(self, colorKey, intensity=10):
+
+    #here, "colorKey" is a single letter like o(range), p(urple), etc.; and
+    #intensity is an integer, where 10 = "full intensity"; 1="10% intensity"; etc.
+    # values above 15 are currently wrapped back to 15
+
+    colorkeyseq  = colorKey * self.numLeds #generate a sequence of numLeds characters
+    intensityseq = 'A' * self.numLeds  #default to nominal 100% intensity
+
+    colorseq       = self.colorlib.getBasecolorseq(colorkeyseq)
+    scaledColorseq = self.colorlib.mapSeqIntensity(colorseq, intensityseq)
+    return scaledColorseq
 
   ##################### simple color functions #####################
   def allRed(self):    
-    self.selfDoc('allRed')
+    self.selfDoc('allRed called')
     print('Millon, can you integrate the right calls here, please?')
 
   def allGreen(self):  
@@ -42,11 +74,11 @@ class rykEx05(redYaKb):
 
 def main():
   elcl = enLedColorLib()
-  print(elcl.basecolorKeyHash.keys())
+  #print(elcl.basecolorKeyHash.keys())
   colorseq = elcl.getBasecolorSeq('oopoop')
-  print(colorseq)
+  #print(colorseq)
   scaledColor = elcl.mapSeqIntensity(colorseq, 'A9BAAA')
-  print(colorseq[0], scaledColor)
+  #print(colorseq[0], scaledColor)
 
   cyfn = 'ex05.yaml' #commands yaml filename
   ryk = rykEx05(cyfn)
