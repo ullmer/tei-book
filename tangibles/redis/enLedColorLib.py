@@ -130,7 +130,7 @@ def main():
   print(elcl.basecolorKeyHash.keys())
   colorseq = elcl.getBasecolorSeq('oopoop')
   print(colorseq)
-  scaledColor = elcl.mapSeqIntensity(colorseq, 'A9B')
+  scaledColor = elcl.mapSeqIntensity(colorseq, 'A9BAAA')
   print(colorseq[0], scaledColor)
 
 if __name__ == "__main__":
