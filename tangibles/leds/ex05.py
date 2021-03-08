@@ -9,7 +9,7 @@ import sys
 ############################################################## 
 ################## support callback functions ################
 
-class rykTeiEx04(redYaKb):
+class rykEx05(redYaKb):
 
   ##################### turn all LEDs red #####################
   def allRed(self):    
@@ -51,6 +51,14 @@ def main():
   print(colorseq)
   scaledColor = elcl.mapSeqIntensity(colorseq, 'A9BAAA')
   print(colorseq[0], scaledColor)
+
+  cyfn = 'ex05.yaml' #commands yaml filename
+  ryk = rykEx05(cyfn)
+
+  print('Entering blocking keyboard loop.  Press "h" for help=list of commands.')
+
+  while True:
+    ryk.procCh()
 
 if __name__ == "__main__":
   main()
