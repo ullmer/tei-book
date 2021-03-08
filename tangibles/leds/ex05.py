@@ -11,32 +11,28 @@ import sys
 
 class rykEx05(redYaKb):
 
-  ##################### turn all LEDs red #####################
+  ##################### simple color functions #####################
   def allRed(self):    
     self.selfDoc('allRed')
     print('Millon, can you integrate the right calls here, please?')
 
-  ##################### turn all LEDs red #####################
   def allGreen(self):  
     self.selfDoc('allGreen')
     print('Millon, can you integrate the right calls here, please?')
 
-  ##################### turn all LEDs red #####################
   def allBlue(self):   
     self.selfDoc('allBlue')
     print('Millon, can you integrate the right calls here, please?')
 
-  ##################### turn all LEDs red #####################
+  ##################### wait functions #####################
   def wait1(self):     
     self.selfDoc('wait1')
     sys.sleep(1)
 
-  ##################### turn all LEDs red #####################
   def wait2(self):     
     self.selfDoc('wait1')
     sys.sleep(2)
 
-  ##################### turn all LEDs red #####################
   def wait3(self):     
     self.selfDoc('wait1')
     sys.sleep(3)
