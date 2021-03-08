@@ -135,7 +135,10 @@ class enLedColorLib:
 def main():
   elcl = enLedColorLib()
   print(elcl.basecolorKeyHash.keys())
-  print(elcl.getBasecolorSeq('oopoop'))
+  colorseq = elcl.getBasecolorSeq('oopoop')
+  print(colorseq)
+  scaledColor = elcl.mapSeqIntensity(colorseq[0], 'A')
+  print(colorseq[0], scaledColor)
 
 if __name__ == "__main__":
   main()
