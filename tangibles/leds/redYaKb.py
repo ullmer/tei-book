@@ -4,8 +4,17 @@
 
 import redis 
 import yaml
-import getch
 import sys
+
+try:
+  import getch
+  global getchLib; getchLib = 'normal'
+except ImportError: #for Microsoft Windows; sigh...
+  import msvcrt
+  global getchLib; getchLib = 'windows'
+
+# python  -m pip install redis pyyaml
+# python3 -m pip install redis pyyaml getch
 
 ##################### redis yaml keyboard class #####################
 
@@ -88,7 +97,12 @@ class redYaKb:
   ##################### read character w/o newline #####################
 
   def readCh(self): # (blocking)
-    result = getch.getch()
+    global getchLib
+    if getchLib == 'normal':
+      result = getch.getch()
+
+    if getchLib == 'windows':
+      result = msvcrt.getch()
     return result
 
   ##################### process character #####################
