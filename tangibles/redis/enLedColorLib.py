@@ -77,6 +77,17 @@ class enLedColorLib:
 
   def mapSeqIntensity(self, colorHexSeq, intensityHexSeq):  #colorseq example: oopoop for (orange-orange-purple)x2
 
+    if not isinstance(colorHexSeq,str):
+      print("enLedColorLib mapSeqIntensity: argument colorHexSeq must be a string"); return False
+
+    if not isinstance(intensityHexSeq,str):
+      print("enLedColorLib mapSeqIntensity: argument intensityHexSeq must be a string"); return False
+
+    chsLen = len(colorHexSeq)
+    ihsLen = len(intensityHexSeq)
+
+    #if chsLen != ihsLen:
+
   ##################### constructor #####################
 
   def __init__(self):
