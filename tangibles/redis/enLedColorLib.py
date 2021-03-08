@@ -107,20 +107,13 @@ class enLedColorLib:
 
   def mapSeqIntensity(self, colorHexSeq, intensityHexSeq):  #colorseq example: oopoop for (orange-orange-purple)x2
 
-    if not isinstance(colorHexSeq,str):
-      print("enLedColorLib mapSeqIntensity: argument colorHexSeq must be a string"); return False
-
     if not isinstance(intensityHexSeq,str):
       print("enLedColorLib mapSeqIntensity: argument intensityHexSeq must be a string"); return False
 
-    chsLen = len(colorHexSeq)
     ihsLen = len(intensityHexSeq)
 
-    if chsLen != ihsLen:
-      print("enLedColorLib mapSeqIntensity: colorHexSeq and intensityHexSeq args must be of equal length"); return False
-
     scaledColors = []
-    for i in range(chsLen):
+    for i in range(ihsLen):
       scaledColor = self.mapColorIntensity(colorHexSeq[i], intensityHexSeq[i])
       scaledColors.append(scaledColor)
       
@@ -137,7 +130,7 @@ def main():
   print(elcl.basecolorKeyHash.keys())
   colorseq = elcl.getBasecolorSeq('oopoop')
   print(colorseq)
-  scaledColor = elcl.mapSeqIntensity(colorseq[0], 'A')
+  scaledColor = elcl.mapSeqIntensity(colorseq, 'A9B')
   print(colorseq[0], scaledColor)
 
 if __name__ == "__main__":
