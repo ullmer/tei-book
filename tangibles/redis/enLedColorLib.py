@@ -97,10 +97,10 @@ class enLedColorLib:
 
     intensity = float(intensityInt)/10.
     result = tuple(int(float(colorTuple[i] * intensity)) for i in range(3))
-    print(colorHex)
-    print(colorTuple)
-    print(intensityInt)
-    print(result)
+    #print(colorHex)
+    #print(colorTuple)
+    #print(intensityInt)
+    #print(result)
     return result
 
   ############### get basecolor sequence ###############
