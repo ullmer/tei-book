@@ -73,6 +73,11 @@ class enLedColorLib:
 
     return result
   
+  ############### map color intensity###############
+
+  def mapColorIntensity(self, colorHex, intensityHex):  #colorseq example: oopoop for (orange-orange-purple)x2
+    pass
+
   ############### get basecolor sequence ###############
 
   def mapSeqIntensity(self, colorHexSeq, intensityHexSeq):  #colorseq example: oopoop for (orange-orange-purple)x2
