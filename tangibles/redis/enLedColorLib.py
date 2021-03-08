@@ -78,7 +78,7 @@ class enLedColorLib:
   def mapColorIntensity(self, colorHex, intensityHex):  #colorseq example: oopoop for (orange-orange-purple)x2
     #colorHex example: #C46210
     try:
-      colorTuple = tuple(int(colorHex[i:i+2], 16) for i in (0, 2, 4)) 
+      colorTuple = tuple(int(colorHex[i:i+2], 16) for i in (1, 3, 5)) 
       #https://stackoverflow.com/questions/29643352/converting-hex-to-rgb-value-in-python/29643643
     except:
       print("enLedColorLib mapColorIntensity problem converting color hexstring:")
