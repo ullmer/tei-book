@@ -25,7 +25,9 @@ class rykEx05(redYaKb):
 
   ##################### constructor #####################
 
-  def __init__(self):
+  def __init__(self, commandsYamlFn):
+    self.ingestCommandYamlFn(commandsYamlFn)
+    self.listCommands()
     self.colorlib = enLedColorLib()
   
   ##################### simple color functions #####################

@@ -6,12 +6,14 @@ import redis
 import yaml
 import sys
 
+global getchLib
 try:
   import getch
-  global getchLib; getchLib = 'normal'
+  getchLib = 'normal'
+
 except ImportError: #for Microsoft Windows; sigh...
   import msvcrt
-  global getchLib; getchLib = 'windows'
+  getchLib = 'windows'
 
 # python  -m pip install redis pyyaml
 # python3 -m pip install redis pyyaml getch
