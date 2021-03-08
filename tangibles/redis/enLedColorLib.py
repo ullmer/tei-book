@@ -76,7 +76,7 @@ class enLedColorLib:
   ############### map color intensity###############
 
   def mapColorIntensity(self, colorHex, intensityHex):  #colorseq example: oopoop for (orange-orange-purple)x2
-    #C46210
+    #colorHex example: #C46210
     try:
       colorTuple = tuple(int(colorHex[i:i+2], 16) for i in (0, 2, 4)) 
       #https://stackoverflow.com/questions/29643352/converting-hex-to-rgb-value-in-python/29643643
@@ -86,7 +86,22 @@ class enLedColorLib:
       print('error: '+str(e))
       return False
 
-    #if intensity
+    if not isinstance(intensityHex,str) or len(intensityHex) != 1:
+      print("enLedColorLib mapColorIntensity problem: intensityHex must be a single-character string"); return False
+
+    try:
+      intensityInt = int(intensityHex[0:1], 16)
+    except:
+      print("enLedColorLib mapColorIntensity problem converting intensityHex")
+      e = sys.exc_info(); print('error: '+str(e)); return False
+
+    intensity = float(intensityInt)/10.
+    result = tuple(int(float(colorTuple[i] * intensity)) for i in range(3))
+    print(colorHex)
+    print(colorTuple)
+    print(intensityInt)
+    print(result)
+    return result
 
   ############### get basecolor sequence ###############
 
