@@ -43,21 +43,44 @@ class rykEx05(redYaKb):
     scaledColorseq = self.colorlib.mapSeqIntensity(colorseq, intensityseq)
     return scaledColorseq
 
+  def ledAllOneColor(self, colorkey):
+    self.selfDoc('allRed called')
+    colorseq = self.genColorSeq(colorkey)
+    self.colorlib.lightLedStrip(colorseq)
+
+  def ledAllOff(self):
+    self.selfDoc('allRed called')
+    colorseq = []
+    for led in range(self.numLeds):
+      colorseq.append(tuple(0,0,0))
+
+    self.colorlib.lightLedStrip(colorseq)
+
   ##################### simple color functions #####################
 
   def allRed(self):    
     self.selfDoc('allRed called')
-    colorseq = self.genColorSeq('r')
-    self.colorlib.lightLedStrip(colorseq)
+    self.ledAllOneColor('r')
 
   def allGreen(self):  
     self.selfDoc('allGreen')
-    colorseq = self.genColorSeq('g')
-    self.colorlib.lightLedStrip(colorseq)
+    self.ledAllOneColor('g')
 
   def allBlue(self):   
     self.selfDoc('allBlue')
-    print('Millon, can you integrate the right calls here, please?')
+    self.ledAllOneColor('b')
+
+  def allOrange(self):   
+    self.selfDoc('allOrange')
+    self.ledAllOneColor('o')
+
+  def allPurple(self):   
+    self.selfDoc('allPurple')
+    self.ledAllOneColor('p')
+
+  def allBlack(self):   
+    self.selfDoc('allPurple')
+    self.ledAllOff()
 
   ##################### wait functions #####################
   def wait1(self):     
