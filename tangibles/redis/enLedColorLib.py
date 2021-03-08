@@ -66,7 +66,7 @@ class enLedColorLib:
         colorhex     = self.colorHash[color]
         result.append(colorhex)
       except:
-        print("redYaKb ingestCommandYaml: problem opening file " + sourceYamlFn) 
+        print("enLedColorLib getBasecolorSeq problem:")
         e = sys.exc_info()   #e = sys.exc_info()[0]
         print('error: '+str(e))
         return False
@@ -76,7 +76,17 @@ class enLedColorLib:
   ############### map color intensity###############
 
   def mapColorIntensity(self, colorHex, intensityHex):  #colorseq example: oopoop for (orange-orange-purple)x2
-    pass
+    #C46210
+    try:
+      colorTuple = tuple(int(colorHex[i:i+2], 16) for i in (0, 2, 4)) 
+      #https://stackoverflow.com/questions/29643352/converting-hex-to-rgb-value-in-python/29643643
+    except:
+      print("enLedColorLib mapColorIntensity problem converting color hexstring:")
+      e = sys.exc_info()   #e = sys.exc_info()[0]
+      print('error: '+str(e))
+      return False
+
+    #if intensity
 
   ############### get basecolor sequence ###############
 
