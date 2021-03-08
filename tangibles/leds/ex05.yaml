@@ -5,6 +5,9 @@
 - {key: r, command: allRed,    descr: "turn all LEDs red"}
 - {key: g, command: allGreen,  descr: "turn all LEDs green"}
 - {key: b, command: allBlue,   descr: "turn all LEDs blue"}
+- {key: o, command: allOrange, descr: "turn all LEDs orange"}
+- {key: p, command: allPurple, descr: "turn all LEDs purple"}
+- {key: k, command: allBlack,  descr: "turn all LEDs black/off"}
 - {key: h, command: help,      descr: "list available keybindings and commands"}
 - {key: 1, command: wait1,     descr: "wait 1 second"}
 - {key: 2, command: wait2,     descr: "wait 2 seconds"}

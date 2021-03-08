@@ -44,13 +44,16 @@ class rykEx05(redYaKb):
     return scaledColorseq
 
   ##################### simple color functions #####################
+
   def allRed(self):    
     self.selfDoc('allRed called')
-    print('Millon, can you integrate the right calls here, please?')
+    colorseq = self.genColorSeq('r')
+    self.colorlib.lightLedStrip(colorseq)
 
   def allGreen(self):  
     self.selfDoc('allGreen')
-    print('Millon, can you integrate the right calls here, please?')
+    colorseq = self.genColorSeq('g')
+    self.colorlib.lightLedStrip(colorseq)
 
   def allBlue(self):   
     self.selfDoc('allBlue')
