@@ -12,5 +12,7 @@
 - {key: 1, command: wait1,     descr: "wait 1 second"}
 - {key: 2, command: wait2,     descr: "wait 2 seconds"}
 - {key: 3, command: wait3,     descr: "wait 3 seconds"}
+- {key: L, command: leftIncr,  descr: "sensor left reading"}
+- {key: R, command: rightIncr, descr: "sensor right reading"}
 
 ### end ###
