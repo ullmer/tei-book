@@ -3,6 +3,7 @@
 # Begun 2021-03-19
 
 from PIL import Image, ImageDraw, ImageFont
+import sys
 
 basedir     = '/home/bullmer/book/2021-03-17b/'
 imageListFn = 'main12b.figs'
@@ -11,12 +12,17 @@ rawlines    = imageListF.readlines()
 
 for rawline in rawlines:
   cleanline = rawline.rstrip()
-  print('reading '+cleanline)
+  #print('reading '+cleanline)
   imgFn = basedir + cleanline
-  image = Image.open(imgFn)
-  size  = image.size()
-  print('size:',size)
-  image.close()
+  try:
+    image = Image.open(imgFn)
+    w,h= image.size
+    print(cleanline,w,h)
+    image.close()
+  except:
+    print("problem opening image" + cleanline)
+    e = sys.exc_info()   #e = sys.exc_info()[0]
+    print('error: '+str(e))
 
 ############################################################
 ### from: https://stackoverflow.com/questions/47123649/pil-draw-transparent-text-on-top-of-an-image
