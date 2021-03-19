@@ -10,7 +10,6 @@ global getchLib
 try:
   import getch
   getchLib = 'normal'
-
 except ImportError: #for Microsoft Windows; sigh...
   import msvcrt
   getchLib = 'windows'
@@ -115,17 +114,17 @@ class redYaKb:
 
       if ch in self.commandHash:
         commandDescr = self.commandHash[ch]
-    if 'command' in commandDescr:
-      commandText = commandDescr['command']
-      print(commandText)
-      cmd = self.getCmd(commandDescr)
-      try:
-        cmd()
-        return(True)
-      except:
-        print("redYaKb getCmd: problem with getattr " + commandTxt) 
-        e = sys.exc_info()   #e = sys.exc_info()[0]
-        print('error: '+str(e))
-        return False
+        if 'command' in commandDescr:
+          commandText = commandDescr['command']
+          print(commandText)
+          cmd = self.getCmd(commandDescr)
+          try:
+            cmd()
+            return(True)
+          except:
+            print("redYaKb getCmd: problem with getattr " + commandText) 
+            e = sys.exc_info()   #e = sys.exc_info()[0]
+            print('error: '+str(e))
+            return False
 
 #### end ###

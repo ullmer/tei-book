@@ -14,7 +14,7 @@
 
 from redYaKb import * 
 from enLedColorLib import *
-import sys
+import sys, time
 
 ############################################################## 
 ################## support callback functions ################
@@ -45,8 +45,9 @@ class rykEx05(redYaKb):
     scaledColorseq = self.colorlib.mapSeqIntensity(colorseq, intensityseq)
     return scaledColorseq
 
+  ### here i am ###
   def ledAllOneColor(self, colorkey):
-    self.selfDoc('allRed called')
+    self.selfDoc('allOneColor called')
     colorseq = self.genColorSeq(colorkey)
     self.colorlib.lightLedStrip(colorseq)
 
@@ -61,8 +62,12 @@ class rykEx05(redYaKb):
   ##################### simple color functions #####################
 
   def allRed(self):    
-    self.selfDoc('allRed called')
-    self.ledAllOneColor('r')
+    print("Stephen says hello to Andrew Yang")
+    for i in range(3):
+      print(i); time.sleep(1)
+   
+    #self.selfDoc('allRed called')
+    #self.ledAllOneColor('r')
 
   def allGreen(self):  
     self.selfDoc('allGreen')
@@ -97,14 +102,20 @@ class rykEx05(redYaKb):
     self.selfDoc('wait1')
     sys.sleep(3)
 
+  def leftIncr(self):     
+    self.selfDoc('rotary encoder turns left')
+
+  def rightIncr(self):     
+    self.selfDoc('rotary encoder turns right')
+
 ############################################################## 
 ################## support callback functions ################
 
 def main():
   elcl = enLedColorLib()
   #print(elcl.basecolorKeyHash.keys())
-  colorseq = elcl.getBasecolorSeq('oopoop')
-  #print(colorseq)
+  colorseq = elcl.getBasecolorSeq('poopoo')
+  print(colorseq)
   scaledColor = elcl.mapSeqIntensity(colorseq, 'A9BAAA')
   #print(colorseq[0], scaledColor)
 
