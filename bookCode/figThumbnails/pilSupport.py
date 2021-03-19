@@ -1,19 +1,22 @@
 from PIL import Image, ImageDraw, ImageFont
 
+############################################################
 ### from: https://stackoverflow.com/questions/47123649/pil-draw-transparent-text-on-top-of-an-image
 
-image = Image.open("spongebob.gif").convert("RGBA")
-txt = Image.new('RGBA', image.size, (255,255,255,0))
+def overlayText(sourceImg, targImg, text):
 
-font = ImageFont.truetype("impact.ttf", 25)
-d = ImageDraw.Draw(txt)    
+  image = Image.open("spongebob.gif").convert("RGBA")
+  txt = Image.new('RGBA', image.size, (255,255,255,0))
 
-d.text((0, 0), "This text should be 5% alpha", fill=(0, 0, 0, 15), font=font)
-combined = Image.alpha_composite(image, txt)    
+  font = ImageFont.truetype("impact.ttf", 25)
+  d = ImageDraw.Draw(txt)    
 
-combined.save("foo.gif")
+  d.text((0, 0), "This text should be 5% alpha", fill=(0, 0, 0, 15), font=font)
+  combined = Image.alpha_composite(image, txt)    
+  combined.save("foo.gif")
 
 
+############################################################
 ### from: https://gist.github.com/sigilioso/2957026
 
 def resize_and_crop(img_path, modified_path, size, crop_type='top'):
