@@ -11,6 +11,7 @@ imageListFn = 'main12b.figs'
 imageListF  = open(imageListFn, 'r+t')
 rawlines    = imageListF.readlines()
 outPrefix = 'thumbs/img' 
+targetRes = [250,250]
 
 idx = 0
 for rawline in rawlines:
@@ -18,13 +19,14 @@ for rawline in rawlines:
   print('reading '+cleanline)
   imgFn = basedir + cleanline
   outFn = outPrefix + str(idx).zfill(3) + '.png'
-  resize_and_crop(imgFn, outFn, [250,250], crop_type='middle')
+  #resize_and_crop(imgFn, outFn, [250,250], crop_type='middle')
+  idx += 1
   try:
     #image = Image.open(imgFn)
     #w,h= image.size
     #print(cleanline,w,h)
     #image.close()
-    resize_and_crop(imgFn, outFn, 250, crop_type='middle')
+    resize_and_crop(imgFn, outFn, targetRes, crop_type='middle')
   except:
     print("problem opening image" + cleanline)
     e = sys.exc_info()   #e = sys.exc_info()[0]
