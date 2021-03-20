@@ -39,7 +39,7 @@ def resize_and_crop(img_path, modified_path, size, crop_type='top'):
     img = Image.open(img_path)
     # Get current and desired ratio for the images
     img_ratio = img.size[0] / float(img.size[1])
-    ratio = size[0] / float(size[1])
+    ratio = float(size[0]) / float(size[1])
     #The image is scaled/cropped vertically or horizontally depending on the ratio
     if ratio > img_ratio:
         img = img.resize((size[0], int(round(size[0] * img.size[1] / img.size[0]))),
