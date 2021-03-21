@@ -2,7 +2,7 @@
 # Aggregation by Brygg Ullmer, Clemson University
 # Begun 2021-03-16
 
-from PIL        import Image, ImageDraw, ImageFont
+from PIL        import Image, ImageDraw, ImageFont, ImageOps
 import PyPDF4
 import io
 
@@ -109,18 +109,26 @@ def convPdf2Jpg(srcFn, targFn):
 
       if xobj[obj]['/Filter'] == '/FlateDecode':
         img = Image.frombytes(mode, size, data)
+        img2 = ImageOps.invert(img)
         #img.save(obj[1:] + ".png")
-        img.save(targFn)
+        print("inverting")
+        img2.save(targFn)
       elif xobj[obj]['/Filter'] == '/DCTDecode':
         #img = open(obj[1:] + ".jpg", "wb")
-        img = open(targFn, "wb")
-        img.write(data)
-        img.close()
+        img = Image.frombytes(mode, size, data)
+        img2 = ImageOps.invert(img)
+        img2.save(targFn)
+        #img = open(targFn, "wb")
+        #img.write(data)
+        #img.close()
       elif xobj[obj]['/Filter'] == '/JPXDecode':
         #img = open(obj[1:] + ".jp2", "wb")
-        img = open(targFn, "wb")
-        img.write(data)
-        img.close()
+        img = Image.frombytes(mode, size, data)
+        img2 = ImageOps.invert(img)
+        img2.save(targFn)
+        #img = open(targFn, "wb")
+        #img.write(data)
+        #img.close()
 
 ### end ###
 
