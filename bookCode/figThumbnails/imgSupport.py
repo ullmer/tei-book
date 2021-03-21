@@ -3,7 +3,7 @@
 # Begun 2021-03-16
 
 from PIL        import Image, ImageDraw, ImageFont
-import PyPDF2
+import PyPDF4
 import io
 
 ############################################################
@@ -89,7 +89,7 @@ def resize_and_crop(img_path, modified_path, size, crop_type='top'):
 #https://stackoverflow.com/questions/51048266/python-pil-cant-open-pdfs-for-some-reason
 
 def convPdf2Jpg(srcFn):
-  srcPDF  = PyPDF2.PdfFileReader(open(srcFn, "rb"), strict=False)
+  srcPDF  = PyPDF4.PdfFileReader(open(srcFn, "rb"), strict=False)
   page    = srcPDF.getPage(0)
   xobj    = page['/Resources']['/XObject'].getObject()
 
@@ -106,11 +106,11 @@ def convPdf2Jpg(srcFn):
       if xobj[obj]['/Filter'] == '/FlateDecode':
         img = Image.frombytes(mode, size, data)
         img.save(obj[1:] + ".png")
-      elif xObject[obj]['/Filter'] == '/DCTDecode':
+      elif xobj[obj]['/Filter'] == '/DCTDecode':
         img = open(obj[1:] + ".jpg", "wb")
         img.write(data)
         img.close()
-      elif xObject[obj]['/Filter'] == '/JPXDecode':
+      elif xobj[obj]['/Filter'] == '/JPXDecode':
         img = open(obj[1:] + ".jp2", "wb")
         img.write(data)
         img.close()
