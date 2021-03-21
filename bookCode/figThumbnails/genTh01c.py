@@ -8,6 +8,7 @@ import sys
 
 basedir     = '/home/bullmer/book/2021-03-17b/'
 imageListFn = 'main12b.figs'
+tmpFn       = 'temp.jpg'
 imageListF  = open(imageListFn, 'r+t')
 rawlines    = imageListF.readlines()
 outPrefix = 'thumbs/img' 
@@ -23,16 +24,15 @@ for rawline in rawlines:
   print('reading '+extension)
   if extension == 'pdf':
     print(imgFn)
-    convPdf2Jpg(imgFn)
-    sys.exit(-1)
-
-  continue
+    convPdf2Jpg(imgFn, tmpFn)
+  else:
+    idx += 1
+    continue
 
   outFn = outPrefix + str(idx).zfill(3) + '.jpg'
-  #resize_and_crop(imgFn, outFn, [250,250], crop_type='middle')
   idx += 1
   try:
-    #resize_and_crop(imgFn, outFn, targetRes, crop_type='middle')
+    resize_and_crop(tmpFn, outFn, targetRes, crop_type='middle')
     pass
   except:
     print("problem opening image" + cleanline)

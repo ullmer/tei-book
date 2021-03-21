@@ -88,10 +88,14 @@ def resize_and_crop(img_path, modified_path, size, crop_type='top'):
 #Also engaged:
 #https://stackoverflow.com/questions/51048266/python-pil-cant-open-pdfs-for-some-reason
 
-def convPdf2Jpg(srcFn):
+def convPdf2Jpg(srcFn, targFn):
   srcPDF  = PyPDF4.PdfFileReader(open(srcFn, "rb"), strict=False)
   page    = srcPDF.getPage(0)
-  xobj    = page['/Resources']['/XObject'].getObject()
+  try:
+    xobj    = page['/Resources']['/XObject'].getObject()
+  except:
+    print("convPdf2Jpg error probing page; ignoring "+srcFn)
+    return
 
   for obj in xobj:
     if xobj[obj]['/Subtype'] == '/Image':
@@ -105,13 +109,16 @@ def convPdf2Jpg(srcFn):
 
       if xobj[obj]['/Filter'] == '/FlateDecode':
         img = Image.frombytes(mode, size, data)
-        img.save(obj[1:] + ".png")
+        #img.save(obj[1:] + ".png")
+        img.save(targFn)
       elif xobj[obj]['/Filter'] == '/DCTDecode':
-        img = open(obj[1:] + ".jpg", "wb")
+        #img = open(obj[1:] + ".jpg", "wb")
+        img = open(targFn, "wb")
         img.write(data)
         img.close()
       elif xobj[obj]['/Filter'] == '/JPXDecode':
-        img = open(obj[1:] + ".jp2", "wb")
+        #img = open(obj[1:] + ".jp2", "wb")
+        img = open(targFn, "wb")
         img.write(data)
         img.close()
 
