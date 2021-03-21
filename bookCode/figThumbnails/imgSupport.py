@@ -30,16 +30,16 @@ def resize_and_crop(img_path, modified_path, size, crop_type='top'):
     Resize and crop an image to fit the specified size.
 
     args:
-    img_path: path for the image to resize.
+    img_path:      path for the image to resize.
     modified_path: path to store the modified image.
-    size: `(width, height)` tuple.
-    crop_type: can be 'top', 'middle' or 'bottom', depending on this
-    value, the image will cropped getting the 'top/left', 'middle' or
-    'bottom/right' of the image to fit the size.
+    size:          `(width, height)` tuple.
+    crop_type:     can be 'top', 'middle' or 'bottom', depending on this
+      value, the image will cropped getting the 'top/left', 'middle' or
+      'bottom/right' of the image to fit the size.
     raises:
-    Exception: if can not open the file in img_path of there is problems
-    to save the image.
-    ValueError: if an invalid `crop_type` is provided.
+    Exception:     if can not open the file in img_path of there is problems
+      to save the image.
+    ValueError:    if an invalid `crop_type` is provided.
     """
     # If height is higher we resize vertically, if not we resize horizontally
     img = Image.open(img_path)
@@ -52,28 +52,28 @@ def resize_and_crop(img_path, modified_path, size, crop_type='top'):
             Image.ANTIALIAS)
         # Crop in the top, middle or bottom
         if crop_type == 'top':
-            box = (0, 0, img.size[0], size[1])
+          box = (0, 0, img.size[0], size[1])
         elif crop_type == 'middle':
-            box = (0, int(round((img.size[1] - size[1]) / 2)), img.size[0],
+          box = (0, int(round((img.size[1] - size[1]) / 2)), img.size[0],
                 int(round((img.size[1] + size[1]) / 2)))
         elif crop_type == 'bottom':
-            box = (0, img.size[1] - size[1], img.size[0], img.size[1])
+          box = (0, img.size[1] - size[1], img.size[0], img.size[1])
         else :
-            raise ValueError('ERROR: invalid value for crop_type')
+          raise ValueError('ERROR: invalid value for crop_type')
         img = img.crop(box)
     elif ratio < img_ratio:
         img = img.resize((int(round(size[1] * img.size[0] / img.size[1])), size[1]),
             Image.ANTIALIAS)
         # Crop in the top, middle or bottom
         if crop_type == 'top':
-            box = (0, 0, size[0], img.size[1])
+          box = (0, 0, size[0], img.size[1])
         elif crop_type == 'middle':
-            box = (int(round((img.size[0] - size[0]) / 2)), 0,
+          box = (int(round((img.size[0] - size[0]) / 2)), 0,
                 int(round((img.size[0] + size[0]) / 2)), img.size[1])
         elif crop_type == 'bottom':
-            box = (img.size[0] - size[0], 0, img.size[0], img.size[1])
+          box = (img.size[0] - size[0], 0, img.size[0], img.size[1])
         else :
-            raise ValueError('ERROR: invalid value for crop_type')
+          raise ValueError('ERROR: invalid value for crop_type')
         img = img.crop(box)
     else :
         img = img.resize((size[0], size[1]),
@@ -83,24 +83,36 @@ def resize_and_crop(img_path, modified_path, size, crop_type='top'):
 
 
 ############################################################
-### Adopted from: https://gist.github.com/jrsmith3/9947838
-
+### Adopted from: https://stackoverflow.com/questions/2693820/extract-images-from-pdf-without-resampling-in-python/34116472#34116472 and 
+### https://gist.github.com/jrsmith3/9947838 
 #Also engaged:
 #https://stackoverflow.com/questions/51048266/python-pil-cant-open-pdfs-for-some-reason
 
 def convPdf2JPG(srcFn, targFn):
-    resolution=72
+  srcPDF  = PyPDF2.PdfFileReader(file(srcFn, "rb"), strict=False)
+  page    = src_pdf.getPage(0)
+  xobj    = page['/Resources']['/XObject'].getObject()
 
-    srcPDF  = PyPDF2.PdfFileReader(file(srcFn, "rb"), strict=False)
-    targPDF = PyPDF2.PdfFileWriter()
-    targPDF.addPage(src_pdf.getPage(pagenum))
+  for obj in xobj:
+    if xobj[obj]['/Subtype'] == '/Image':
+      size = (xobj[obj]['/Width'], xobj[obj]['/Height'])
+      data = xobj[obj].getData()
+      if xobj[obj]['/ColorSpace'] == '/DeviceRGB':
+        mode = "RGB"
+      else:
+	mode = "P"
 
-    pdfBytes = io.BytesIO()
-    targPDF.write(pdfBytes)
-    pdfBytes.seek(0)
-
-    img = Image(file = pdfBytes, resolution = resolution)
-    img.save(filename=targFn)
+      if xobj[obj]['/Filter'] == '/FlateDecode':
+        img = Image.frombytes(mode, size, data)
+	img.save(obj[1:] + ".png")
+      elif xObject[obj]['/Filter'] == '/DCTDecode':
+        img = open(obj[1:] + ".jpg", "wb")
+	img.write(data)
+	img.close()
+      elif xObject[obj]['/Filter'] == '/JPXDecode':
+        img = open(obj[1:] + ".jp2", "wb")
+	img.write(data)
+	img.close()
 
 ### end ###
 
