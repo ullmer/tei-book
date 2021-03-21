@@ -89,10 +89,10 @@ def resize_and_crop(img_path, modified_path, size, crop_type='top'):
 #https://stackoverflow.com/questions/51048266/python-pil-cant-open-pdfs-for-some-reason
 
 def convPdf2Jpg(srcFn, targFn):
-  srcPDF  = PyPDF4.PdfFileReader(open(srcFn, "rb"), strict=False)
-  page    = srcPDF.getPage(0)
+  srcPDF = PyPDF4.PdfFileReader(open(srcFn, "rb"), strict=False)
+  page   = srcPDF.getPage(0)
   try:
-    xobj    = page['/Resources']['/XObject'].getObject()
+    xobj = page['/Resources']['/XObject'].getObject()
   except:
     print("convPdf2Jpg error probing page; ignoring "+srcFn)
     return
@@ -108,27 +108,37 @@ def convPdf2Jpg(srcFn, targFn):
         mode = "P"
 
       if xobj[obj]['/Filter'] == '/FlateDecode':
-        img = Image.frombytes(mode, size, data)
-        img2 = ImageOps.invert(img)
-        #img.save(obj[1:] + ".png")
-        print("inverting")
-        img2.save(targFn)
+        tmpFn = 'foo2.png'
+        img   = Image.frombytes(mode, size, data)
+        img2  = ImageOps.invert(img)
+        img2.save(tmpFn)
+        img2.close()
+
+        img3.open(tmpFn)
+        img3.save(targFn)
+        img3.close()
+
       elif xobj[obj]['/Filter'] == '/DCTDecode':
-        #img = open(obj[1:] + ".jpg", "wb")
-        img = Image.frombytes(mode, size, data)
-        img2 = ImageOps.invert(img)
-        img2.save(targFn)
-        #img = open(targFn, "wb")
-        #img.write(data)
-        #img.close()
+        tmpFn = 'foo2.jpg'
+        img = open(tmpFn, "wb")
+        img.write(data)
+        img.close()
+
+        img2 = Image.open(tmpFn)
+        img3 = ImageOps.invert(img2)
+        img3.save(targFn)
+        img2.close(); img3.close()
+
       elif xobj[obj]['/Filter'] == '/JPXDecode':
-        #img = open(obj[1:] + ".jp2", "wb")
-        img = Image.frombytes(mode, size, data)
-        img2 = ImageOps.invert(img)
-        img2.save(targFn)
-        #img = open(targFn, "wb")
-        #img.write(data)
-        #img.close()
+        tmpFn = 'foo2.jp2'
+        img = open(tmpFn, "wb")
+        img.write(data)
+        img.close()
+
+        img2 = Image.open(tmpFn)
+        img3 = ImageOps.invert(img2)
+        img3.save(targFn)
+        img2.close(); img3.close()
 
 ### end ###
 
