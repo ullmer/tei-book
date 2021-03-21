@@ -89,8 +89,8 @@ def resize_and_crop(img_path, modified_path, size, crop_type='top'):
 #https://stackoverflow.com/questions/51048266/python-pil-cant-open-pdfs-for-some-reason
 
 def convPdf2Jpg(srcFn):
-  srcPDF  = PyPDF2.PdfFileReader(file(srcFn, "rb"), strict=False)
-  page    = src_pdf.getPage(0)
+  srcPDF  = PyPDF2.PdfFileReader(open(srcFn, "rb"), strict=False)
+  page    = srcPDF.getPage(0)
   xobj    = page['/Resources']['/XObject'].getObject()
 
   for obj in xobj:
