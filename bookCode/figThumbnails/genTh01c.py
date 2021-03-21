@@ -3,9 +3,8 @@
 # Begun 2021-03-19
 
 from PIL import Image, ImageDraw, ImageFont
-from pilSupport import *
+from imgSupport import *
 import sys
-
 
 basedir     = '/home/bullmer/book/2021-03-17b/'
 imageListFn = 'main12b.figs'
@@ -18,7 +17,9 @@ targetRes = [150, 300]
 idx = 0
 for rawline in rawlines:
   cleanline = rawline.rstrip()
-  print('reading '+cleanline)
+  extension = cleanline[-3:]
+  print('reading '+extension)
+  continue
   imgFn = basedir + cleanline
   outFn = outPrefix + str(idx).zfill(3) + '.jpg'
   #resize_and_crop(imgFn, outFn, [250,250], crop_type='middle')
