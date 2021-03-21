@@ -19,7 +19,7 @@ def overlayText(sourceImg, targImg, text):
 
   d.text((0, 0), "This text should be 5% alpha", fill=(0, 0, 0, 15), font=font)
   combined = Image.alpha_composite(image, txt)    
-  combined.save("foo.gif")
+  combined.save("tmp.gif")
 
 
 ############################################################
@@ -108,19 +108,20 @@ def convPdf2Jpg(srcFn, targFn):
         mode = "P"
 
       if xobj[obj]['/Filter'] == '/FlateDecode':
-        tmpFn = 'foo2.png'
+        tmpFn = 'tmp2.png'
         img   = Image.frombytes(mode, size, data)
         img2  = ImageOps.invert(img)
         img2.save(tmpFn)
         img2.close()
 
         img3.open(tmpFn)
-        img3.save(targFn)
-        img3.close()
+        img4 = img3.convert('RGB')
+        img4.save(targFn)
+        img3.close(); img4.close()
 
       elif xobj[obj]['/Filter'] == '/DCTDecode':
-        tmpFn = 'foo2.jpg'
-        img = open(tmpFn, "wb")
+        tmpFn = 'tmp2.jpg'
+        img   = open(tmpFn, "wb")
         img.write(data)
         img.close()
 
@@ -130,8 +131,8 @@ def convPdf2Jpg(srcFn, targFn):
         img2.close(); img3.close()
 
       elif xobj[obj]['/Filter'] == '/JPXDecode':
-        tmpFn = 'foo2.jp2'
-        img = open(tmpFn, "wb")
+        tmpFn = 'tmp2.jp2'
+        img   = open(tmpFn, "wb")
         img.write(data)
         img.close()
 
