@@ -18,9 +18,16 @@ idx = 0
 for rawline in rawlines:
   cleanline = rawline.rstrip()
   extension = cleanline[-3:]
-  print('reading '+extension)
-  continue
   imgFn = basedir + cleanline
+
+  print('reading '+extension)
+  if extension == 'pdf':
+    print(imgFn)
+    convPdf2Jpg(imgFn)
+    sys.exit(-1)
+
+  continue
+
   outFn = outPrefix + str(idx).zfill(3) + '.jpg'
   #resize_and_crop(imgFn, outFn, [250,250], crop_type='middle')
   idx += 1
