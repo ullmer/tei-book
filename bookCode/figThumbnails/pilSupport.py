@@ -1,4 +1,11 @@
-from PIL import Image, ImageDraw, ImageFont
+## File gathering support routines adopted from several external sources
+# Aggregation by Brygg Ullmer, Clemson University
+# Begun 2021-03-16
+
+from PIL        import Image, ImageDraw, ImageFont
+from wand.image import Image
+import PyPDF2
+import io
 
 ############################################################
 ### from: https://stackoverflow.com/questions/47123649/pil-draw-transparent-text-on-top-of-an-image
@@ -75,4 +82,27 @@ def resize_and_crop(img_path, modified_path, size, crop_type='top'):
     # If the scale is the same, we do not need to crop
     img.save(modified_path)
 
+
+############################################################
+### Adopted from: https://gist.github.com/jrsmith3/9947838
+
+#Also engaged:
+#https://stackoverflow.com/questions/51048266/python-pil-cant-open-pdfs-for-some-reason
+
+def convPdf2JPG(srcFn, targFn):
+    resolution=72
+
+    srcPDF  = PyPDF2.PdfFileReader(file(srcFn, "rb"), strict=False)
+    targPDF = PyPDF2.PdfFileWriter()
+    targPDF.addPage(src_pdf.getPage(pagenum))
+
+    pdfBytes = io.BytesIO()
+    targPDF.write(pdfBytes)
+    pdfBytes.seek(0)
+
+    img = Image(file = pdfBytes, resolution = resolution)
+    img.convert("jpg")
+    img.save(filename=targFn)
+
 ### end ###
+
