@@ -89,7 +89,8 @@ def resize_and_crop(img_path, modified_path, size, crop_type='top'):
 #https://stackoverflow.com/questions/51048266/python-pil-cant-open-pdfs-for-some-reason
 
 def convPdf2Jpg(srcFn, targFn):
-  srcPDF = PyPDF4.PdfFileReader(open(srcFn, "rb"), strict=False)
+  pdfF = open(srcFn, "rb")
+  srcPDF = PyPDF4.PdfFileReader(pdfF, strict=False)
   page   = srcPDF.getPage(0)
   #xobj = page['/Resources']['/XObject'].getObject()
   try:
@@ -111,7 +112,11 @@ def convPdf2Jpg(srcFn, targFn):
       if xobj[obj]['/Filter'] == '/FlateDecode':
         tmpFn = 'tmp2.png'
         img   = Image.frombytes(mode, size, data)
-        img2  = ImageOps.invert(img)
+        try:
+          img2  = ImageOps.invert(img)
+        except:
+          print("convPdf2Jpg: invert error; ignoring")
+          return
         img2.save(tmpFn)
         img2.close()
 
@@ -142,6 +147,8 @@ def convPdf2Jpg(srcFn, targFn):
         img3 = ImageOps.invert(img2)
         img3.save(targFn)
         img2.close(); img3.close()
+
+  pdfF.close()
 
 ### end ###
 
