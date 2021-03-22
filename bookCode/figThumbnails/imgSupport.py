@@ -11,7 +11,7 @@ import io
 
 def overlayText(sourceImg, targImg, text):
 
-  image = Image.open("spongebob.gif").convert("RGBA")
+  image = Image.open("foo.gif").convert("RGBA")
   txt = Image.new('RGBA', image.size, (255,255,255,0))
 
   font = ImageFont.truetype("impact.ttf", 25)
@@ -91,10 +91,11 @@ def resize_and_crop(img_path, modified_path, size, crop_type='top'):
 def convPdf2Jpg(srcFn, targFn):
   srcPDF = PyPDF4.PdfFileReader(open(srcFn, "rb"), strict=False)
   page   = srcPDF.getPage(0)
+  #xobj = page['/Resources']['/XObject'].getObject()
   try:
     xobj = page['/Resources']['/XObject'].getObject()
   except:
-    print("convPdf2Jpg error probing page; ignoring "+srcFn)
+    print("convPdf2Jpg error poking PDF page; ignoring "+srcFn)
     return
 
   for obj in xobj:
@@ -126,9 +127,10 @@ def convPdf2Jpg(srcFn, targFn):
         img.close()
 
         img2 = Image.open(tmpFn)
-        img3 = ImageOps.invert(img2)
-        img3.save(targFn)
-        img2.close(); img3.close()
+        img3 = img2.convert('RGB')
+        img4 = ImageOps.invert(img3)
+        img4.save(targFn)
+        img2.close(); img3.close(); img4.close()
 
       elif xobj[obj]['/Filter'] == '/JPXDecode':
         tmpFn = 'tmp2.jp2'
