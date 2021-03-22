@@ -5,6 +5,7 @@
 from PIL        import Image, ImageDraw, ImageFont, ImageOps
 import PyPDF4
 import io
+from pdf2image import convert_from_path
 
 ############################################################
 ### from: https://stackoverflow.com/questions/47123649/pil-draw-transparent-text-on-top-of-an-image
@@ -83,12 +84,26 @@ def resize_and_crop(img_path, modified_path, size, crop_type='top'):
 
 
 ############################################################
+
+#https://www.geeksforgeeks.org/convert-pdf-to-image-using-python/
+
+def convPdf2Jpg2(srcFn, targFn):
+  images = convert_from_path(srcFn)
+  images[0].save(targFn, 'JPEG')
+  #NOTE: this may fail mysteriously if poppler isn't installed (where
+  # e.g. windows execution may require cygwin, etc. 
+ 
+  #for i in range(len(images)):
+  #  images[i].save('page'+ str(i) +'.jpg', 'JPEG')
+
 ### Adopted from: https://stackoverflow.com/questions/2693820/extract-images-from-pdf-without-resampling-in-python/34116472#34116472 and 
 ### https://gist.github.com/jrsmith3/9947838 
 #Also engaged:
 #https://stackoverflow.com/questions/51048266/python-pil-cant-open-pdfs-for-some-reason
+### sadly, this didn't work for many of our target PDFs, which didn't incorporate
+### internal JPGs.  but, it had interesting future implications, so I leave it here.
 
-def convPdf2Jpg(srcFn, targFn):
+def convPdf2Jpg1(srcFn, targFn):
   pdfF = open(srcFn, "rb")
   srcPDF = PyPDF4.PdfFileReader(pdfF, strict=False)
   page   = srcPDF.getPage(0)
@@ -97,7 +112,10 @@ def convPdf2Jpg(srcFn, targFn):
     xobj = page['/Resources']['/XObject'].getObject()
   except:
     print("convPdf2Jpg error poking PDF page; ignoring "+srcFn)
-    return
+    #print(page['/Resources'].keys())
+    #print(page.keys())
+    #print(page['/MediaBox'].keys())
+    return False
 
   for obj in xobj:
     if xobj[obj]['/Subtype'] == '/Image':
@@ -149,6 +167,7 @@ def convPdf2Jpg(srcFn, targFn):
         img2.close(); img3.close()
 
   pdfF.close()
+  return True
 
 ### end ###
 

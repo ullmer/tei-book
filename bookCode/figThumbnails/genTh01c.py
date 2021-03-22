@@ -24,7 +24,9 @@ for rawline in rawlines:
   print('reading '+extension)
   if extension == 'pdf':
     print(imgFn)
-    convPdf2Jpg(imgFn, tmpFn)
+    worked = convPdf2Jpg1(imgFn, tmpFn)
+    if worked == False:
+      convPdf2Jpg2(imgFn, tmpFn)
   else:
     idx += 1
     continue
