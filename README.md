@@ -1,2 +1,3 @@
 # tei-book
-Tangibles resources associated with ACM TEI Book (co-authored with O. Shaer, A. Mazalek, and C. Hummels)
+Tangibles resources associated with ACM TEI Book 
+(by Brygg Ullmer, Orit Shaer, Ali Mazalek, and Caroline Hummels)
