@@ -40,20 +40,23 @@ class redWrap:
     result = await self.pool.execute('hgetall', 'teiDomains');
     print(result)
 
-  async def testpub(self): 
+  async def pub(self, key, value): 
     if self.pool == None:
       print("redWrap error: redis pool not initiated");
       return
 
-    result = await self.pool.execute('hgetall', 'teiDomains');
-    print(result)
+    await self.pool.publish(key, value)
 
 #################### main ####################
 
 async def main(pw):
   r = redWrap(pw)
   await r.connect()
-  await r.testget()
+  #await r.testget()
+
+  plinth1 = "hexmap::edu.clemson.edu/computing.tei21/hp01"
+  update  = "r"
+  await r.pub(plinth1, update)
 
 asyncio.run(main(pw))
 
