@@ -2,20 +2,19 @@
 # Brygg Ullmer (Clemson U.) and xxx
 # Begun 2021-03-05
 
+from pynput import keyboard
+
+# https://pypi.org/project/pynput/
+# https://stackoverflow.com/questions/53088995/pynput-keyboard-listener-does-not-detect-keys-on-mac-os-x
+# on Mac, one must go to System Preferences -> Security and Privacy -> Privacy -> 
+# Accessibility, and add "Terminal" to "Allow the apps below to control your 
+# computer" (if you are running Python or Python3 from Terminal)
+
 import redis 
 import yaml
 import sys
 
-global getchLib
-try:
-  import getch
-  getchLib = 'normal'
-except ImportError: #for Microsoft Windows; sigh...
-  import msvcrt
-  getchLib = 'windows'
-
-# python  -m pip install redis pyyaml
-# python3 -m pip install redis pyyaml getch
+# python3 -m pip install redis pyyaml pynput
 
 ##################### redis yaml keyboard class #####################
 
@@ -23,12 +22,35 @@ class redYaKb:
 
   yamlCommandDescr = None
   commandHash      = None
+  kbListener       = None
 
   ##################### constructor ##################### 
 
   def __init__(self, commandsYamlFn):
     self.ingestCommandYamlFn(commandsYamlFn)
     self.listCommands()
+    self.activateKeyListener()
+
+  ##################### key callbacks ##################### 
+
+  def on_press(self, key):
+  try:
+    print('alphanumeric key {0} pressed'.format(key.char))
+  except AttributeError:
+    print('special key {0} pressed'.format(key))
+
+  def on_release(self, key):
+    print('{0} released'.format(key))
+    if key == keyboard.Key.esc:
+      # Stop listener
+      return False
+
+  def activateKeyListener(self)
+
+    self.kbListener = keyboard.Listener(
+       on_press=on_press,
+       on_release=on_release)
+    self.kbListener.start()
 
   ##################### help ##################### 
 
@@ -128,3 +150,4 @@ class redYaKb:
             return False
 
 #### end ###
+
