@@ -3,6 +3,7 @@
 # Begun 2021-03-01
 
 import sys
+import aioredis # async I/O redis librarires
 from rykTei21Base import *
 
 cyfn = 'tei21-commands.yaml' #commands yaml filename
@@ -27,6 +28,12 @@ host="redis-15905.c56.east-us.azure.cloud.redislabs.com"
 port="15905"
 pw  = sys.argv[1]
 
-r=redis.Redis(host=host, port=port, password=pw)
+#r=redis.Redis(host=host, port=port, password=pw)
+
+async def connect(): 
+  global r
+  r=await aioredis.Redis(host=host, port=port, password=pw)
+
+connect()
 
 ### end ###
