@@ -43,6 +43,8 @@ class redWrap:
     result = await self.pool.execute('hgetall', 'teiDomains');
     print(result)
 
+#################### set up redis publications ####################
+
   async def pub(self, key, value): 
     if self.pool == None:
       print("redWrap error: redis pool not initiated");
@@ -61,14 +63,20 @@ class redWrap:
   #https://docs.python.org/3/library/asyncio-task.html
   #https://stackoverflow.com/questions/34118816/aioredis-and-pub-sub-arent-asnyc
 
+#################### set up redis subscriptions ####################
+
   async def sub(self): 
+    if self.pool == None:
+      print("redWrap error: redis pool not initiated");
+      return
+
     #self.receiver = aioredis.pubsub.Receiver(loop=loop)
     self.receiver = aioredis.pubsub.Receiver()
     asyncio.create_task(self.reader(self.receiver)) 
     channelArgs = []
     for channelArg in self.channels:
       channelArgs.append(self.receiver.channel(channelArg))
-    await aioredis.abc.redis.subscribe(*channelArgs) 
+    await self.pool.subscribe(*channelArgs) 
 
     #https://www.informit.com/articles/article.aspx?p=2979063&seqNum=8
       
