@@ -35,7 +35,7 @@ class redWrap:    #asyncio ~wrapper of redis functionality
       print("redWrap error: redis pool not initiated");
       return
 
-    result = await self.pool.execute('get', 'teiDomains');
+    result = await self.pool.execute('hgetall', 'teiDomains');
     print(result)
 
 async def main(pw):
