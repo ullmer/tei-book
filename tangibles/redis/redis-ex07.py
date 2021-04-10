@@ -62,12 +62,13 @@ class redWrap:
   #https://stackoverflow.com/questions/34118816/aioredis-and-pub-sub-arent-asnyc
 
   async def sub(self): 
-    self.receiver = aioredis.Receiver()
-    asyncio.create_task(self.receiver) 
+    #self.receiver = aioredis.pubsub.Receiver(loop=loop)
+    self.receiver = aioredis.pubsub.Receiver()
+    asyncio.create_task(self.reader(self.receiver)) 
     channelArgs = []
     for channelArg in self.channels:
       channelArgs.append(self.receiver.channel(channelArg))
-    await redis.subscribe(*channelArgs) 
+    await aioredis.abc.redis.subscribe(*channelArgs) 
 
     #https://www.informit.com/articles/article.aspx?p=2979063&seqNum=8
       
@@ -82,8 +83,8 @@ async def main(pw):
   p1led = p1 + '/led'
   p1nfc = p1 + '/nfc'
   p1cmd = p1 + '/cmd'
-  p1.channels = [p1led, p1nfc, p1cmd]
-  await r.pub(p1cmd, update)
+  r.channels = [p1led, p1nfc, p1cmd]
+  #await r.pub(p1cmd, update)
   await r.sub()
 
   update  = "r"
