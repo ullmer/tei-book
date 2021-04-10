@@ -13,9 +13,11 @@ if len(sys.argv) < 2:
   print("redis passwd expected as command-line argument")
   sys.exit(-1)
 
-pw      = sys.argv[1]
+pw = sys.argv[1]
 
-class redWrap:    #asyncio ~wrapper of redis functionality
+#################### asyncio ~wrapper of redis functionality ####################
+
+class redWrap:    
   host = "redis-15905.c56.east-us.azure.cloud.redislabs.com"
   port = "15905"
   pw   = None
@@ -37,6 +39,16 @@ class redWrap:    #asyncio ~wrapper of redis functionality
 
     result = await self.pool.execute('hgetall', 'teiDomains');
     print(result)
+
+  async def testpub(self): 
+    if self.pool == None:
+      print("redWrap error: redis pool not initiated");
+      return
+
+    result = await self.pool.execute('hgetall', 'teiDomains');
+    print(result)
+
+#################### main ####################
 
 async def main(pw):
   r = redWrap(pw)
