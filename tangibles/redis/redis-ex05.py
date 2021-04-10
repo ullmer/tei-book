@@ -25,8 +25,8 @@ class redWrap:    #asyncio ~wrapper of redis functionality
     self.pw = pw
 
   async def connect(self): 
-    self.redHand = await aioredis.Redis(host=self.host, 
-                                        port=self.port, password=self.pw)
+    self.redHand = await aioredis.create_connection(address=(self.host, self.port), 
+                                                    password=self.pw)
 
 async def main(pw):
   r = redWrap(pw)
