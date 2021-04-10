@@ -49,11 +49,15 @@ class redWrap:
       return
 
     await self.pool.publish(key, value)
+
+  async def handle_msg(self, msg):
+    print('Received Message:', msg)
   
   async def reader(self, mpsc):  # https://aioredis.readthedocs.io/en/v1.3.1/mpsc.html
     async for channel, msg in mpsc.iter():
       assert is instance(channel, aioredis.AbcChannel)
       print("Received {!r} in channel {!r}".format(msg, channel))
+    asyncio.create_task(self.receiver) 
 
   #https://docs.python.org/3/library/asyncio-task.html
   #https://stackoverflow.com/questions/34118816/aioredis-and-pub-sub-arent-asnyc
@@ -81,6 +85,10 @@ async def main(pw):
 
   await r.unsubscript(plinth1)
 
-asyncio.run(main(pw))
+
+#asyncio.run(main(pw))
+loop = asyncio.get_event_loop()
+loop.run_until_complete(main())
+loop.close()
 
 ### end ###
