@@ -16,21 +16,32 @@ if len(sys.argv) < 2:
 pw      = sys.argv[1]
 
 class redWrap:    #asyncio ~wrapper of redis functionality
-  host    = "redis-15905.c56.east-us.azure.cloud.redislabs.com"
-  port    = "15905"
-  pw      = None
-  redHand = None  #redis handle
+  host = "redis-15905.c56.east-us.azure.cloud.redislabs.com"
+  port = "15905"
+  pw   = None
+  pool = None  #redis handle
 
   def __init__(self, pw): 
     self.pw = pw
 
   async def connect(self): 
-    self.redHand = await aioredis.create_connection(address=(self.host, self.port), 
+    #self.redHand = await aioredis.create_connection(address=(self.host, self.port), 
+    #                                                password=self.pw)
+    self.pool = await aioredis.create_redis_pool(address=(self.host, self.port), 
                                                     password=self.pw)
+
+  async def testget(self): 
+    if self.pool == None:
+      print("redWrap error: redis pool not initiated");
+      return
+
+    result = await self.pool.execute('get', 'teiDomains');
+    print(result)
 
 async def main(pw):
   r = redWrap(pw)
-  r = await r.connect()
+  await r.connect()
+  await r.testget()
 
 asyncio.run(main(pw))
 
