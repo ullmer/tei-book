@@ -57,18 +57,20 @@ class redWrap:
     async for channel, msg in mpsc.iter():
       assert is instance(channel, aioredis.AbcChannel)
       print("Received {!r} in channel {!r}".format(msg, channel))
-    asyncio.create_task(self.receiver) 
 
   #https://docs.python.org/3/library/asyncio-task.html
   #https://stackoverflow.com/questions/34118816/aioredis-and-pub-sub-arent-asnyc
 
-  async def sub(self, key): 
+  async def sub(self): 
     self.receiver = aioredis.Receiver()
     asyncio.create_task(self.receiver) 
-    await redis.subscribe(mpsc.channel('channel:1'),
-                          mpsc.channel('channel:3'))
-                          mpsc.channel('channel:5'))
+    channelArgs = []
+    for channelArg in self.channels:
+      channelArgs.append(self.receiver.channel(channelArg))
+    await redis.subscribe(*channelArgs) 
 
+    #https://www.informit.com/articles/article.aspx?p=2979063&seqNum=8
+      
 #################### main ####################
 
 async def main(pw):
@@ -76,19 +78,21 @@ async def main(pw):
   await r.connect()
   await r.testget()
 
-  plinth1 = "hexmap::edu.clemson.edu/computing.tei21/hp01"
-  plinth1led = plinth1 + '/led'
-  plinth1nfc = plinth1 + '/nfc'
-  plinth1cmd = plinth1 + '/cmd'
+  p1    = "hexmap::edu.clemson.edu/computing.tei21/hp01"
+  p1led = p1 + '/led'
+  p1nfc = p1 + '/nfc'
+  p1cmd = p1 + '/cmd'
+  p1.channels = [p1led, p1nfc, p1cmd]
+  await r.pub(p1cmd, update)
+  await r.sub()
+
   update  = "r"
-  await r.pub(plinth1cmd, update)
+  #await r.unsubscribe(p1)
 
-  await r.unsubscript(plinth1)
+asyncio.run(main(pw))
 
-
-#asyncio.run(main(pw))
-loop = asyncio.get_event_loop()
-loop.run_until_complete(main())
-loop.close()
+#loop = asyncio.get_event_loop()
+#loop.run_until_complete(main())
+#loop.close()
 
 ### end ###
