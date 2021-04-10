@@ -1,4 +1,5 @@
 from pynput import keyboard
+import time
 
 # https://pypi.org/project/pynput/
 # https://stackoverflow.com/questions/53088995/pynput-keyboard-listener-does-not-detect-keys-on-mac-os-x
@@ -22,15 +23,18 @@ def on_release(key):
     return False
 
 # Collect events until released
-with keyboard.Listener(
-    on_press=on_press,
-    on_release=on_release) as listener:
-  listener.join()
+#with keyboard.Listener(
+#    on_press=on_press,
+#    on_release=on_release) as listener:
+#  listener.join()
 
 # ...or, in a non-blocking fashion:
 listener = keyboard.Listener(
   on_press=on_press,
   on_release=on_release)
 listener.start()
+
+while True:
+  time.sleep(.1)
 
 ### end ###
