@@ -23,9 +23,11 @@ class redWrap:
   pw   = None
   pool     = None  #redis handle
   receiver = None
+  channels = None
 
   def __init__(self, pw): 
     self.pw = pw
+    self.channels = []
 
   async def connect(self): 
     #self.redHand = await aioredis.create_connection(address=(self.host, self.port), 
@@ -51,12 +53,17 @@ class redWrap:
   async def reader(self, mpsc):  # https://aioredis.readthedocs.io/en/v1.3.1/mpsc.html
     async for channel, msg in mpsc.iter():
       assert is instance(channel, aioredis.AbcChannel)
-      print("Got {!r} in channel {!r}".format(msg, channel))
+      print("Received {!r} in channel {!r}".format(msg, channel))
 
+  #https://docs.python.org/3/library/asyncio-task.html
+  #https://stackoverflow.com/questions/34118816/aioredis-and-pub-sub-arent-asnyc
 
   async def sub(self, key): 
     self.receiver = aioredis.Receiver()
-    asyncio.ensure_future(reader(self.receiver))
+    asyncio.create_task(self.receiver) 
+    await redis.subscribe(mpsc.channel('channel:1'),
+                          mpsc.channel('channel:3'))
+                          mpsc.channel('channel:5'))
 
 #################### main ####################
 
