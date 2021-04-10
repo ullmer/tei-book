@@ -55,7 +55,7 @@ class redWrap:
   
   async def reader(self, mpsc):  # https://aioredis.readthedocs.io/en/v1.3.1/mpsc.html
     async for channel, msg in mpsc.iter():
-      assert is instance(channel, aioredis.AbcChannel)
+      assert isinstance(channel, aioredis.AbcChannel)
       print("Received {!r} in channel {!r}".format(msg, channel))
 
   #https://docs.python.org/3/library/asyncio-task.html
