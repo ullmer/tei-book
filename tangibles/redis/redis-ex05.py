@@ -3,19 +3,8 @@
 # Begun 2021-03-01
 
 import sys
-import aioredis # async I/O redis librarires
-from rykTei21Base import *
-
-cyfn = 'tei21-commands.yaml' #commands yaml filename
-
-ryk = rykTei21Base(cyfn)
-
-print('Entering blocking keyboard loop')
-
-while True:
-  ryk.procCh()
-
-sys.exit(-1)
+import asyncio
+import aioredis # async I/O redis libraries
 
 # take redis password as command-line argument
 
@@ -24,16 +13,25 @@ if len(sys.argv) < 2:
   print("redis passwd expected as command-line argument")
   sys.exit(-1)
 
-host="redis-15905.c56.east-us.azure.cloud.redislabs.com"
-port="15905"
-pw  = sys.argv[1]
+pw      = sys.argv[1]
 
-#r=redis.Redis(host=host, port=port, password=pw)
+class redWrap:    #asyncio ~wrapper of redis functionality
+  host    = "redis-15905.c56.east-us.azure.cloud.redislabs.com"
+  port    = "15905"
+  pw      = None
+  redHand = None  #redis handle
 
-async def connect(): 
-  global r
-  r=await aioredis.Redis(host=host, port=port, password=pw)
+  def __init__(self, pw): 
+    self.pw = pw
 
-connect()
+  async def connect(self): 
+    self.redHand = await aioredis.Redis(host=self.host, 
+                                        port=self.port, password=self.pw)
+
+async def main(pw):
+  r = redWrap(pw)
+  r = await r.connect()
+
+asyncio.run(main(pw))
 
 ### end ###
