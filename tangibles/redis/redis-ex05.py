@@ -52,7 +52,7 @@ class redWrap:
 async def main(pw):
   r = redWrap(pw)
   await r.connect()
-  #await r.testget()
+  await r.testget()
 
   plinth1 = "hexmap::edu.clemson.edu/computing.tei21/hp01"
   update  = "r"
