@@ -180,7 +180,7 @@ class redYaKb:
 
   async def testget(self): 
     if self.pool == None:
-      print("redWrap error: redis pool not initiated");
+      print("redYaKb error: redis pool not initiated");
       return
 
     result = await self.pool.execute('hgetall', 'teiDomains');
@@ -190,7 +190,7 @@ class redYaKb:
 
   async def pub(self, key, value): 
     if self.pool == None:
-      print("redWrap error: redis pool not initiated");
+      print("redYaKb error: redis pool not initiated");
       return
 
     await self.pool.publish(key, value)
@@ -215,7 +215,7 @@ class redYaKb:
 
   async def sub(self): 
     if self.pool == None:
-      print("redWrap error: redis pool not initiated");
+      print("redYaKb sub error: redis pool not initiated");
       return
 
     self.receiver = aioredis.pubsub.Receiver()
@@ -227,5 +227,17 @@ class redYaKb:
 
     #https://www.informit.com/articles/article.aspx?p=2979063&seqNum=8
       
+#################### set up redis subscriptions ####################
+
+  async def psub(self, targPattern): 
+    if self.pool == None:
+      print("redYaKb psub error: redis pool not initiated");
+      return
+
+    #https://aioredis.readthedocs.io/en/v1.3.1/mpsc.html
+    self.receiver = aioredis.pubsub.Receiver()
+    asyncio.create_task(self.reader(self.receiver)) 
+    psubHandle    = self.receiver.pattern(targPattern)
+    await ryk.pool.psubscribe(psubHandle) 
 
 ### end ###
