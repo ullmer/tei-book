@@ -2,7 +2,6 @@
 # Brygg Ullmer (Clemson U.) and xxx
 # Begun 2021-03-05
 
-from pynput import keyboard
 
 # https://pypi.org/project/pynput/
 # https://stackoverflow.com/questions/53088995/pynput-keyboard-listener-does-not-detect-keys-on-mac-os-x
@@ -15,6 +14,8 @@ import yaml
 import redis 
 import asyncio
 import aioredis 
+
+from pynput import keyboard
 
 # python3 -m pip install redis pyyaml pynput
 
@@ -29,9 +30,10 @@ class redYaKb:
   host = "redis-15905.c56.east-us.azure.cloud.redislabs.com"
   port = "15905"
   pw   = None
-  pool     = None  #redis handle
-  receiver = None
-  channels = None
+  pool       = None  #redis handle
+  receiver   = None
+  channels   = None
+  cmdChannel = None
 
   ##################### constructor ##################### 
 
@@ -47,7 +49,7 @@ class redYaKb:
   def on_press(self, key):
     try:
       #print('alphanumeric key {0} pressed'.format(key.char))
-      self.procCh(ch=key.char)
+      await self.procCh(ch=key.char)
     except AttributeError:
       print('special key {0} pressed'.format(key))
 
@@ -127,20 +129,9 @@ class redYaKb:
       print("redYaKb listCommands: commandHash is null (ingestCommandYamlFn likely not called)")
       return False
 
-  ##################### read character w/o newline #####################
-
-  def readCh(self): # (blocking)
-    global getchLib
-    if getchLib == 'normal':
-      result = getch.getch()
-
-    if getchLib == 'windows':
-      result = msvcrt.getch()
-    return result
-
   ##################### process character #####################
 
-  def procCh(self, ch=None): #if none, will use readCh (blocking)
+  async def procCh(self, ch=None): #if none, will use readCh (blocking)
     print("redYaKb procCh " + ch)
     if ch == None:
       ch = self.readCh()
@@ -153,6 +144,8 @@ class redYaKb:
         cmd = self.getCmd(commandDescr)
         try:
           cmd()
+          if self.cmdChannel != None:
+            await self.pub(self.cmdChannel, ch)
           return(True)
         except:
           print("redYaKb getCmd: problem with getattr " + commandText) 

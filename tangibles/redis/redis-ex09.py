@@ -31,10 +31,11 @@ async def main(pw):
   p1led = p1 + '/led'
   p1nfc = p1 + '/nfc'
   p1cmd = p1 + '/cmd'
-  ryk.channels = [p1led, p1nfc, p1cmd]
-  update  = "r"
-  await ryk.pub(p1cmd, update)
-  await ryk.sub()
+  ryk.channels   = [p1led, p1nfc, p1cmd]
+  ryk.cmdChannel = p1cmd
+
+  #await ryk.pub(p1cmd, update)
+  #await ryk.sub()
 
   #await r.unsubscribe(p1)
 
@@ -43,7 +44,6 @@ async def main(pw):
 loop = asyncio.get_event_loop()
 loop.create_task(main(pw))
 loop.run_forever()
-#loop.run_until_complete(main(pw))
 loop.close()
 
 ### end ###
