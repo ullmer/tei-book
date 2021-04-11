@@ -11,26 +11,28 @@ from tkinter import *
 
 class enHexPlinthSim():
 
-  canvas_width    = 900
-  canvas_height   = 450
+  canvas_width  = 900
+  canvas_height = 450
 
-  root            = None
-  canvas          = None
-  backgroundImg   = None
-  backgroundImgFn = "images/enHexPlinthSim02b.png"
+  root          = None
+  canvas        = None
+  bgImg         = None #background image
+  bgImgFn       = "images/enHexPlinthSim02b.png"
 
   def buildGui(self):
 
     self.root   = Tk()
-    self.canvas = Canvas(root, width=canvas_width, height=canvas_height)
+    self.canvas = Canvas(self.root, width=self.canvas_width, height=self.canvas_height)
     self.canvas.pack()
 
-    self.backgroundImg = PhotoImage(file=self.backgroundImgFn)
-    canvas.create_image(0, self.canvas_height, anchor=NW, image=self.backgroundImg)
+    self.bgImg = PhotoImage(file=self.bgImgFn)
+    #self.canvas.create_image(0, self.canvas_height, anchor=NW, image=self.bgImg)
+    self.canvas.create_image(0, 0, anchor=NW, image=self.bgImg)
 
 ################# main #################
 
 ehps = enHexPlinthSim()
+ehps.buildGui()
 mainloop()
 
 ### end ###
