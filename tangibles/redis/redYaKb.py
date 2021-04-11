@@ -46,7 +46,7 @@ class redYaKb:
       # Stop listener
       return False
 
-  def activateKeyListener(self)
+  def activateKeyListener(self):
     self.kbListener = keyboard.Listener(on_press=self.on_press,
                                         on_release=self.on_release)
     self.kbListener.start()
