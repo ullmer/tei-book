@@ -92,7 +92,7 @@ class redWrap:
 #################### main ####################
 
 async def main(pw):
-  printf("main runs")
+  print("main runs")
   r = redWrap(pw)
   await r.connect()
   await r.testget()
@@ -111,7 +111,7 @@ async def main(pw):
 #asyncio.run(main(pw))
 
 loop = asyncio.get_event_loop()
-loop.run_until_complete(main())
+loop.run_until_complete(main(pw))
 loop.close()
 
 ### end ###
