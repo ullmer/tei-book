@@ -1,4 +1,4 @@
-# Redis hello-world
+# Use keyboard to express events via redis for relaying to RPi++ based upon YAML cfg
 # Brygg Ullmer, Clemson University
 # Begun 2021-03-01
 
@@ -30,7 +30,7 @@ async def periodic():
 
 async def main(pw):
   global loop
-  print("main runs")
+  print("we're running")
 
   ryk  = rykTeiEx04(cyfn, pw)
   await ryk.connect()
@@ -43,16 +43,10 @@ async def main(pw):
   p1cmd = p1 + '/cmd'
 
   ryk.channels   = [p1led, p1nfc, p1cmd]
-  ryk.cmdChannel = p1cmd
-  ryk.loop       = loop
+  ryk.cmdChannel = p1cmd #redYaKb will broadcast commands to this address
+  ryk.loop       = loop  #hacky; used to pass event loop for scheduling async actions
 
-  #pat = ryk.receiver.pattern(p1pat)
-  await ryk.pool.psubscribe(p1pat)
-  #await ryk.pub(p1cmd, update)
-
-  #await r.unsubscribe(p1)
-
-#asyncio.run(main(pw))
+  await ryk.pool.psubscribe(p1pat) # should show how this is used
 
 global loop
 loop = asyncio.get_event_loop()
