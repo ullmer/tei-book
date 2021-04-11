@@ -1,5 +1,5 @@
 ###### Simple support code for TEI interaction ###### 
-# By Millon McClelland, Brygg Ullmer, and TBD, Clemson University
+# By Brygg Ullmer and TBD, Clemson University
 # Begun 2021-03-07
 
 from redYaKb import *
@@ -7,22 +7,19 @@ import sys
 
 ##################### support callback functions #####################
 
-class rykTeiEx04(redYaKb):
+class rykEx11(redYaKb):
 
   ##################### turn all LEDs red #####################
   def allRed(self):    
     self.selfDoc('allRed')
-    print('Millon, can you integrate the right calls here, please?')
 
   ##################### turn all LEDs red #####################
   def allGreen(self):  
     self.selfDoc('allGreen')
-    print('Millon, can you integrate the right calls here, please?')
 
   ##################### turn all LEDs red #####################
   def allBlue(self):   
     self.selfDoc('allBlue')
-    print('Millon, can you integrate the right calls here, please?')
 
   ##################### turn all LEDs red #####################
   def wait1(self):     

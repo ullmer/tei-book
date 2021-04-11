@@ -6,8 +6,8 @@ import sys
 import asyncio
 import aioredis # async I/O redis libraries
 
-from    rykTeiEx04 import *
-cyfn = 'rykTeiEx04.yaml' #commands yaml filename
+from    rykEx11 import *
+cyfn = 'rykEx11.yaml' #commands yaml filename
 
 # take redis password as command-line argument
 
@@ -32,7 +32,7 @@ async def main(pw):
   global loop
   print("we're running")
 
-  ryk  = rykTeiEx04(cyfn, pw)
+  ryk  = rykEx11(cyfn, pw)
   await ryk.connect()
   await ryk.testget()
 
