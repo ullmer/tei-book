@@ -28,14 +28,15 @@ class redYaKb:
 
   def __init__(self, commandsYamlFn):
     self.ingestCommandYamlFn(commandsYamlFn)
-    self.listCommands()
+    #self.listCommands()
     self.activateKeyListener()
 
   ##################### key callbacks ##################### 
 
   def on_press(self, key):
     try:
-      print('alphanumeric key {0} pressed'.format(key.char))
+      #print('alphanumeric key {0} pressed'.format(key.char))
+      self.procCh(ch=key)
     except AttributeError:
       print('special key {0} pressed'.format(key))
 
