@@ -147,16 +147,21 @@ class redYaKb:
     if ch in self.commandHash:
       commandDescr = self.commandHash[ch]
       if 'command' in commandDescr:
+
         commandText = commandDescr['command']
-        print(commandText)
+        #print(commandText)
         cmd = self.getCmd(commandDescr)
+
+        if self.cmdChannel == None:
+          print("redYaKb procCh error: cmdChannel uninitiated"); return False
+
+        if self.loop == None:
+          print("redYaKb procCh error: event loop uninitiated"); return False
+
         try:
           #print("schedule broadcast")
           self.loop.create_task(self.broadcastCmd(ch))
           cmd()
-          #if self.cmdChannel != None and self.loop != None:
-          #  #asyncio.create_task(self.broadcastCmd(ch))
-          #  self.loop.create_task(self.broadcastCmd(ch))
           return(True)
         except:
           print("redYaKb getCmd: problem with getattr " + commandText) 
