@@ -6,9 +6,8 @@ import sys
 import asyncio
 import aioredis # async I/O redis libraries
 
-from rykTeiEx04 import *
+from    rykTeiEx04 import *
 cyfn = 'rykTeiEx04.yaml' #commands yaml filename
-ryk  = rykTeiEx04(cyfn)
 
 # take redis password as command-line argument
 
@@ -93,6 +92,9 @@ class redWrap:
 
 async def main(pw):
   print("main runs")
+
+  ryk  = rykTeiEx04(cyfn)
+
   r = redWrap(pw)
   await r.connect()
   await r.testget()
