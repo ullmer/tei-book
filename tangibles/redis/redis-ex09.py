@@ -28,14 +28,18 @@ async def main(pw):
   await ryk.testget()
 
   p1    = "hexmap::edu.clemson.edu/computing.tei21/hp01"
+  p1pat =  p1 + "/*"
   p1led = p1 + '/led'
   p1nfc = p1 + '/nfc'
   p1cmd = p1 + '/cmd'
+
   ryk.channels   = [p1led, p1nfc, p1cmd]
   ryk.cmdChannel = p1cmd
 
+  #pat = ryk.receiver.pattern(p1pat)
+  await ryk.pool.psubscribe(p1pat)
+
   #await ryk.pub(p1cmd, update)
-  #await ryk.sub()
 
   #await r.unsubscribe(p1)
 

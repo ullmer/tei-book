@@ -49,7 +49,7 @@ class redYaKb:
   def on_press(self, key):
     try:
       #print('alphanumeric key {0} pressed'.format(key.char))
-      await self.procCh(ch=key.char)
+      self.procCh(ch=key.char)
     except AttributeError:
       print('special key {0} pressed'.format(key))
 
@@ -131,7 +131,7 @@ class redYaKb:
 
   ##################### process character #####################
 
-  async def procCh(self, ch=None): #if none, will use readCh (blocking)
+  def procCh(self, ch=None): #if none, will use readCh (blocking)
     print("redYaKb procCh " + ch)
     if ch == None:
       ch = self.readCh()
@@ -145,7 +145,7 @@ class redYaKb:
         try:
           cmd()
           if self.cmdChannel != None:
-            await self.pub(self.cmdChannel, ch)
+            self.pub(self.cmdChannel, ch)
           return(True)
         except:
           print("redYaKb getCmd: problem with getattr " + commandText) 
