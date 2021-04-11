@@ -25,29 +25,41 @@ class enHexPlinthSim():
   root          = None
   canvas        = None
   bgImg         = None #background image
-  bgImgFn       = "images/enHexPlinthSim02b.png"
+  bgImgFn       = "images/enHexPlinthSim02c.png"
 
-  ledSimMap     = None
+  ledSimMap       = None
+  ledSimBaseColor = "#808080"
 
 ################# constructor #################
   def __init__(self):
     self.ledSimMap = []
-    self.mapScreenCoords(self): 
+    self.initScreenCoords()
 
 ################# mapCoord #################
   def mapCoord(self, fx, fy): #fx, fy are floating-point coords, per CDR sketch
     fxRel = float(fx) / self.fxmax
     fyRel = float(fy) / self.fymax
-    x     = int(fxRel * self.fxmax)
-    y     = int(fyRel * self.fymax)
+    x     = int(fxRel * self.canvas_width)
+    y     = self.canvas_height - int(fyRel * self.canvas_height)
     return (x,y) 
 
 ################# mapCoord #################
-  def mapScreenCoords(self): 
+  def initScreenCoords(self): 
     xy1 = self.ledSimFXY1
     xy2 = self.ledSimFXY2
     self.ledSimSXY1 = self.mapCoord(xy1[0], xy1[1])
     self.ledSimSXY2 = self.mapCoord(xy2[0], xy2[1])
+
+################# build LED simulator box #################
+  def buildLEDSimBox(self, whichEl):
+    b1 = self.ledSimSXY1
+    b2 = self.ledSimSXY2
+    if b1 == None or b2 == None:
+      print("enHexPlinthSim buildLEDSimBox error: ledSimSXY* are None"); return
+
+    print(str(b1) + str(b2))
+
+    self.canvas.create_rectangle(b1[0], b1[1], b2[0], b2[1], fill=self.ledSimBaseColor)
 
 ################# build gui #################
   def buildGui(self):
@@ -57,8 +69,8 @@ class enHexPlinthSim():
     self.canvas.pack()
 
     self.bgImg = PhotoImage(file=self.bgImgFn)
-    #self.canvas.create_image(0, self.canvas_height, anchor=NW, image=self.bgImg)
     self.canvas.create_image(0, 0, anchor=NW, image=self.bgImg)
+    self.buildLEDSimBox(0)
 
 ################# main #################
 
