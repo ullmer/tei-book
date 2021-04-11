@@ -34,6 +34,7 @@ class redYaKb:
   receiver   = None
   channels   = None
   cmdChannel = None
+  loop       = None
 
   ##################### constructor ##################### 
 
@@ -131,6 +132,13 @@ class redYaKb:
 
   ##################### process character #####################
 
+  async def broadcastCmd(self, ch): 
+    print("broadcastCmd ", ch)
+    await self.pool.publish(self.cmdChannel, ch)
+    print("broadcastCmd complete")
+
+  ##################### process character #####################
+
   def procCh(self, ch=None): #if none, will use readCh (blocking)
     print("redYaKb procCh " + ch)
     if ch == None:
@@ -144,8 +152,9 @@ class redYaKb:
         cmd = self.getCmd(commandDescr)
         try:
           cmd()
-          if self.cmdChannel != None:
-            self.pub(self.cmdChannel, ch)
+          if self.cmdChannel != None and self.loop != None:
+            #asyncio.create_task(self.broadcastCmd(ch))
+            self.loop.create_task(self.broadcastCmd(ch))
           return(True)
         except:
           print("redYaKb getCmd: problem with getattr " + commandText) 

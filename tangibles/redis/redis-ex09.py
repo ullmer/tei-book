@@ -20,7 +20,9 @@ pw = sys.argv[1]
 
 #################### main ####################
 
+
 async def main(pw):
+  global loop
   print("main runs")
 
   ryk  = rykTeiEx04(cyfn, pw)
@@ -28,23 +30,24 @@ async def main(pw):
   await ryk.testget()
 
   p1    = "hexmap::edu.clemson.edu/computing.tei21/hp01"
-  p1pat =  p1 + "/*"
+  p1pat = p1 + "/*"  # allows subscription to multiple associated channels
   p1led = p1 + '/led'
   p1nfc = p1 + '/nfc'
   p1cmd = p1 + '/cmd'
 
   ryk.channels   = [p1led, p1nfc, p1cmd]
   ryk.cmdChannel = p1cmd
+  ryk.loop       = loop
 
   #pat = ryk.receiver.pattern(p1pat)
   await ryk.pool.psubscribe(p1pat)
-
   #await ryk.pub(p1cmd, update)
 
   #await r.unsubscribe(p1)
 
 #asyncio.run(main(pw))
 
+global loop
 loop = asyncio.get_event_loop()
 loop.create_task(main(pw))
 loop.run_forever()
