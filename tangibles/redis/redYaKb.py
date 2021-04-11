@@ -204,7 +204,7 @@ class redYaKb:
   
   async def reader(self, mpsc):  
     async for channel, msg in mpsc.iter():
-      assert isinstance(channel, aioredis.AbcChannel)
+      assert isinstance(channel, aioredis.abc.AbcChannel)
       print("Received {!r} in channel {!r}".format(msg, channel))
 
   #https://aioredis.readthedocs.io/en/v1.3.1/mpsc.html
