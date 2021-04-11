@@ -211,7 +211,8 @@ class redYaKb:
       #print("Received {!r} in channel {!r}".format(msg, channel))
       print("[{!r}]")
       key, value = msg
-      await self.handle_msg(str(value))
+      valDecode = value.decode("utf-8") 
+      await self.handle_msg(valDecode)
 
   #https://aioredis.readthedocs.io/en/v1.3.1/mpsc.html
   #https://docs.python.org/3/library/asyncio-task.html
