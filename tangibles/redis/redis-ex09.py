@@ -36,7 +36,7 @@ async def main(pw):
   await ryk.connect()
   await ryk.testget()
 
-  p1    = "hexmap::edu.clemson.edu/computing.tei21/hp01"
+  p1    = "edu.clemson.edu/computing.tei21/hp01" #hex plinth #1
   p1pat = p1 + "/*"  # allows subscription to multiple associated channels
   p1led = p1 + '/led'
   p1nfc = p1 + '/nfc'
