@@ -34,10 +34,10 @@ class redYaKb:
   ##################### key callbacks ##################### 
 
   def on_press(self, key):
-  try:
-    print('alphanumeric key {0} pressed'.format(key.char))
-  except AttributeError:
-    print('special key {0} pressed'.format(key))
+    try:
+      print('alphanumeric key {0} pressed'.format(key.char))
+    except AttributeError:
+      print('special key {0} pressed'.format(key))
 
   def on_release(self, key):
     print('{0} released'.format(key))
@@ -46,10 +46,8 @@ class redYaKb:
       return False
 
   def activateKeyListener(self)
-
-    self.kbListener = keyboard.Listener(
-       on_press=on_press,
-       on_release=on_release)
+    self.kbListener = keyboard.Listener(on_press=self.on_press,
+                                        on_release=self.on_release)
     self.kbListener.start()
 
   ##################### help ##################### 
