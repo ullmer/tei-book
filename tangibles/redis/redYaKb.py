@@ -52,10 +52,12 @@ class redYaKb:
       #print('alphanumeric key {0} pressed'.format(key.char))
       self.procCh(ch=key.char)
     except AttributeError:
-      print('special key {0} pressed'.format(key))
+      pass
+      #print('special key {0} pressed'.format(key))
 
   def on_release(self, key):
-    print('{0} released'.format(key))
+    pass
+    #print('{0} released'.format(key))
     if key == keyboard.Key.esc:
       # Stop listener
       return False
@@ -76,7 +78,7 @@ class redYaKb:
   ##################### help ##################### 
 
   def selfDoc(self, selfCmd):
-    print("self documentation called for command " + selfCmd)
+    print("<<{}>>".format(selfCmd))
 
   ############## read + process file containing yaml command bindings #############
 
@@ -140,7 +142,8 @@ class redYaKb:
   ##################### process character #####################
 
   def procCh(self, ch=None): #if none, will use readCh (blocking)
-    print("redYaKb procCh " + ch)
+    #print("redYaKb procCh " + ch)
+    print("[" + ch + "]", end='', flush=True)
     if ch == None:
       ch = self.readCh()
 
@@ -198,14 +201,17 @@ class redYaKb:
 #################### handle message ####################
 
   async def handle_msg(self, msg):
-    print('Received Message:', msg)
+    print("<<{}>>".format(msg))
 
 #################### reader ####################
   
   async def reader(self, mpsc):  
     async for channel, msg in mpsc.iter():
       assert isinstance(channel, aioredis.abc.AbcChannel)
-      print("Received {!r} in channel {!r}".format(msg, channel))
+      #print("Received {!r} in channel {!r}".format(msg, channel))
+      print("[{!r}]")
+      key, value = msg
+      await self.handle_msg(str(value))
 
   #https://aioredis.readthedocs.io/en/v1.3.1/mpsc.html
   #https://docs.python.org/3/library/asyncio-task.html
