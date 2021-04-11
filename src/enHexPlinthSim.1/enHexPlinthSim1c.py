@@ -27,6 +27,7 @@ class enHexPlinthSim():
   bgImg         = None #background image
   bgImgFn       = "images/enHexPlinthSim02c.png"
 
+  numSimLeds      = 12
   ledSimMap       = None
   ledSimBaseColor = "#808080"
 
@@ -54,12 +55,16 @@ class enHexPlinthSim():
   def buildLEDSimBox(self, whichEl):
     b1 = self.ledSimSXY1
     b2 = self.ledSimSXY2
+    dx = int(whichEl * float(self.canvas_width) * (self.ledSimFdX / self.fxmax))
     if b1 == None or b2 == None:
       print("enHexPlinthSim buildLEDSimBox error: ledSimSXY* are None"); return
 
-    print(str(b1) + str(b2))
+    b1x = b1[0]+dx
+    b2x = b2[0]+dx
+    #print(str(dx) + str(b1) + str(b2) + str(b1x),str(b2x))
 
-    self.canvas.create_rectangle(b1[0], b1[1], b2[0], b2[1], fill=self.ledSimBaseColor)
+    self.canvas.create_rectangle(b1x, b1[1], b2x, b2[1], 
+      fill=self.ledSimBaseColor)
 
 ################# build gui #################
   def buildGui(self):
@@ -70,7 +75,9 @@ class enHexPlinthSim():
 
     self.bgImg = PhotoImage(file=self.bgImgFn)
     self.canvas.create_image(0, 0, anchor=NW, image=self.bgImg)
-    self.buildLEDSimBox(0)
+
+    for i in range(self.numSimLeds):
+      self.buildLEDSimBox(i)
 
 ################# main #################
 
