@@ -5,7 +5,8 @@
 # Resources:
 # https://www.python-course.eu/tkinter_canvas.php
 
-from tkinter import *
+from   tkinter import *
+import yaml
 
 ################# Enodia Hex Plinth GUI Simulator #################
 
@@ -26,6 +27,11 @@ class enHexPlinthSim():
   canvas        = None
   bgImg         = None #background image
   bgImgFn       = "images/enHexPlinthSim02c.png"
+  ledLinesY     = '''{1: [.33,1.3,.606,1.775],    2: [.33,1.179,.606,.704], 
+                      3: [.71,.645,1.259,.645],   4: [1.363,.704,1.637,1.179],
+                      5: [1.637,1.3,1.363,1.775], 6: [1.259,1.834,.71,1.834]}'''
+  ledLinesF     = None
+  ledLinesS     = None
 
   numSimLeds      = 12
   ledSimMap       = None
@@ -33,7 +39,7 @@ class enHexPlinthSim():
 
 ################# constructor #################
   def __init__(self):
-    self.ledSimMap = []
+    self.ledSimMap = {}
     self.initScreenCoords()
 
 ################# mapCoord #################
@@ -51,6 +57,19 @@ class enHexPlinthSim():
     self.ledSimSXY1 = self.mapCoord(xy1[0], xy1[1])
     self.ledSimSXY2 = self.mapCoord(xy2[0], xy2[1])
 
+    self.ledLinesF = {}; self.ledLinesS = {}
+    self.ledLinesD = yaml.safe_load(self.ledLinesY)
+    for key in self.ledLinesD.keys():
+
+
+################# change simulated LED color #################
+
+  def changeLEDSimColor(self, whichEl, whichColor):
+    if whichEl not in self.ledSimMap:
+      print("enHexPlinthSim changeLEDSimColor: index not found:", whichEl); return
+
+    ledBoxHandle = self.ledSimMap[whichEl]
+
 ################# build LED simulator box #################
   def buildLEDSimBox(self, whichEl):
     b1 = self.ledSimSXY1
@@ -63,8 +82,10 @@ class enHexPlinthSim():
     b2x = b2[0]+dx
     #print(str(dx) + str(b1) + str(b2) + str(b1x),str(b2x))
 
-    self.canvas.create_rectangle(b1x, b1[1], b2x, b2[1], 
+    r = self.canvas.create_rectangle(b1x, b1[1], b2x, b2[1], 
       fill=self.ledSimBaseColor)
+
+    self.ledSimMap[whichEl] = r
 
 ################# build gui #################
   def buildGui(self):
