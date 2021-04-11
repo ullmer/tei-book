@@ -133,9 +133,9 @@ class redYaKb:
   ##################### process character #####################
 
   async def broadcastCmd(self, ch): 
-    print("broadcastCmd ", ch)
+    #print("broadcastCmd ", ch)
     await self.pool.publish(self.cmdChannel, ch)
-    print("broadcastCmd complete")
+    #print("broadcastCmd complete")
 
   ##################### process character #####################
 
@@ -151,10 +151,12 @@ class redYaKb:
         print(commandText)
         cmd = self.getCmd(commandDescr)
         try:
+          #print("schedule broadcast")
+          self.loop.create_task(self.broadcastCmd(ch))
           cmd()
-          if self.cmdChannel != None and self.loop != None:
-            #asyncio.create_task(self.broadcastCmd(ch))
-            self.loop.create_task(self.broadcastCmd(ch))
+          #if self.cmdChannel != None and self.loop != None:
+          #  #asyncio.create_task(self.broadcastCmd(ch))
+          #  self.loop.create_task(self.broadcastCmd(ch))
           return(True)
         except:
           print("redYaKb getCmd: problem with getattr " + commandText) 
@@ -211,7 +213,6 @@ class redYaKb:
       print("redWrap error: redis pool not initiated");
       return
 
-    #self.receiver = aioredis.pubsub.Receiver(loop=loop)
     self.receiver = aioredis.pubsub.Receiver()
     asyncio.create_task(self.reader(self.receiver)) 
     channelArgs = []

@@ -20,6 +20,13 @@ pw = sys.argv[1]
 
 #################### main ####################
 
+async def periodic():
+  while True:
+    print(".", end='', flush=True)
+    await asyncio.sleep(.5)
+    #for reasons I don't understand, probably involving curious interactions between
+    # pynput threading and asyncio, absent this function, the event loop
+    # isn't serviced for pubsub broadcasts. long sigh.
 
 async def main(pw):
   global loop
@@ -49,6 +56,7 @@ async def main(pw):
 
 global loop
 loop = asyncio.get_event_loop()
+loop.create_task(periodic())
 loop.create_task(main(pw))
 loop.run_forever()
 loop.close()
