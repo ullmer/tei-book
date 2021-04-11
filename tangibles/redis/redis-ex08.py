@@ -93,19 +93,19 @@ class redWrap:
 
 async def main(pw):
   print("main runs")
-  #r = redWrap(pw)
-  #await r.connect()
-  #await r.testget()
+  r = redWrap(pw)
+  await r.connect()
+  await r.testget()
 
   p1    = "hexmap::edu.clemson.edu/computing.tei21/hp01"
   p1led = p1 + '/led'
   p1nfc = p1 + '/nfc'
   p1cmd = p1 + '/cmd'
-  #r.channels = [p1led, p1nfc, p1cmd]
-  #await r.pub(p1cmd, update)
-  #await r.sub()
-
+  r.channels = [p1led, p1nfc, p1cmd]
   update  = "r"
+  await r.pub(p1cmd, update)
+  await r.sub()
+
   #await r.unsubscribe(p1)
 
 #asyncio.run(main(pw))
