@@ -46,7 +46,7 @@ async def main(pw):
   ryk.cmdChannel = p1cmd #redYaKb will broadcast commands to this address
   ryk.loop       = loop  #hacky; used to pass event loop for scheduling async actions
 
-  await ryk.pool.psubscribe(p1pat) # should show how this is used
+  await ryk.psub(p1pat) # should show how this is used
 
 global loop
 loop = asyncio.get_event_loop()

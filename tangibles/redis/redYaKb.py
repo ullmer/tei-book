@@ -238,6 +238,6 @@ class redYaKb:
     self.receiver = aioredis.pubsub.Receiver()
     asyncio.create_task(self.reader(self.receiver)) 
     psubHandle    = self.receiver.pattern(targPattern)
-    await ryk.pool.psubscribe(psubHandle) 
+    await self.pool.psubscribe(psubHandle) 
 
 ### end ###
