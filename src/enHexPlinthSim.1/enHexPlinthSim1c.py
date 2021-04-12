@@ -127,12 +127,15 @@ class enHexPlinthSim():
 
 ################# main #################
 
-colorTeiCrim = '#851c16'
+def main():
+  colorTeiCrim = '#851c16'
+  ehps = enHexPlinthSim()
+  ehps.buildGui()
+  ehps.changeLEDSimColor(5, colorTeiCrim)
+  mainloop()
 
-ehps = enHexPlinthSim()
-ehps.buildGui()
-ehps.changeLEDSimColor(5, colorTeiCrim)
-mainloop()
+if __name__ == "__main__":
+  main()
 
 ### end ###
 
