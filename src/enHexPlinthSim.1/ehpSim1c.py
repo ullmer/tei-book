@@ -1,3 +1,7 @@
+# Integration fo enHexPlinthSim with asyncio and aioredis
+# Brygg Ullmer and TBD, Clemson University
+# Begun 2021-04-11
+
 #https://stackoverflow.com/questions/47895765/use-asyncio-and-tkinter-or-another-gui-lib-together-without-freezing-the-gui
 
 from tkinter import *
@@ -6,6 +10,14 @@ import threading
 import random
 
 from enHexPlinthSim1c import *
+
+async def periodic():
+  while True:
+    print(".", end='', flush=True)
+    await asyncio.sleep(.5)
+    #for reasons I don't understand, probably involving curious interactions between
+    # pynput threading and asyncio, absent this function, the event loop
+    # isn't serviced for pubsub broadcasts. long sigh.
 
 def _asyncio_thread(async_loop):
     async_loop.run_until_complete(do_urls())
@@ -40,6 +52,11 @@ def main(async_loop):
 
 if __name__ == '__main__':
     async_loop = asyncio.get_event_loop()
-    main(async_loop)
+    async_loop.create_task(periodic())
+    async_loop.create_task(main(async_loop))
+    async_loop.run_forever()
+    asyn_loop.close()
+
+    #main(async_loop)
 
 ### end ###
