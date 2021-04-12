@@ -33,7 +33,7 @@ class enHexPlinthSim():
   ledLinesF     = None
   ledLinesS     = None
   ledLinesHash  = None
-  ledLineWidth  = 8
+  ledLineWidth  = 10
 
   numSimLeds      = 12
   ledSimHash      = None
@@ -68,16 +68,14 @@ class enHexPlinthSim():
       self.ledLinesS[key] = [coord1, coord2]
 
 ################# draw hex lines #################
-
   def drawHexLines(self): 
     for key in self.ledLinesS.keys():
       lineS = self.ledLinesS[key]          #line description in screen-coordinates
       v1 = lineS[0]; v2 = lineS[1] #the vertices
-      self.ledLinesHash[key] = self.canvas.line(v1[0], v1[1], v2[0], v2[1],
-        width=self.ledLineWidth, fill=self.ledSimBaseColor, capstyle=tk.ROUND)
+      self.ledLinesHash[key] = self.canvas.create_line(v1[0], v1[1], v2[0], v2[1],
+        width=self.ledLineWidth, fill=self.ledSimBaseColor, capstyle=ROUND)
 
 ################# change simulated LED color #################
-
   def changeLEDSimColor(self, whichEl, whichColor):
     if whichEl not in self.ledSimHash:
       print("enHexPlinthSim changeLEDSimColor: index not found:", whichEl); return
@@ -113,6 +111,8 @@ class enHexPlinthSim():
 
     for i in range(self.numSimLeds):
       self.buildLEDSimBox(i)
+
+    self.drawHexLines()
 
 ################# main #################
 
