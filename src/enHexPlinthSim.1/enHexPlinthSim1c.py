@@ -26,16 +26,17 @@ class enHexPlinthSim():
   root          = None
   canvas        = None
   bgImg         = None #background image
-  bgImgFn       = "images/enHexPlinthSim02c.png"
+  bgImgFn       = "images/enHexPlinthSim02d.png"
   ledLinesY     = '''{1: [.33,1.3,.606,1.775],    2: [.33,1.179,.606,.704], 
                       3: [.71,.645,1.259,.645],   4: [1.363,.704,1.637,1.179],
                       5: [1.637,1.3,1.363,1.775], 6: [1.259,1.834,.71,1.834]}'''
   ledLinesF     = None
   ledLinesS     = None
   ledLinesHash  = None
+  ledLineWidth  = 8
 
   numSimLeds      = 12
-  ledSimHash       = None
+  ledSimHash      = None
   ledSimBaseColor = "#808080"
 
 ################# constructor #################
@@ -70,7 +71,10 @@ class enHexPlinthSim():
 
   def drawHexLines(self): 
     for key in self.ledLinesS.keys():
-      linesS = self.ledLinesS[key]
+      lineS = self.ledLinesS[key]          #line description in screen-coordinates
+      v1 = lineS[0]; v2 = lineS[1] #the vertices
+      self.ledLinesHash[key] = self.canvas.line(v1[0], v1[1], v2[0], v2[1],
+        width=self.ledLineWidth, fill=self.ledSimBaseColor, capstyle=tk.ROUND)
 
 ################# change simulated LED color #################
 
