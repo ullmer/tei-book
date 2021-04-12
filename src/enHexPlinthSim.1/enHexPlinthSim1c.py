@@ -81,6 +81,10 @@ class enHexPlinthSim():
       print("enHexPlinthSim changeLEDSimColor: index not found:", whichEl); return
 
     ledBoxHandle = self.ledSimHash[whichEl]
+    self.canvas.itemconfig(ledBoxHandle, fill=whichColor)
+
+    ledLineHandle = self.ledLinesHash[whichEl]
+    self.canvas.itemconfig(ledLineHandle, fill=whichColor)
 
 ################# build LED simulator box #################
   def buildLEDSimBox(self, whichEl):
@@ -116,8 +120,11 @@ class enHexPlinthSim():
 
 ################# main #################
 
+colorTeiCrim = '#851c16'
+
 ehps = enHexPlinthSim()
 ehps.buildGui()
+ehps.changeLEDSimColor(5, colorTeiCrim)
 mainloop()
 
 ### end ###
