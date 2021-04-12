@@ -30,9 +30,9 @@ class enHexPlinthSim():
   bgImgFn       = "images/enHexPlinthSim02fbot.png"
   fgImgFn       = "images/enHexPlinthSim02ftop.png"
 
-  ledLinesY     = '''{1: [.33,1.3,.606,1.775],    2: [.33,1.179,.606,.704], 
-                      3: [.71,.645,1.259,.645],   4: [1.363,.704,1.637,1.179],
-                      5: [1.637,1.3,1.363,1.775], 6: [1.259,1.834,.71,1.834]}'''
+  ledLinesY     = '''{0: [.33,1.3,.606,1.775],    1: [.33,1.179,.606,.704], 
+                      2: [.71,.645,1.259,.645],   3: [1.363,.704,1.637,1.179],
+                      4: [1.637,1.3,1.363,1.775], 5: [1.259,1.834,.71,1.834]}'''
   ledLinesF     = None
   ledLinesS     = None
   ledLinesHash  = None
@@ -82,13 +82,20 @@ class enHexPlinthSim():
 ################# change simulated LED color #################
   def changeLEDSimColor(self, whichEl, whichColor):
     if whichEl not in self.ledSimHash:
-      print("enHexPlinthSim changeLEDSimColor: index not found:", whichEl); return
+      print("enHexPlinthSim changeLEDSimColor: ledSimHash index not found:", whichEl); return
 
     ledBoxHandle = self.ledSimHash[whichEl]
     self.canvas.itemconfig(ledBoxHandle, fill=whichColor)
 
+    if whichEl not in self.ledLinesHash:
+      print("enHexPlinthSim changeLEDSimColor: ledLinesHash index not found:", whichEl); return
+
     ledLineHandle = self.ledLinesHash[whichEl]
     self.canvas.itemconfig(ledLineHandle, fill=whichColor)
+
+################# change simulated LED color #################
+  def muteLEDSimColor(self, whichEl):
+    self.changeLEDSimColor(whichEl, self.ledSimBaseColor)
 
 ################# build LED simulator box #################
   def buildLEDSimBox(self, whichEl):
@@ -131,7 +138,8 @@ def main():
   colorTeiCrim = '#851c16'
   ehps = enHexPlinthSim()
   ehps.buildGui()
-  ehps.changeLEDSimColor(5, colorTeiCrim)
+  #ehps.changeLEDSimColor(5, colorTeiCrim)
+  ehps.changeLEDSimColor(4, colorTeiCrim)
   mainloop()
 
 if __name__ == "__main__":
