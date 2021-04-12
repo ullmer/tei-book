@@ -32,14 +32,15 @@ class enHexPlinthSim():
                       5: [1.637,1.3,1.363,1.775], 6: [1.259,1.834,.71,1.834]}'''
   ledLinesF     = None
   ledLinesS     = None
+  ledLinesHash  = None
 
   numSimLeds      = 12
-  ledSimMap       = None
+  ledSimHash       = None
   ledSimBaseColor = "#808080"
 
 ################# constructor #################
   def __init__(self):
-    self.ledSimMap = {}
+    self.ledSimHash = {}
     self.initScreenCoords()
 
 ################# mapCoord #################
@@ -50,25 +51,34 @@ class enHexPlinthSim():
     y     = self.canvas_height - int(fyRel * self.canvas_height)
     return (x,y) 
 
-################# mapCoord #################
+################# initialize screen coordinates #################
   def initScreenCoords(self): 
     xy1 = self.ledSimFXY1
     xy2 = self.ledSimFXY2
     self.ledSimSXY1 = self.mapCoord(xy1[0], xy1[1])
     self.ledSimSXY2 = self.mapCoord(xy2[0], xy2[1])
 
-    self.ledLinesF = {}; self.ledLinesS = {}
+    self.ledLinesF = {}; self.ledLinesS = {}; self.ledLinesHash = {}
     self.ledLinesD = yaml.safe_load(self.ledLinesY)
     for key in self.ledLinesD.keys():
+      linesF = self.ledLinesD[key]
+      coord1 = self.mapCoord(linesF[0], linesF[1])
+      coord2 = self.mapCoord(linesF[2], linesF[3])
+      self.ledLinesS[key] = [coord1, coord2]
 
+################# draw hex lines #################
+
+  def drawHexLines(self): 
+    for key in self.ledLinesS.keys():
+      linesS = self.ledLinesS[key]
 
 ################# change simulated LED color #################
 
   def changeLEDSimColor(self, whichEl, whichColor):
-    if whichEl not in self.ledSimMap:
+    if whichEl not in self.ledSimHash:
       print("enHexPlinthSim changeLEDSimColor: index not found:", whichEl); return
 
-    ledBoxHandle = self.ledSimMap[whichEl]
+    ledBoxHandle = self.ledSimHash[whichEl]
 
 ################# build LED simulator box #################
   def buildLEDSimBox(self, whichEl):
@@ -85,7 +95,7 @@ class enHexPlinthSim():
     r = self.canvas.create_rectangle(b1x, b1[1], b2x, b2[1], 
       fill=self.ledSimBaseColor)
 
-    self.ledSimMap[whichEl] = r
+    self.ledSimHash[whichEl] = r
 
 ################# build gui #################
   def buildGui(self):
