@@ -26,7 +26,10 @@ class enHexPlinthSim():
   root          = None
   canvas        = None
   bgImg         = None #background image
-  bgImgFn       = "images/enHexPlinthSim02d.png"
+  fgImg         = None #background image
+  bgImgFn       = "images/enHexPlinthSim02fbot.png"
+  fgImgFn       = "images/enHexPlinthSim02ftop.png"
+
   ledLinesY     = '''{1: [.33,1.3,.606,1.775],    2: [.33,1.179,.606,.704], 
                       3: [.71,.645,1.259,.645],   4: [1.363,.704,1.637,1.179],
                       5: [1.637,1.3,1.363,1.775], 6: [1.259,1.834,.71,1.834]}'''
@@ -37,7 +40,8 @@ class enHexPlinthSim():
 
   numSimLeds      = 12
   ledSimHash      = None
-  ledSimBaseColor = "#808080"
+  #ledSimBaseColor = "#808080"
+  ledSimBaseColor = "#202020"
 
 ################# constructor #################
   def __init__(self):
@@ -117,6 +121,9 @@ class enHexPlinthSim():
       self.buildLEDSimBox(i)
 
     self.drawHexLines()
+
+    self.fgImg = PhotoImage(file=self.fgImgFn)
+    self.canvas.create_image(0, 0, anchor=NW, image=self.fgImg)
 
 ################# main #################
 
