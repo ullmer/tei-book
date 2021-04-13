@@ -21,10 +21,17 @@ def main():
   print(colorseqH)
   for i in range(len(colorseqK)):
     ch = colorseqH[i]
-    #ct = elcl.mapColorIntensity(ch, 'A')
-    ct = elcl.mapColorIntensity(ch, '1')
+    ct = elcl.mapColorIntensity(ch, '1') #0..F (and maybe Z)
     print(ch, ct)
     elcl.ledFill(ct)
+    time.sleep(1)
+  
+  elcl.ledFill((0,0,0))
+  for i in range(len(colorseqK)):
+    ch = colorseqH[i]
+    ct = elcl.mapColorIntensity(ch, '1') #0..F (and maybe Z)
+    print(ch, ct)
+    elcl.ledSet(ct, i)
     time.sleep(1)
 
 if __name__ == "__main__":

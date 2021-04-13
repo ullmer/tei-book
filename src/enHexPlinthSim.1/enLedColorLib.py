@@ -79,6 +79,19 @@ class enLedColorLib:
   def ledFill(self, colorDescr):  
     if self.whichLedType == 'neopixel': self.pixels.fill(colorDescr)
 
+  ############### led set ###############
+
+  def ledSet(self, colorDescr, whichLed):  
+    if self.whichLedType == 'neopixel': self.pixels[whichLed] = colorDescr
+
+  ############### led Array ###############
+
+  def ledArray(self, colorDescrList):  
+    if self.whichLedType == 'neopixel': 
+      for i in range(len(colorDescrList)):
+        c = colorDescrList[i]
+        self.ledSet(c, i)
+
   ############### map color intensity###############
 
   def mapColorIntensity(self, colorHex, intensityHex):  #colorseq example: oopoop for (orange-orange-purple)x2
