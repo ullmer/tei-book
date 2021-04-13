@@ -127,9 +127,10 @@ class enLedColorLib:
 
   ##################### constructor #####################
 
-  def __init__(self):
+  def __init__(self, whichLedType=None):
     self.loadColorJson()
     self.extendColorHash()
+    self.whichLedType = whichLedType
 
     if self.whichLedType == 'dotstar': import dotstar
     if self.whichLedType == 'neopixel':
