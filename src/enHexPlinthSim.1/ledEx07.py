@@ -15,6 +15,15 @@ def main():
   elcl = enLedColorLib('neopixel')
   elcl.ledFill((1,1,3))
 
+  #colorseqK = 'roygbpP'
+  colorseqK = 'roygbp'
+  colorseqH = elcl.getBasecolorSeq(colorseqK)
+  print(colorseqH)
+  for i in range(len(colorseqK)):
+    c = colorseqH[i]
+    time.sleep(1)
+    print(c)
+
 if __name__ == "__main__":
   main()
 
