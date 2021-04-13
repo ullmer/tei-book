@@ -74,7 +74,7 @@ class enLedColorLib:
 
     return result
   
-  ############### map color intensity###############
+  ############### led fill ###############
 
   def ledFill(self, colorDescr):  
     if self.whichLedType == 'neopixel': self.pixels.fill(colorDescr)
@@ -101,7 +101,9 @@ class enLedColorLib:
       print("enLedColorLib mapColorIntensity problem converting intensityHex")
       e = sys.exc_info(); print('error: '+str(e)); return False
 
-    intensity = float(intensityInt)/10.
+    #intensity = float(intensityInt)/10.
+    #intensity = float(intensityInt)/15.
+    intensity = float(intensityInt)/64.
     result = tuple(int(float(colorTuple[i] * intensity)) for i in range(3))
     #print(colorHex)
     #print(colorTuple)
