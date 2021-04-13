@@ -49,7 +49,8 @@ class rykEx05(redYaKb):
   def ledAllOneColor(self, colorkey):
     self.selfDoc('allOneColor called')
     colorseq = self.genColorSeq(colorkey)
-    self.colorlib.lightLedStrip(colorseq)
+    #self.colorlib.lightLedStrip(colorseq)
+    self.colorlib.ledFill(colorkey)
 
   def ledAllOff(self):
     self.selfDoc('allRed called')
@@ -57,17 +58,18 @@ class rykEx05(redYaKb):
     for led in range(self.numLeds):
       colorseq.append(tuple(0,0,0))
 
-    self.colorlib.lightLedStrip(colorseq)
+    self.colorlib.ledFill((0,0,0))
+    #self.colorlib.lightLedStrip(colorseq)
 
   ##################### simple color functions #####################
 
   def allRed(self):    
-    print("Stephen says hello to Andrew Yang")
-    for i in range(3):
-      print(i); time.sleep(1)
+    #print("Stephen says hello to Andrew Yang")
+    #for i in range(3):
+    #  print(i); time.sleep(1)
    
-    #self.selfDoc('allRed called')
-    #self.ledAllOneColor('r')
+    self.selfDoc('allRed called')
+    self.ledAllOneColor('r')
 
   def allGreen(self):  
     self.selfDoc('allGreen')
@@ -123,6 +125,7 @@ def main():
   ryk = rykEx05(cyfn)
 
   print("red")
+  ryk.allRed()
   ryk.allRed()
 
   #print('Entering blocking keyboard loop.  Press "h" for help=list of commands.')
