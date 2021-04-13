@@ -86,11 +86,11 @@ class enLedColorLib:
 
   ############### led Array ###############
 
-  def ledArray(self, colorDescrList):  
+  def ledArray(self, colorDescrList, offset=0):  
     if self.whichLedType == 'neopixel': 
       for i in range(len(colorDescrList)):
         c = colorDescrList[i]
-        self.ledSet(c, i)
+        self.ledSet(c, offset+i)
 
   ############### map color intensity###############
 
