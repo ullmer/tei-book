@@ -4,11 +4,12 @@
 
 import json, yaml
 import sys, re
-#import dotstar
 
 ############### Enodia LED color library ###############
 
 class enLedColorLib:
+  whichLedType = None
+  pixels       = None #suggested neopixel handle
 
   colorJsonFn   = 'colors1.json'
   colorHash     = {}
@@ -75,6 +76,11 @@ class enLedColorLib:
   
   ############### map color intensity###############
 
+  def ledFill(self, colorDescr):  
+    if self.whichLedType == 'neopixel': self.pixels.fill(colorDescr)
+
+  ############### map color intensity###############
+
   def mapColorIntensity(self, colorHex, intensityHex):  #colorseq example: oopoop for (orange-orange-purple)x2
     #colorHex example: #C46210
     try:
@@ -124,6 +130,12 @@ class enLedColorLib:
   def __init__(self):
     self.loadColorJson()
     self.extendColorHash()
+
+    if self.whichLedType == 'dotstar': import dotstar
+    if self.whichLedType == 'neopixel':
+      import board
+      import neopixel
+      self.pixels = neopixel.NeoPixel(board.D18, 12)
 
 def main():
   elcl = enLedColorLib()
