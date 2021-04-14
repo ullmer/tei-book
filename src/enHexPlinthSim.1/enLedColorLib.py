@@ -116,7 +116,8 @@ class enLedColorLib:
 
     #intensity = float(intensityInt)/10.
     #intensity = float(intensityInt)/15.
-    intensity = float(intensityInt)/64.
+    #intensity = float(intensityInt)/64.
+    intensity = float(intensityInt)/128.
     result = tuple(int(float(colorTuple[i] * intensity)) for i in range(3))
     #print(colorHex)
     #print(colorTuple)
