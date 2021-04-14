@@ -22,11 +22,9 @@ import aioredis
 
 ##################### redis yaml keyboard class #####################
 
-class redYaKb:
+class redSock:
 
-  yamlCommandDescr = None
   commandHash      = None
-  kbListener       = None
 
   host = "redis-15905.c56.east-us.azure.cloud.redislabs.com"
   port = "15905"
@@ -46,28 +44,6 @@ class redYaKb:
     self.pw = pw
     self.channels = []
 
-  ##################### key callbacks ##################### 
-
-  def on_press(self, key):
-    try:
-      #print('alphanumeric key {0} pressed'.format(key.char))
-      self.procCh(ch=key.char)
-    except AttributeError:
-      pass
-      #print('special key {0} pressed'.format(key))
-
-  def on_release(self, key):
-    pass
-    #print('{0} released'.format(key))
-    if key == keyboard.Key.esc:
-      # Stop listener
-      return False
-
-  def activateKeyListener(self):
-    self.kbListener = keyboard.Listener(on_press=self.on_press,
-                                        on_release=self.on_release)
-    self.kbListener.start()
-
   ##################### help ##################### 
 
   def help(self):
@@ -75,63 +51,6 @@ class redYaKb:
     keys = self.commandHash.keys()
     for key in keys:
       print(key, self.commandHash[key])
-
-  ##################### help ##################### 
-
-  def selfDoc(self, selfCmd):
-    print("<<{}>>".format(selfCmd))
-
-  ############## read + process file containing yaml command bindings #############
-
-  def ingestCommandYamlFn(self, sourceYamlFn): 
-    try:
-      yf = open(sourceYamlFn, 'r+t')
-    except:
-      print("redYaKb ingestCommandYaml: problem opening file " + sourceYamlFn) 
-      e = sys.exc_info()   #e = sys.exc_info()[0]
-      print('error: '+str(e))
-      return False
-
-    self.yamlCommandDescr = yaml.safe_load(yf)
-
-    numCommands = len(self.yamlCommandDescr)
-    print("redYaKb ingestCommandYamlFn processing " + str(numCommands) + " commands from file " + sourceYamlFn)
-
-    self.commandHash = {}
-    for commandDescr in self.yamlCommandDescr:
-      if 'key' in commandDescr:
-        key = commandDescr['key']
-        self.commandHash[key] = commandDescr
-        cmd = self.getCmd(commandDescr)
-      else:
-        print("redYaKb ingestCommandYaml: problem parsing command entry: " + commandDescr)
-
-    #return result
-    return True
-
-  ##################### list commands ##################### 
-
-  def getCmd(self, commandDescr):
-    if 'command' in commandDescr:
-      commandTxt = commandDescr['command']
-      try:
-        attr = getattr(self, commandTxt)
-        return attr
-      except:
-        print("redYaKb getCmd: problem with getattr " + commandTxt) 
-        e = sys.exc_info()   #e = sys.exc_info()[0]
-        print('error: '+str(e))
-        return False
-    else:
-      print("redYaKb getCmd: 'command' not found in commandDescr: " + commandDescr)
-      return False
-
-  ##################### list commands ##################### 
-
-  def listCommands(self): 
-    if self.commandHash == None:
-      print("redYaKb listCommands: commandHash is null (ingestCommandYamlFn likely not called)")
-      return False
 
   ##################### process character #####################
 
@@ -177,8 +96,6 @@ class redYaKb:
 
 
   async def connect(self): 
-    #self.redHand = await aioredis.create_connection(address=(self.host, self.port), 
-    #                                                password=self.pw)
     self.pool = await aioredis.create_redis_pool(address=(self.host, self.port), 
                                                     password=self.pw)
 
