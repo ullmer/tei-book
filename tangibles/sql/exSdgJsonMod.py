@@ -5,8 +5,13 @@ sdgH = {}
 
 for sdg in sdgD:
   code = sdg["code"]; title = sdg["title"]
-  print(code, title)
+  sdgH[code] = title
 
-def tr(text): print("<tr>{}</tr>".format(text), end='')
+def tr(text): return "<td>{}</td>".format(text)
 
-#for i in range(26): print("<tr>{} : {} : {}</td>".format(chr(i+65),i%16+1,sdg[i]))
+for i in range(26): 
+  letter = chr(i+65); sdgN = i%16+1; sdgNC = str(sdgN)
+  a = tr(letter);  b = tr(sdgN); c = tr(sdgH[sdgNC])
+  print("<tr>{} {} {}</tr>".format(a,b,c))
+
+### end ###
