@@ -214,6 +214,14 @@ class edElements:
       table.append(row)
     return table
 
+  #################### getFullnameByIdRange ####################
+  def getFullnameByIdNumRange(self, minIdNum, maxIdNum):
+    result = []
+    for idx in range(minIdNum, maxIdNum):
+      fullname = self.elementNumIdHash[idx]
+      result.append(fullname)
+    return result
+
   #################### build block hash ####################
   # https://en.wikipedia.org/wiki/Periodic_table#Blocks
 
@@ -222,9 +230,9 @@ class edElements:
     for block in ['s', 'p', 'd', 'f']: self.elementBlockHash[block] = [] # list for each block
 
     ### s-block ###
-    for groupIdx in [1, 2]:
-      groupEls = self.getElsByCol(groupIdx)
-      self.elementBlockHash['s'] += groupEls
+    self.elementBlockHash['s'] += self.getElsByCol(1)
+    self.elementBlockHash['s'].append('helium')
+    self.elementBlockHash['s'] += self.getElsByCol(2)
 
   #################### build block hash ####################
   def getBlock(self, blockId):
