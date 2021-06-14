@@ -20,6 +20,7 @@ class edElements:
   elementColHash        = None
   elementTable          = None
   elementFullSymbolHash = None
+  elementBlockHash      = None
 
   #################### load data ####################
 
@@ -194,6 +195,12 @@ class edElements:
         row.append(elSymbol)
       table.append(row)
     return table
+
+  #################### build block hash ####################
+  # https://en.wikipedia.org/wiki/Periodic_table#Blocks
+
+  def buildBlockHash(self):
+    pass
       
 ############################################## 
 #################### main #################### 
