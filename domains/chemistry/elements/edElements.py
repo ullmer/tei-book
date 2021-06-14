@@ -33,22 +33,6 @@ class endElements:
     self.loadData()
     self.buildSymbolCoordHash()
 
-  #################### buildSymbolHash ####################
-
-  def buildSymbolCoordHash(self):
-    elFullnames = self.getElementList()
-    elementSymbolHash = {}
-    elementRowHash    = {}
-    elementColHash    = {}
-
-    for elFullname in elFullnames:
-      elData = getElementByFullname(elFullname)
-      symbol = elData["symbol"]
-      xpos   = elData["xpos"]
-      ypos   = elData["ypos"]
-
-      self.elementSymbolHash[symbol] = elFullname
-
   #################### getElementList ####################
 
   def getElementList(self):
@@ -76,6 +60,30 @@ class endElements:
       return self.elementFullnameHash[elementFullname]
 
     return None # error message would be preferable
+
+  #################### buildSymbolHash ####################
+
+  def buildSymbolCoordHash(self):
+    elFullnames = self.getElementList()
+    elementSymbolHash = {}
+    elementRowHash    = {}
+    elementColHash    = {}
+
+    for elFullname in elFullnames:
+      elData = self.getElementByFullname(elFullname)
+      elSymbol = elData["symbol"]
+      xpos     = elData["xpos"]
+      ypos     = elData["ypos"]
+
+      self.elementSymbolHash[elSymbol] = elFullname
+
+      if xpos not in self.elementRowHash:
+        self.elementRowHash[xpos] = []
+      self.elementRowHash[xpos].append(elFullname)
+
+      if ypos not in self.elementColHash:
+        self.elementColHash[ypos] = []
+      self.elementColHash[ypos].append(elFullname)
 
   #################### getElementBySymbol####################
 
