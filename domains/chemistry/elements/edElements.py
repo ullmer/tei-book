@@ -16,9 +16,11 @@ class edElements:
   elementFullnames      = None
   elementFullnameHash   = None
   elementSymbolHash     = None
+  elementNumIdHash      = None
   elementRowHash        = None
   elementColHash        = None
   elementTable          = None
+  elementFullNumIdHash  = None
   elementFullSymbolHash = None
   elementBlockHash      = None
 
@@ -82,17 +84,22 @@ class edElements:
     self.elementSymbolHash = {}
     self.elementRowHash    = {}
     self.elementColHash    = {}
+    self.elementNumIdHash  = {}
     self.elementTable      = {} # to become 2D hash by integer index
     self.elementFullSymbolHash = {}
+    self.elementFullNumIdHash  = {}
 
     for elFullname in elFullnames:
       elData = self.getElementByFullname(elFullname)
       elSymbol = elData["symbol"]
       xpos     = elData["xpos"]
       ypos     = elData["ypos"]
+      numId    = elData["number"]
 
       self.elementSymbolHash[elSymbol]       = elFullname
+      self.elementNumIdHash[numId]           = elFullname
       self.elementFullSymbolHash[elFullname] = elSymbol
+      self.elementFullNumIdHash[elFullname]  = numId
 
       if ypos not in self.elementRowHash:
         self.elementRowHash[ypos] = []
