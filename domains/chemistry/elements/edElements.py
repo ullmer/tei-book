@@ -67,7 +67,7 @@ class edElements:
 
     return None # error message would be preferable
 
-  #################### buildSymbolHash ####################
+  #################### get elements by row, column####################
 
   def getElsByRow(self, targRow):
     if targRow not in self.elementRowHash:
@@ -76,6 +76,16 @@ class edElements:
 
     els = self.elementRowHash[targRow]
     return els
+
+  def getElsByCol(self, targCol):
+    if targCol not in self.elementColHash:
+      print("edElements: getElsByCol: targColnot in elementColHash")
+      return None
+
+    els = self.elementColHash[targCol]
+    return els
+
+  #################### buildSymbolHash ####################
 
   #################### buildSymbolHash ####################
 
@@ -216,7 +226,7 @@ def main():
   ed = edElements()
   print(ed.getElementList())
   print(ed.getElementByFullname('aluminium'))
-  print(ed.getElsByRow(2))
+  print(ed.getElsByCol(1))
   print(ed.getTableDimensions())
   #print(ed.getFullnameMatrix())
   print(ed.getSymbolMatrix())
