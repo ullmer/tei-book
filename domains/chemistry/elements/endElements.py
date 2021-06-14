@@ -5,6 +5,7 @@ import json
 
 #end prefix = Enodia Data 
   
+######################################################################### 
 #################### Enodia Data : Chemical Elements #################### 
 
 class endElements:
@@ -16,7 +17,26 @@ class endElements:
 
   def loadData(self):
     elementF         = open(self.elementJson, 'r+t')
-    self.elementData = json.load(self.elementD)
+    self.elementData = json.load(elementF)
+  
+  #################### getElementList ####################
+
+  def getElementList(self):
+    if self.elementData == None:
+      self.loadData()
+
+    elementList = self.elementData["order"]
+    return elementList
+
+############################################## 
+#################### main #################### 
+
+def main():
+  ee = endElements()
+  print(ee.getElementList())
+
+if __name__ == "__main__":
+  main()
 
 ### end ###
 
