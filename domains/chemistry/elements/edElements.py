@@ -251,7 +251,7 @@ def main():
   print(ed.getTableDimensions())
   #print(ed.getFullnameMatrix())
   print(ed.getSymbolMatrix())
-  print(ed.getBlock('s'))
+  print('>> Block S:' + str(ed.getBlock('s')))
 
 if __name__ == "__main__":
   main()
