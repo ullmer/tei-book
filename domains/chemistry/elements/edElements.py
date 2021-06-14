@@ -224,10 +224,13 @@ class edElements:
     ### s-block ###
     for groupIdx in [1, 2]:
       groupEls = self.getElsByCol(groupIdx)
-      block['s'] += groupEls
+      self.elementBlockHash['s'] += groupEls
 
   #################### build block hash ####################
-  def buildBlockHash(self):
+  def getBlock(self, blockId):
+    if blockId not in self.elementBlockHash: 
+      print("edElements getBlock: blockId not in elementBlockHash"); return None
+    return self.elementBlockHash[blockId]
       
 ############################################## 
 #################### main #################### 
@@ -240,6 +243,7 @@ def main():
   print(ed.getTableDimensions())
   #print(ed.getFullnameMatrix())
   print(ed.getSymbolMatrix())
+  print(ed.getBlock('s'))
 
 if __name__ == "__main__":
   main()
