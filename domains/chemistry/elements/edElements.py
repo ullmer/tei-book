@@ -88,13 +88,13 @@ class edElements:
 
       self.elementSymbolHash[elSymbol] = elFullname
 
-      if xpos not in self.elementRowHash:
-        self.elementRowHash[xpos] = []
-      self.elementRowHash[xpos].append(elFullname)
+      if ypos not in self.elementRowHash:
+        self.elementRowHash[ypos] = []
+      self.elementRowHash[ypos].append(elFullname)
 
-      if ypos not in self.elementColHash:
-        self.elementColHash[ypos] = []
-      self.elementColHash[ypos].append(elFullname)
+      if xpos not in self.elementColHash:
+        self.elementColHash[xpos] = []
+      self.elementColHash[xpos].append(elFullname)
 
   #################### getElementBySymbol####################
 
