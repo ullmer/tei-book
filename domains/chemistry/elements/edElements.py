@@ -38,6 +38,7 @@ class edElements:
     self.elementFullnameHash = {}
     self.loadData()
     self.buildSymbolCoordHash()
+    self.buildBlockHash()
 
   #################### getElementList ####################
 
@@ -217,7 +218,16 @@ class edElements:
   # https://en.wikipedia.org/wiki/Periodic_table#Blocks
 
   def buildBlockHash(self):
-    pass
+    self.elementBlockHash = {}
+    for block in ['s', 'p', 'd', 'f']: self.elementBlockHash[block] = [] # list for each block
+
+    ### s-block ###
+    for groupIdx in [1, 2]:
+      groupEls = self.getElsByCol(groupIdx)
+      block['s'] += groupEls
+
+  #################### build block hash ####################
+  def buildBlockHash(self):
       
 ############################################## 
 #################### main #################### 
