@@ -105,6 +105,16 @@ class edElements:
 
   #################### getElementBySymbol####################
 
+  def getElementByTableIdx(self, x, y):
+    if self.elementTable == None:
+      print("edElements getElementByTableIdx error: no elementTable")
+
+    if x not in self.elementTable:    return None
+    if y not in self.elementTable[x]: return None
+    return self.elementTable[x][y]
+  
+  #################### getElementBySymbol####################
+
   def getElementBySymbol(self, elementSymbol):
     if self.elementData == None:
       self.loadData()
@@ -146,9 +156,17 @@ class edElements:
     tableHeight = self.getMaxTableHeight()
     return [tableWidth, tableHeight]
 
-  def getFullnameMatrix(self):
-    return self.elementTable
+  #################### get maximum table width (from double-hash) ####################
 
+  def getElFullnameMatrix(self):
+    tableDimensions = self.getTableDimensions()
+    xkeys           = self.elementTable.keys()
+    xkeysSorted     = sorted(xkeys)
+  
+    table = []
+    for x in xkeysSorted:
+      pass
+      
 ############################################## 
 #################### main #################### 
 
