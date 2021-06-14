@@ -8,14 +8,15 @@ import json
 #################### Enodia Data : Chemical Elements #################### 
 
 class endElements:
-  sourceUrl  = 'https://github.com/Bowserinator/Periodic-Table-JSON.git'
-  sourceJson = 'periodic-table-lookup.json'
-  sourceD    = None
+  elementUrl  = 'https://github.com/Bowserinator/Periodic-Table-JSON.git'
+  elementJson = 'periodic-table-lookup.json'
+  elementData = None
 
   #################### load data ####################
 
   def loadData(self):
-    json.load(self.sourceD)
+    elementF         = open(self.elementJson, 'r+t')
+    self.elementData = json.load(self.elementD)
 
 ### end ###
 
