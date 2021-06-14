@@ -8,7 +8,7 @@ import json
 ######################################################################### 
 #################### Enodia Data : Chemical Elements #################### 
 
-class endElements:
+class edElements:
   elementUrl  = 'https://github.com/Bowserinator/Periodic-Table-JSON.git'
   elementJson = 'periodic-table-lookup.json'
 
@@ -64,6 +64,16 @@ class endElements:
 
   #################### buildSymbolHash ####################
 
+  def getElsByRow(self, targRow):
+    if targRow not in self.elementRowHash:
+      print("edElements: getElsByRow: targRow not in elementRowHash")
+      return None
+
+    els = self.elementRowHash[targRow]
+    return els
+
+  #################### buildSymbolHash ####################
+
   def buildSymbolCoordHash(self):
     elFullnames = self.getElementList()
     self.elementSymbolHash = {}
@@ -106,9 +116,10 @@ class endElements:
 #################### main #################### 
 
 def main():
-  ee = endElements()
-  print(ee.getElementList())
-  print(ee.getElementByFullname('aluminium'))
+  ed = edElements()
+  print(ed.getElementList())
+  print(ed.getElementByFullname('aluminium'))
+  print(ed.getElsByRow(2))
 
 if __name__ == "__main__":
   main()
