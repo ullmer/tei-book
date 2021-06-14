@@ -245,9 +245,9 @@ class edElements:
 
 def main():
   ed = edElements()
-  print(ed.getElementList())
-  print(ed.getElementByFullname('aluminium'))
-  print(ed.getElsByCol(1))
+  print('>> Elements:' + str(ed.getElementList()))
+  print('>> Aluminum:' + str(ed.getElementByFullname('aluminium')))
+  print('>> Column 1:' + str(ed.getElsByCol(1)))
   print(ed.getTableDimensions())
   #print(ed.getFullnameMatrix())
   print(ed.getSymbolMatrix())
