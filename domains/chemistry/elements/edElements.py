@@ -158,14 +158,17 @@ class edElements:
 
   #################### get maximum table width (from double-hash) ####################
 
-  def getElFullnameMatrix(self):
+  def getFullnameMatrix(self):
     tableDimensions = self.getTableDimensions()
-    xkeys           = self.elementTable.keys()
-    xkeysSorted     = sorted(xkeys)
   
     table = []
-    for x in xkeysSorted:
-      pass
+    for x in range(1,tableDimensions[0]):
+      row = []
+      for y in range(1,tableDimensions[1]):
+        elFullname = self.getElementByTableIdx(x, y)
+        row.append(elFullname)
+      table.append(row)
+    return table
       
 ############################################## 
 #################### main #################### 
@@ -175,8 +178,8 @@ def main():
   print(ed.getElementList())
   print(ed.getElementByFullname('aluminium'))
   print(ed.getElsByRow(2))
-  #print(ed.getFullnameMatrix())
   print(ed.getTableDimensions())
+  print(ed.getFullnameMatrix())
 
 if __name__ == "__main__":
   main()
