@@ -11,6 +11,7 @@ import json
 class endElements:
   elementUrl  = 'https://github.com/Bowserinator/Periodic-Table-JSON.git'
   elementJson = 'periodic-table-lookup.json'
+
   elementData         = None
   elementFullnames    = None
   elementFullnameHash = None
@@ -65,9 +66,9 @@ class endElements:
 
   def buildSymbolCoordHash(self):
     elFullnames = self.getElementList()
-    elementSymbolHash = {}
-    elementRowHash    = {}
-    elementColHash    = {}
+    self.elementSymbolHash = {}
+    self.elementRowHash    = {}
+    self.elementColHash    = {}
 
     for elFullname in elFullnames:
       elData = self.getElementByFullname(elFullname)
