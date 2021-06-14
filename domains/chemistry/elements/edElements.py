@@ -18,6 +18,7 @@ class edElements:
   elementSymbolHash   = None
   elementRowHash      = None
   elementColHash      = None
+  elementTable        = None
 
   #################### load data ####################
 
@@ -79,6 +80,7 @@ class edElements:
     self.elementSymbolHash = {}
     self.elementRowHash    = {}
     self.elementColHash    = {}
+    self.elementTable      = {} # to become 2D hash by integer index
 
     for elFullname in elFullnames:
       elData = self.getElementByFullname(elFullname)
@@ -96,6 +98,11 @@ class edElements:
         self.elementColHash[xpos] = []
       self.elementColHash[xpos].append(elFullname)
 
+      if xpos not in self.elementTable:
+        self.elementTable[xpos] = {}
+
+      self.elementTable[xpos][ypos] = elFullname
+
   #################### getElementBySymbol####################
 
   def getElementBySymbol(self, elementSymbol):
@@ -112,6 +119,36 @@ class edElements:
 
     return None # error message would be preferable
 
+  #################### get maximum table width (from double-hash) ####################
+
+  def getMaxTableHeight(self):
+    maxTableHeight = 0
+    xkeys = self.elementTable.keys()
+    for x in xkeys:
+      ykeys = self.elementTable[x]
+      ylen  = len(ykeys)
+      if ylen > maxTableHeight: maxTableHeight = ylen
+    return maxTableHeight
+  
+  #################### get maximum table width (from double-hash) ####################
+
+  def getMaxTableWidth(self):
+    maxTableWidth = 0
+    xkeys = self.elementTable.keys()
+    for x in xkeys:
+      if x > maxTableWidth: maxTableWidth = x
+    return maxTableWidth
+
+  #################### get maximum table width (from double-hash) ####################
+
+  def getTableDimensions(self):
+    tableWidth  = self.getMaxTableWidth()
+    tableHeight = self.getMaxTableHeight()
+    return [tableWidth, tableHeight]
+
+  def getFullnameMatrix(self):
+    return self.elementTable
+
 ############################################## 
 #################### main #################### 
 
@@ -120,6 +157,8 @@ def main():
   print(ed.getElementList())
   print(ed.getElementByFullname('aluminium'))
   print(ed.getElsByRow(2))
+  #print(ed.getFullnameMatrix())
+  print(ed.getTableDimensions())
 
 if __name__ == "__main__":
   main()
