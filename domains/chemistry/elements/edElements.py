@@ -14,6 +14,9 @@ class endElements:
   elementData         = None
   elementFullnames    = None
   elementFullnameHash = None
+  elementSymbolHash   = None
+  elementRowHash      = None
+  elementColHash      = None
 
   #################### load data ####################
 
@@ -23,6 +26,29 @@ class endElements:
 
     els = self.getElementList()
   
+  #################### constructor ####################
+
+  def __init__(self):
+    self.elementFullnameHash = {}
+    self.loadData()
+    self.buildSymbolCoordHash()
+
+  #################### buildSymbolHash ####################
+
+  def buildSymbolCoordHash(self):
+    elFullnames = self.getElementList()
+    elementSymbolHash = {}
+    elementRowHash    = {}
+    elementColHash    = {}
+
+    for elFullname in elFullnames:
+      elData = getElementByFullname(elFullname)
+      symbol = elData["symbol"]
+      xpos   = elData["xpos"]
+      ypos   = elData["ypos"]
+
+      self.elementSymbolHash[symbol] = elFullname
+
   #################### getElementList ####################
 
   def getElementList(self):
@@ -35,14 +61,27 @@ class endElements:
     self.elementFullnames = self.elementData["order"]
     return self.elementFullnames
 
-  #################### getElement ####################
+  #################### getElementByFullname ####################
 
   def getElementByFullname(self, elementFullname):
     if self.elementData == None:
       self.loadData()
 
-    if self.elementFullnameHash == None:
-      self.elementFullnameHash = {}
+    if elementFullname in self.elementFullnameHash:
+      result = self.elementFullnameHash[elementFullname]
+      return result
+
+    if elementFullname in self.elementData:
+      self.elementFullnameHash[elementFullname] = self.elementData[elementFullname]
+      return self.elementFullnameHash[elementFullname]
+
+    return None # error message would be preferable
+
+  #################### getElementBySymbol####################
+
+  def getElementBySymbol(self, elementSymbol):
+    if self.elementData == None:
+      self.loadData()
 
     if elementFullname in self.elementFullnameHash:
       result = self.elementFullnameHash[elementFullname]
