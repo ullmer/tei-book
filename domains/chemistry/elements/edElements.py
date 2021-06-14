@@ -245,13 +245,13 @@ class edElements:
 
 def main():
   ed = edElements()
-  print('>> Elements:' + str(ed.getElementList()))
-  print('>> Aluminum:' + str(ed.getElementByFullname('aluminium')))
-  print('>> Column 1:' + str(ed.getElsByCol(1)))
-  print(ed.getTableDimensions())
+  print('>> Elements: ' + str(ed.getElementList()))
+  print('>> Aluminum: ' + str(ed.getElementByFullname('aluminium')))
+  print('>> Column 1: ' + str(ed.getElsByCol(1)))
+  print('>> Table dimensions: ' + str(ed.getTableDimensions()))
   #print(ed.getFullnameMatrix())
-  print(ed.getSymbolMatrix())
-  print('>> Block S:' + str(ed.getBlock('s')))
+  print('>> Symbol matrix: ' + str(ed.getSymbolMatrix()))
+  print('>> Block S: ' + str(ed.getBlock('s')))
 
 if __name__ == "__main__":
   main()
