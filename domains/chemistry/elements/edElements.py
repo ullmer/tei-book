@@ -12,13 +12,14 @@ class edElements:
   elementUrl  = 'https://github.com/Bowserinator/Periodic-Table-JSON.git'
   elementJson = 'periodic-table-lookup.json'
 
-  elementData         = None
-  elementFullnames    = None
-  elementFullnameHash = None
-  elementSymbolHash   = None
-  elementRowHash      = None
-  elementColHash      = None
-  elementTable        = None
+  elementData           = None
+  elementFullnames      = None
+  elementFullnameHash   = None
+  elementSymbolHash     = None
+  elementRowHash        = None
+  elementColHash        = None
+  elementTable          = None
+  elementFullSymbolHash = None
 
   #################### load data ####################
 
@@ -81,6 +82,7 @@ class edElements:
     self.elementRowHash    = {}
     self.elementColHash    = {}
     self.elementTable      = {} # to become 2D hash by integer index
+    self.elementFullSymbolHash = {}
 
     for elFullname in elFullnames:
       elData = self.getElementByFullname(elFullname)
@@ -88,7 +90,8 @@ class edElements:
       xpos     = elData["xpos"]
       ypos     = elData["ypos"]
 
-      self.elementSymbolHash[elSymbol] = elFullname
+      self.elementSymbolHash[elSymbol]       = elFullname
+      self.elementFullSymbolHash[elFullname] = elSymbol
 
       if ypos not in self.elementRowHash:
         self.elementRowHash[ypos] = []
@@ -113,6 +116,13 @@ class edElements:
     if y not in self.elementTable[x]: return None
     return self.elementTable[x][y]
   
+  #################### get symbol by fullname ####################
+
+  def getSymbolByFullname(self, fullname):
+    if fullname in self.elementFullSymbolHash:
+      return self.elementFullSymbolHash[fullname]
+    return None
+
   #################### getElementBySymbol####################
 
   def getElementBySymbol(self, elementSymbol):
@@ -169,6 +179,21 @@ class edElements:
         row.append(elFullname)
       table.append(row)
     return table
+
+  #################### get maximum table width (from double-hash) ####################
+
+  def getSymbolMatrix(self):
+    tableDimensions = self.getTableDimensions()
+  
+    table = []
+    for x in range(1,tableDimensions[0]):
+      row = []
+      for y in range(1,tableDimensions[1]):
+        elFullname = self.getElementByTableIdx(x, y)
+        elSymbol   = self.getSymbolByFullname(elFullname)
+        row.append(elSymbol)
+      table.append(row)
+    return table
       
 ############################################## 
 #################### main #################### 
@@ -179,7 +204,8 @@ def main():
   print(ed.getElementByFullname('aluminium'))
   print(ed.getElsByRow(2))
   print(ed.getTableDimensions())
-  print(ed.getFullnameMatrix())
+  #print(ed.getFullnameMatrix())
+  print(ed.getSymbolMatrix())
 
 if __name__ == "__main__":
   main()
