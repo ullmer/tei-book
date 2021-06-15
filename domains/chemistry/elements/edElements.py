@@ -22,7 +22,8 @@ class edElements:
   elementTable          = None
   elementFullNumIdHash  = None
   elementFullSymbolHash = None
-  elementBlockHash      = None
+  elementBlockIdHash    = None
+  elementBlockNameHash  = None
 
   #################### load data ####################
 
@@ -230,35 +231,49 @@ class edElements:
     return result
 
   #################### build block hash ####################
+  def getBlockId(self, blockId):
+    if blockId not in self.elementBlockIdHash: 
+      print("edElements getBlock: blockId not in elementBlockIdHash")
+      return None
+    return self.elementBlockIdHash[blockId]
+
+  #################### build block hash ####################
   # https://en.wikipedia.org/wiki/Periodic_table#Blocks
 
   def buildBlockHash(self):
-    self.elementBlockHash = {}
+    self.elementBlockIdHash   = {}
+    self.elementBlockNameHash = {}
     for block in ['s', 'p', 'd', 'f']: 
-      self.elementBlockHash[block] = [] # list for each block
+      self.elementBlockIdHash[block] = [] # list for each block
 
     ### s-block ###
-    self.elementBlockHash['s'] += self.getElsByCol(1)
-    self.elementBlockHash['s'] += self.getElsByCol(2)
-    self.elementBlockHash['s'].insert(1,'helium')
+    self.elementBlockIdHash['s'] += self.getElsByCol(1)
+    self.elementBlockIdHash['s'] += self.getElsByCol(2)
+    self.elementBlockIdHash['s'].insert(1,'helium')
 
     ### p-block ###
     for idx in [21,39,71,103]:
-      self.elementBlockHash['p'] += self.getFullnameByIdNumRange(idx, idx+10)
+      self.elementBlockIdHash['p'] += self.getFullnameByIdNumRange(idx, idx+10)
 
     ### d-block ###
     for idx in [5,13,31,49,81,113]:
-      self.elementBlockHash['d'] += self.getFullnameByIdNumRange(idx, idx+6)
+      self.elementBlockIdHash['d'] += self.getFullnameByIdNumRange(idx, idx+6)
 
     ### f-block ###
     for idx in [57,89]:
-      self.elementBlockHash['f'] += self.getFullnameByIdNumRange(idx, idx+14)
+      self.elementBlockIdHash['f'] += self.getFullnameByIdNumRange(idx, idx+14)
+
+    for block in ['s', 'p', 'd', 'f']: 
+      blockElements = self.getBlockId(block)
+      for el in blockElements:
+        self.elementBlockNameHash[el] = block
 
   #################### build block hash ####################
-  def getBlock(self, blockId):
-    if blockId not in self.elementBlockHash: 
-      print("edElements getBlock: blockId not in elementBlockHash"); return None
-    return self.elementBlockHash[blockId]
+  def getBlockByElName(self, elName):
+    if elName not in self.elementBlockNameHash: 
+      print("edElements getBlockByElName: elName not in elementBlockNameHash")
+      return None
+    return self.elementBlockNameHash[elName]
       
 ############################################## 
 #################### main #################### 

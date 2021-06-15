@@ -20,7 +20,7 @@ class evElements(edElements):
   #################### build GUI #################### 
   def buildGui(self):
     self.root = Tk()
-    self.blockColorsHash = yaml.safe_load(self.blockColorYaml)
+    self.blockColorHash = yaml.safe_load(self.blockColorYaml)
 
     #row = self.buildCellCol(self.root, [['1', 'H'], ['2', 'He']])
     #row = self.buildTableCol(self.root, 2)
@@ -34,12 +34,12 @@ class evElements(edElements):
 
   #################### buildCell #################### 
 
-  def buildCell(self, parentWidget, label1, label2):
+  def buildCell(self, parentWidget, label1, label2, cellBg='white'):
     cell = Frame(parentWidget, 
-                 highlightbackground="gray", highlightthickness=1,
+                 highlightbackground="gray", highlightthickness=1, bg=cellBg,
                  width=self.cellWidth, height=self.cellHeight)
-    l1   = Label(cell, text=label1, width=self.cellWidth)
-    l2   = Label(cell, text=label2, width=self.cellWidth)
+    l1   = Label(cell, text=label1, width=self.cellWidth, bg=cellBg)
+    l2   = Label(cell, text=label2, width=self.cellWidth, bg=cellBg)
     for label in [l1, l2]:
       label.pack()
 
@@ -50,11 +50,10 @@ class evElements(edElements):
   def buildCellCol(self, parentWidget, cellLabelArray):
     cellRow = Frame(parentWidget)
     for labels in cellLabelArray:
-      cell = self.buildCell(cellRow, labels[0], labels[1])
+      cell = self.buildCell(cellRow, labels[0], labels[1], labels[2])
       cell.pack(side=TOP)
     cellRow.pack(side=TOP)
     return cellRow
-
 
   #################### buildTableCol #################### 
   def buildTableCol(self, parentWidget, selectedRow):
@@ -63,10 +62,16 @@ class evElements(edElements):
     rowLabels = []
     x = selectedRow
     for y in range(1,tableDimensions[1]):
+    #for y in range(1,9):
       elFullname = self.getElementByTableIdx(x, y)
       elSymbol   = self.getSymbolByFullname(elFullname)
       elId       = self.getIdByFullname(elFullname)
-      labels     = [elId, elSymbol]
+
+      cellBlock  = self.getBlockByElName(elFullname)
+      if cellBlock == None: cellColor = 'white'
+      else:                 cellColor  = self.blockColorHash[cellBlock]
+
+      labels     = [elId, elSymbol, cellColor]
       rowLabels.append(labels)
     row = self.buildCellCol(parentWidget, rowLabels)
     return row
