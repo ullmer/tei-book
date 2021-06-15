@@ -45,21 +45,16 @@ class evElements(edElements):
     cellRow.pack(side=TOP)
     return cellRow
 
-#################### get maximum table width (from double-hash) ####################
+  #################### buildCellCol #################### 
 
-  def buildTableCol(self, parentWidget, selectedRow):
+  def buildCellTable(self, parentWidget, cellLabelArray):
+    cellTable = Frame(parentWidget)
     tableDimensions = self.getTableDimensions()
-  
-    rowLabels = []
-    x = selectedRow
-    for y in range(1,tableDimensions[1]):
-      elFullname = self.getElementByTableIdx(x, y)
-      elSymbol   = self.getSymbolByFullname(elFullname)
-      elId       = self.getIdByFullname(elFullname)
-      labels     = [elId, elSymbol]
-      rowLabels.append(labels)
-    row = self.buildCellCol(parentWidget, rowLabels)
-    return row
+    for colIdx in seq(1,tableDimensions[1]+1):
+      col = self.buildTableCol(self.root, colIdx)
+      col.pack(side=LEFT)
+    cellTable.pack(side=LEFT)
+    return cellTable
 
   #################### mainloop/event handler #################### 
   def mainloop(self):
