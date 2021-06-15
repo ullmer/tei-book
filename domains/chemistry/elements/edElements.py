@@ -236,15 +236,15 @@ class edElements:
 
     ### p-block ###
     for idx in [21,39,71,103]:
-      self.elementBlockHash['p'] += self.getFullnameByIdNumRange(idx, idx+9)
+      self.elementBlockHash['p'] += self.getFullnameByIdNumRange(idx, idx+10)
 
     ### d-block ###
     for idx in [5,13,31,49,81,113]:
-      self.elementBlockHash['d'] += self.getFullnameByIdNumRange(idx, idx+5)
+      self.elementBlockHash['d'] += self.getFullnameByIdNumRange(idx, idx+6)
 
     ### f-block ###
     for idx in [57,89]:
-      self.elementBlockHash['f'] += self.getFullnameByIdNumRange(idx, idx+13)
+      self.elementBlockHash['f'] += self.getFullnameByIdNumRange(idx, idx+14)
 
   #################### build block hash ####################
   def getBlock(self, blockId):
@@ -264,6 +264,9 @@ def main():
   #print(ed.getFullnameMatrix())
   print('>> Symbol matrix: ' + str(ed.getSymbolMatrix()))
   print('>> Block S: ' + str(ed.getBlock('s')))
+  print('>> Block P: ' + str(ed.getBlock('p')))
+  print('>> Block D: ' + str(ed.getBlock('d')))
+  print('>> Block F: ' + str(ed.getBlock('f')))
 
 if __name__ == "__main__":
   main()
