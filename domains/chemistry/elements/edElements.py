@@ -142,6 +142,13 @@ class edElements:
       return self.elementFullSymbolHash[fullname]
     return None
 
+  #################### get id by fullname ####################
+
+  def getIdByFullname(self, fullname):
+    if fullname in self.elementFullNumIdHash:
+      return self.elementFullNumIdHash[fullname]
+    return None
+
   #################### getElementBySymbol####################
 
   def getElementBySymbol(self, elementSymbol):
