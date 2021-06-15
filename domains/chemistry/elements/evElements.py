@@ -24,7 +24,9 @@ class evElements(edElements):
   #################### buildCell #################### 
 
   def buildCell(self, parentWidget, label1, label2):
-    cell = Frame(parentWidget, borderwidth = 1, width=self.cellWidth, height=self.cellHeight)
+    cell = Frame(parentWidget, #borderwidth = 1, 
+                 highlightbackground="gray", highlightthickness=1,
+                 width=self.cellWidth, height=self.cellHeight)
     l1   = Label(cell, text=label1, width=self.cellWidth)
     l2   = Label(cell, text=label2, width=self.cellWidth)
     for label in [l1, l2]:
