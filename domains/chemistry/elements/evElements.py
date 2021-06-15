@@ -15,13 +15,14 @@ class evElements(edElements):
   #################### build GUI #################### 
   def buildGui(self):
     self.root = Tk()
-    cell = self.buildCell(self.root, '1', 'H')
+    cell = self.buildCellRow(self.root, [['1', 'H'], ['2', 'He']])
     cell.pack()
 
     #a = Label(self.root, text="Hello, world!")
     #a.pack()
 
-  #################### mainloop/event handler #################### 
+  #################### buildCell #################### 
+
   def buildCell(self, parentWidget, label1, label2):
     cell = Frame(parentWidget, borderwidth = 1, width=self.cellWidth, height=self.cellHeight)
     l1   = Label(cell, text=label1, width=self.cellWidth)
@@ -31,6 +32,16 @@ class evElements(edElements):
       label.pack()
 
     return cell
+
+  #################### buildCellRow #################### 
+
+  def buildCellRow(self, parentWidget, cellLabelArray):
+    cellRow = Frame(parentWidget)
+    for labels in cellLabelArray:
+      cell = self.buildCell(cellRow, labels[0], labels[1])
+      cell.pack(side=LEFT)
+    cellRow.pack()
+    return cellRow
 
   #################### mainloop/event handler #################### 
   def mainloop(self):
