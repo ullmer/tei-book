@@ -1,8 +1,9 @@
 # Brygg Ullmer, Miriam Konkel, and Breanna Filipiak
 # Support class for engaging periodic table of the elements
 
-from edElements import *
-from tkinter    import *
+from   edElements import *
+from   tkinter    import *
+import yaml
 
 ######################################################################### 
 #################### Enodia Visual : Chemical Elements #################### 
@@ -11,10 +12,16 @@ class evElements(edElements):
   root = None
   cellWidth  = 5
   cellHeight = 5
+  blockColorYaml = '{s: RosyBrown2, p: LightSkyBlue1, d: khaki1, f: PaleGreen1}'
+  blockColorHash = None
+  # https://en.wikipedia.org/wiki/Periodic_table#/media/File:Simple_Periodic_Table_Chart-blocks.svg
+  # http://www.science.smith.edu/dftwiki/images/3/3d/TkInterColorCharts.png
 
   #################### build GUI #################### 
   def buildGui(self):
     self.root = Tk()
+    self.blockColorsHash = yaml.safe_load(self.blockColorYaml)
+
     #row = self.buildCellCol(self.root, [['1', 'H'], ['2', 'He']])
     #row = self.buildTableCol(self.root, 2)
     #row.pack()
