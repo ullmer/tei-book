@@ -234,7 +234,8 @@ class edElements:
 
   def buildBlockHash(self):
     self.elementBlockHash = {}
-    for block in ['s', 'p', 'd', 'f']: self.elementBlockHash[block] = [] # list for each block
+    for block in ['s', 'p', 'd', 'f']: 
+      self.elementBlockHash[block] = [] # list for each block
 
     ### s-block ###
     self.elementBlockHash['s'] += self.getElsByCol(1)

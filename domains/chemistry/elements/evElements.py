@@ -16,11 +16,11 @@ class evElements(edElements):
   def buildGui(self):
     self.root = Tk()
     #row = self.buildCellCol(self.root, [['1', 'H'], ['2', 'He']])
-    #row = self.buildCellCol(self.root, 2)
-    #row.pack()
+    row = self.buildTableCol(self.root, 2)
+    row.pack()
 
-    table = self.buildCellTable(self.root)
-    table.pack()
+    #table = self.buildCellTable(self.root)
+    #table.pack()
 
     #a = Label(self.root, text="Hello, world!")
     #a.pack()
@@ -47,6 +47,22 @@ class evElements(edElements):
       cell.pack(side=TOP)
     cellRow.pack(side=TOP)
     return cellRow
+
+
+  #################### buildTableCol #################### 
+  def buildTableCol(self, parentWidget, selectedRow):
+    tableDimensions = self.getTableDimensions()
+  
+    rowLabels = []
+    x = selectedRow
+    for y in range(1,tableDimensions[1]):
+      elFullname = self.getElementByTableIdx(x, y)
+      elSymbol   = self.getSymbolByFullname(elFullname)
+      elId       = self.getIdByFullname(elFullname)
+      labels     = [elId, elSymbol]
+      rowLabels.append(labels)
+    row = self.buildCellCol(parentWidget, rowLabels)
+    return row
 
   #################### buildCellTable #################### 
 
