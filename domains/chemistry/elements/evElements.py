@@ -9,12 +9,22 @@ from tkinter    import *
 
 class evElements(edElements):
   root = None
+  cellWidth  = 100
+  cellHeight = 100
 
   #################### build GUI #################### 
   def buildGui(self):
     self.root = Tk()
-    a = Label(self.root, text="Hello, world!")
-    a.pack()
+    cell = self.buildCell(self.root)
+    cell.pack()
+
+    #a = Label(self.root, text="Hello, world!")
+    #a.pack()
+
+  #################### mainloop/event handler #################### 
+  def buildCell(self, parentWidget):
+    cell = Frame(parentWidget, borderwidth = 1, width=self.cellWidth, height=self.cellHeight)
+    return cell
 
   #################### mainloop/event handler #################### 
   def mainloop(self):
