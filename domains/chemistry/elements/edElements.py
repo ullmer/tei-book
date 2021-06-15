@@ -231,8 +231,8 @@ class edElements:
 
     ### s-block ###
     self.elementBlockHash['s'] += self.getElsByCol(1)
-    self.elementBlockHash['s'].insert(1,'helium')
     self.elementBlockHash['s'] += self.getElsByCol(2)
+    self.elementBlockHash['s'].insert(1,'helium')
 
     ### p-block ###
     for idx in [21,39,71,103]:
@@ -242,9 +242,9 @@ class edElements:
     for idx in [5,13,31,49,81,113]:
       self.elementBlockHash['d'] += self.getFullnameByIdNumRange(idx, idx+5)
 
-
-  def getFullnameByIdNumRange(self, minIdNum, maxIdNum):
-
+    ### f-block ###
+    for idx in [57,89]:
+      self.elementBlockHash['f'] += self.getFullnameByIdNumRange(idx, idx+13)
 
   #################### build block hash ####################
   def getBlock(self, blockId):
