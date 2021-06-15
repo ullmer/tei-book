@@ -15,8 +15,8 @@ class evElements(edElements):
   #################### build GUI #################### 
   def buildGui(self):
     self.root = Tk()
-    #row = self.buildCellRow(self.root, [['1', 'H'], ['2', 'He']])
-    row = self.buildTableRow(self.root, 2)
+    #row = self.buildCellCol(self.root, [['1', 'H'], ['2', 'He']])
+    row = self.buildTableCol(self.root, 2)
     row.pack()
 
     #a = Label(self.root, text="Hello, world!")
@@ -31,24 +31,23 @@ class evElements(edElements):
     l1   = Label(cell, text=label1, width=self.cellWidth)
     l2   = Label(cell, text=label2, width=self.cellWidth)
     for label in [l1, l2]:
-      #label.pack(expand=1, fill=BOTH)
       label.pack()
 
     return cell
 
-  #################### buildCellRow #################### 
+  #################### buildCellCol #################### 
 
-  def buildCellRow(self, parentWidget, cellLabelArray):
+  def buildCellCol(self, parentWidget, cellLabelArray):
     cellRow = Frame(parentWidget)
     for labels in cellLabelArray:
       cell = self.buildCell(cellRow, labels[0], labels[1])
-      cell.pack(side=LEFT)
-    cellRow.pack()
+      cell.pack(side=TOP)
+    cellRow.pack(side=TOP)
     return cellRow
 
 #################### get maximum table width (from double-hash) ####################
 
-  def buildTableRow(self, parentWidget, selectedRow):
+  def buildTableCol(self, parentWidget, selectedRow):
     tableDimensions = self.getTableDimensions()
   
     rowLabels = []
@@ -59,8 +58,8 @@ class evElements(edElements):
       elId       = self.getIdByFullname(elFullname)
       labels     = [elId, elSymbol]
       rowLabels.append(labels)
-    self.buildCellRow(parentWidget, rowLabels)
-    return table
+    row = self.buildCellCol(parentWidget, rowLabels)
+    return row
 
   #################### mainloop/event handler #################### 
   def mainloop(self):
