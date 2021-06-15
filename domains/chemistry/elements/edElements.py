@@ -28,7 +28,8 @@ class edElements:
   #################### load data ####################
 
   def loadData(self):
-    elementF         = open(self.elementJson, 'r+t')
+    #elementF         = open(self.elementJson, 'r+t')
+    elementF         = open(self.elementJson, 'r+t', encoding="utf8")
     self.elementData = json.load(elementF)
 
     els = self.getElementList()
