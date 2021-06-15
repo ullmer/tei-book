@@ -107,6 +107,7 @@ class edElements:
       xpos     = elData["xpos"]
       ypos     = elData["ypos"]
       numId    = elData["number"]
+      if elFullname == 'lanthanum': print('FOO',xpos,ypos)
 
       self.elementSymbolHash[elSymbol]       = elFullname
       self.elementNumIdHash[numId]           = elFullname
@@ -125,6 +126,7 @@ class edElements:
         self.elementTable[xpos] = {}
 
       self.elementTable[xpos][ypos] = elFullname
+      if elFullname == 'lanthanum': print('BAR',elFullname)
 
   #################### getElementBySymbol####################
 
@@ -286,10 +288,10 @@ def main():
   print('>> Table dimensions: ' + str(ed.getTableDimensions()))
   #print(ed.getFullnameMatrix())
   print('>> Symbol matrix: ' + str(ed.getSymbolMatrix()))
-  print('>> Block S: ' + str(ed.getBlock('s')))
-  print('>> Block P: ' + str(ed.getBlock('p')))
-  print('>> Block D: ' + str(ed.getBlock('d')))
-  print('>> Block F: ' + str(ed.getBlock('f')))
+  print('>> Block S: ' + str(ed.getBlockId('s')))
+  print('>> Block P: ' + str(ed.getBlockId('p')))
+  print('>> Block D: ' + str(ed.getBlockId('d')))
+  print('>> Block F: ' + str(ed.getBlockId('f')))
 
 if __name__ == "__main__":
   main()
