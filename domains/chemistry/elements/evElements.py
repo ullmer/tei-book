@@ -22,15 +22,8 @@ class evElements(edElements):
     self.root = Tk()
     self.blockColorHash = yaml.safe_load(self.blockColorYaml)
 
-    #row = self.buildCellCol(self.root, [['1', 'H'], ['2', 'He']])
-    #row = self.buildTableCol(self.root, 2)
-    #row.pack()
-
     table = self.buildCellTable(self.root)
     table.pack()
-
-    #a = Label(self.root, text="Hello, world!")
-    #a.pack()
 
   #################### buildCell #################### 
 
@@ -42,8 +35,13 @@ class evElements(edElements):
     l2   = Label(cell, text=label2, width=self.cellWidth, bg=cellBg)
     for label in [l1, l2]:
       label.pack()
+      label.bind("<Button>", self.buttonCB)
 
     return cell
+
+  #################### button event callback #################### 
+  def buttonCB(self, element):
+    print("Element clicked")
 
   #################### buildCellCol #################### 
 
@@ -61,8 +59,8 @@ class evElements(edElements):
   
     rowLabels = []
     x = selectedRow
-    #for y in range(1,tableDimensions[1]):
-    for y in range(1,9):
+    #for y in range(1,9):
+    for y in range(1,tableDimensions[1]):
       elFullname = self.getElementByTableIdx(x, y)
       elSymbol   = self.getSymbolByFullname(elFullname)
       elId       = self.getIdByFullname(elFullname)

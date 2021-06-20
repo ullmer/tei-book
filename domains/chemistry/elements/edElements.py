@@ -25,6 +25,8 @@ class edElements:
   elementBlockIdHash    = None
   elementBlockNameHash  = None
 
+  verbose = False
+
   #################### load data ####################
 
   def loadData(self):
@@ -74,7 +76,8 @@ class edElements:
 
   def getElsByRow(self, targRow):
     if targRow not in self.elementRowHash:
-      print("edElements: getElsByRow: targRow not in elementRowHash")
+      if self.verbose:
+        print("edElements: getElsByRow: targRow not in elementRowHash")
       return None
 
     els = self.elementRowHash[targRow]
@@ -82,7 +85,8 @@ class edElements:
 
   def getElsByCol(self, targCol):
     if targCol not in self.elementColHash:
-      print("edElements: getElsByCol: targColnot in elementColHash")
+      if self.verbose:
+        print("edElements: getElsByCol: targColnot in elementColHash")
       return None
 
     els = self.elementColHash[targCol]
@@ -274,7 +278,8 @@ class edElements:
   #################### build block hash ####################
   def getBlockByElName(self, elName):
     if elName not in self.elementBlockNameHash: 
-      print("edElements getBlockByElName: elName not in elementBlockNameHash")
+      if self.verbose:
+        print("edElements getBlockByElName: elName not in elementBlockNameHash")
       return None
     return self.elementBlockNameHash[elName]
       
