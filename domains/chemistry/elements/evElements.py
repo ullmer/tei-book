@@ -35,13 +35,14 @@ class evElements(edElements):
     l2   = Label(cell, text=label2, width=self.cellWidth, bg=cellBg)
     for label in [l1, l2]:
       label.pack()
-      label.bind("<Button>", self.buttonCB)
+      #label.bind("<Button>", self.buttonCB)
+      label.bind("<Button>", lambda label1: self.buttonCB(label1))
 
     return cell
 
   #################### button event callback #################### 
   def buttonCB(self, element):
-    print("Element clicked")
+    print("Element clicked: ", str(element))
 
   #################### buildCellCol #################### 
 
