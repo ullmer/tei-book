@@ -12,38 +12,69 @@ class evElements(edElements):
   root = None
   cellWidth  = 5
   cellHeight = 5
+  highlightDefaultThickness = 1
+  highlightDefaultColor     = "gray"
+
   blockColorYaml = '{s: RosyBrown2, p: LightSkyBlue1, d: khaki1, f: PaleGreen1}'
   blockColorHash = None
   # https://en.wikipedia.org/wiki/Periodic_table#/media/File:Simple_Periodic_Table_Chart-blocks.svg
   # http://www.science.smith.edu/dftwiki/images/3/3d/TkInterColorCharts.png
+  
+  l1Hash    = None
+  l2Hash    = None
+  frameHash = None
 
   #################### build GUI #################### 
   def buildGui(self):
     self.root = Tk()
     self.blockColorHash = yaml.safe_load(self.blockColorYaml)
 
+    self.l1Hash = {}; self.l2Hash = {}; self.frameHash = {}
+
     table = self.buildCellTable(self.root)
     table.pack()
 
   #################### buildCell #################### 
 
+  def updateCellHighlight(self, chemEl, thickness, color):
+    if chemEl not in self.l1Hash or \
+       chemEl not in self.l2Hash or \
+       chemEl not in self.frameHash:
+
+       if verbose:
+         print("evElements updateCellHighlights: unknown chemEl:", chemEl)
+
+    frame = self.frameHash[chemEl]
+    l1    = self.l1Hash[chemEl]
+    l1    = self.l2Hash[chemEl]
+
+    frame.configure(highlightbackground = color, highlightthickness=thickness)
+  
+  #################### buildCell #################### 
+
   def buildCell(self, parentWidget, label1, label2, cellBg='white'):
     cell = Frame(parentWidget, 
-                 highlightbackground="gray", highlightthickness=1, bg=cellBg,
+                 highlightbackground=self.highlightDefaultColor, 
+		 highlightthickness =self.highlightDefaultThickness, bg=cellBg,
                  width=self.cellWidth, height=self.cellHeight)
+
     l1   = Label(cell, text=label1, width=self.cellWidth, bg=cellBg)
     l2   = Label(cell, text=label2, width=self.cellWidth, bg=cellBg)
+
+    self.l1Hash[label2] = l1; self.l2Hash[label2] = l2; self.frameHash[label2] = cell
+
     for label in [l1, l2]:
       label.pack()
-      #label.bind("<Button>", self.buttonCB)
-      label.bind("<Button>", lambda chemEl: self.buttonCB(label2))
+      #label.bind("<Button>", self.cellClickCb)
+      label.bind("<Button>",  lambda chemEl: self.cellClickCb(label2))
       #https://pythonprogramming.net/passing-functions-parameters-tkinter-using-lambda/
 
     return cell
 
   #################### button event callback #################### 
-  def buttonCB(self, chemEl):
+  def cellClickCb(self, chemEl):
     print("Element clicked: ", str(chemEl))
+    self.updateCellHighlight(chemEl, 1, "red")
 
   #################### buildCellCol #################### 
 
