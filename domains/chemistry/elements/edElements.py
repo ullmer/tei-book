@@ -112,7 +112,7 @@ class edElements:
       xpos     = elData["xpos"]
       ypos     = elData["ypos"]
       numId    = elData["number"]
-      if elFullname == 'lanthanum': print('FOO',xpos,ypos)
+      #if elFullname == 'lanthanum': print('FOO',xpos,ypos)
 
       self.elementSymbolHash[elSymbol]       = elFullname
       self.elementNumIdHash[numId]           = elFullname
@@ -131,7 +131,7 @@ class edElements:
         self.elementTable[xpos] = {}
 
       self.elementTable[xpos][ypos] = elFullname
-      if elFullname == 'lanthanum': print('BAR',elFullname)
+      #if elFullname == 'lanthanum': print('BAR',elFullname)
 
   #################### getElementBySymbol####################
 

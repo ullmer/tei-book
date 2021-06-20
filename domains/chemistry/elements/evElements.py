@@ -36,13 +36,14 @@ class evElements(edElements):
     for label in [l1, l2]:
       label.pack()
       #label.bind("<Button>", self.buttonCB)
-      label.bind("<Button>", lambda label1: self.buttonCB(label1))
+      label.bind("<Button>", lambda chemEl: self.buttonCB(label2))
+      #https://pythonprogramming.net/passing-functions-parameters-tkinter-using-lambda/
 
     return cell
 
   #################### button event callback #################### 
-  def buttonCB(self, element):
-    print("Element clicked: ", str(element))
+  def buttonCB(self, chemEl):
+    print("Element clicked: ", str(chemEl))
 
   #################### buildCellCol #################### 
 
